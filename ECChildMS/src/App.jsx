@@ -1,34 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Login from './components/Login'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Dashboard from './Components/Dashboard'
+import Home from './Components/Home'
+import Teachers from './Components/Teachers'
+import Children from './Components/Children'
+import Message from './Components/Message'
+import Profile from './Components/Profile'
+import Category from './Components/Category'
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/adminlogin' element={<Login />}></Route>
+        <Route path='/dashboard' element={<Dashboard />}>
+          <Route path='' element={<Home />}></Route>
+          <Route path='/dashboard/manageteachers' element={<Teachers />}></Route>
+          <Route path='/dashboard/category' element={<Category />}></Route>
+          <Route path='/dashboard/managechildren' element={<Children />}></Route>
+          <Route path='/dashboard/sendmessage' element={<Message />}></Route>
+          <Route path='/dashboard/profile' element={<Profile />}></Route>
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
   )
 }
 
