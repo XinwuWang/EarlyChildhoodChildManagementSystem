@@ -65,7 +65,7 @@ const Dashboard = () => {
                                 >
                                     <i className="fs-4 bi-info-circle ms-2"></i>
                                     <span className="ms-2 d-none d-sm-inline">
-                                        Centre Introduction
+                                        Centre Info
                                     </span>
                                 </Link>
                             </li>
