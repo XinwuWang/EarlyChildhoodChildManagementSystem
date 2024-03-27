@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
@@ -36,16 +35,6 @@ const Dashboard = () => {
                                     </span>
                                 </Link>
                             </li>
-                            <li className='w-100'>
-                                <Link to='/dashboard/category'
-                                    className='nav-link px-0 align-middle text-white'
-                                >
-                                    <i className="fs-4 bi-bookmark ms-2"></i>
-                                    <span className="ms-2 d-none d-sm-inline">
-                                        Category
-                                    </span>
-                                </Link>
-                            </li>
                             <li className="w-100">
                                 <Link to='/dashboard/managechildren'
                                     className="nav-link px-0 align-middle text-white"
@@ -68,6 +57,16 @@ const Dashboard = () => {
                                 >
                                     <i className="fs-4 bi-person-circle ms-2"></i>
                                     <span className="ms-2 d-none d-sm-inline">Profile</span>
+                                </Link>
+                            </li>
+                            <li className='w-100'>
+                                <Link to='/dashboard/centreintro'
+                                    className='nav-link px-0 align-middle text-white'
+                                >
+                                    <i className="fs-4 bi-info-circle ms-2"></i>
+                                    <span className="ms-2 d-none d-sm-inline">
+                                        Centre Introduction
+                                    </span>
                                 </Link>
                             </li>
                             <li className="w-100">
