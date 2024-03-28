@@ -53,6 +53,18 @@ const AddChild = () => {
                         <input type='text' id='address' placeholder='Enter home address' className='form-control rounded-0' />
                     </div>
                     <div className='col-12'>
+                        <label htmlFor='allergy' className='form-label'>
+                            Allergy
+                        </label>
+                        <input type='text' id='allergy' placeholder='Enter any allergy...' className='form-control rounded-0' />
+                    </div>
+                    <div className='col-12'>
+                        <label htmlFor='interests' className='form-label'>
+                            Interests & Hobbies
+                        </label>
+                        <input type='text' id='interests' placeholder='Any interest or hobby' className='form-control rounded-0' />
+                    </div>
+                    <div className='col-12 mt-4'>
                         <button className='btn btn-success w-100' type='submit'>Add Child</button>
                     </div>
                 </form>

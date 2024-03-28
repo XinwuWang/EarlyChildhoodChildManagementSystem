@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 
 const Home = () => {
     return (
@@ -6,39 +7,46 @@ const Home = () => {
                 <div className="p-5 text-center bg-body-tertiary rounded-3">
                     <h1 className="text-body-emphasis">Kia ora! Hello!</h1>
                     <p className="lead">
-                        Welcome to the admin portal of Early Childhood Child Management System.
+                        Welcome to the admin portal of Early Childhood Child Management System
                     </p>
                 </div>
             </div>
             <div className="row align-items-md-stretch m-1">
                 <div className="col-md-6">
                     <div className="h-100 p-5 text-bg-dark rounded-3">
-                        <h2>Change the background</h2>
-                        <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look. Then, mix and match with additional component themes and more.</p>
-                        <button className="btn btn-outline-light" type="button">Example button</button>
+                        <h2>Manage Teachers</h2>
+                        <p>View & edit teachers&apos; informtion</p>
+                        <Link to='/dashboard/manageteachers' className='btn btn-outline-light'>More</Link>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="h-100 p-5 bg-body-tertiary border rounded-3">
-                        <h2>Add borders</h2>
-                        <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both column's content for equal-height.</p>
-                        <button className="btn btn-outline-secondary" type="button">Example button</button>
+                        <h2>Manager Children</h2>
+                        <p>View & edit children&apos;s information</p>
+                        <Link to='/dashboard/managechildren' className='btn btn-outline-dark'>More</Link>
                     </div>
                 </div>
             </div>
             <div className="row align-items-md-stretch m-1">
                 <div className="col-md-6">
                     <div className="h-100 p-5 text-bg-dark rounded-3">
-                        <h2>Change the background</h2>
-                        <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look. Then, mix and match with additional component themes and more.</p>
-                        <button className="btn btn-outline-light" type="button">Example button</button>
+                        <h2>Send Message</h2>
+                        <p>Shortcut to send an email to a child or a teacher</p>
+                        <Link to='/dashboard/sendmessage' className='btn btn-outline-light'>More</Link>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="h-100 p-5 bg-body-tertiary border rounded-3">
-                        <h2>Add borders</h2>
-                        <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both column's content for equal-height.</p>
-                        <button className="btn btn-outline-secondary" type="button">Example button</button>
+                        <h2>Profile</h2>
+                        <p>Your personal details</p>
+                        <Link to='/dashboard/profile' className='btn btn-outline-dark'>More</Link>
+                    </div>
+                </div>
+                <div className="col-md-6 m-1">
+                    <div className="h-100 p-5 bg-body-tertiary border rounded-3">
+                        <h2>Centre Information</h2>
+                        <p>Necessary information of our centre</p>
+                        <Link to='/dashboard/centreintro' className='btn btn-outline-dark'>More</Link>
                     </div>
                 </div>
             </div>
