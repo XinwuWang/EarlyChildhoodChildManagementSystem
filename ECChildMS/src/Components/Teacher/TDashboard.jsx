@@ -51,12 +51,32 @@ const TDashboard = () => {
                                 </Link>
                             </li>
                             <li className='w-100'>
+                                <Link to='/teacher_dashboard/group_announcement'
+                                    className='nav-link px-0 align-middle text-white'
+                                >
+                                    <i className="fs-4 bi-megaphone ms-2"></i>
+                                    <span className="ms-2 d-none d-sm-inline">
+                                        Announcement
+                                    </span>
+                                </Link>
+                            </li>
+                            <li className='w-100'>
                                 <Link to='/teacher_dashboard/teaching_tips'
+                                    className='nav-link px-0 align-middle text-white'
+                                >
+                                    <i className="fs-4 bi-book-half ms-2"></i>
+                                    <span className="ms-2 d-none d-sm-inline">
+                                        Teaching Resources
+                                    </span>
+                                </Link>
+                            </li>
+                            <li className='w-100'>
+                                <Link to='/teacher_dashboard/centre_information'
                                     className='nav-link px-0 align-middle text-white'
                                 >
                                     <i className="fs-4 bi-info-circle ms-2"></i>
                                     <span className="ms-2 d-none d-sm-inline">
-                                        Teaching Tips
+                                        Centre Information
                                     </span>
                                 </Link>
                             </li>

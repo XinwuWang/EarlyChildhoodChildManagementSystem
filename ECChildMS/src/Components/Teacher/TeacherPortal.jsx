@@ -6,6 +6,8 @@ import ViewChildren from './ViewChildren.jsx'
 import Message from './Message.jsx'
 import TProfile from './TProfile.jsx'
 import TeachingTips from './TeachingTips.jsx'
+import CentreInfo from './CentreInfo.jsx'
+import GroupAnnon from './GroupAnnon.jsx'
 
 const TeacherPortal = () => {
     return (
@@ -18,6 +20,8 @@ const TeacherPortal = () => {
                     <Route path='/teacher_dashboard/message' element={<Message />}></Route>
                     <Route path='/teacher_dashboard/teacher_profile' element={<TProfile />}></Route>
                     <Route path='/teacher_dashboard/teaching_tips' element={<TeachingTips />}></Route>
+                    <Route path='/teacher_dashboard/centre_information' element={<CentreInfo />}></Route>
+                    <Route path='/teacher_dashboard/group_announcement' element={<GroupAnnon />}></Route>
                 </Route>
 
             </Routes>
