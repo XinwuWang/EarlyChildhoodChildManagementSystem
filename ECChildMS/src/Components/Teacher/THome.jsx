@@ -42,8 +42,6 @@ const THome = () => {
                         <Link to='/teacher_dashboard/teacher_profile' className='btn btn-outline-dark'>More</Link>
                     </div>
                 </div>
-
-
             </div>
             <div className="row align-items-md-stretch m-1">
                 <div className="col-md-6">
@@ -58,6 +56,16 @@ const THome = () => {
                         <h2>Centre Information</h2>
                         <p>Necessary information of our centre</p>
                         <Link to='/teacher_dashboard/centre_information' className='btn btn-outline-dark'>More</Link>
+                    </div>
+                </div>
+
+            </div>
+            <div className="row align-items-md-stretch m-1">
+                <div className="col-md-6">
+                    <div className="h-100 p-5 text-bg-dark rounded-3">
+                        <h2>To-do List</h2>
+                        <p>Record your important notes</p>
+                        <Link to='/teacher_dashboard/to_do_list' className='btn btn-outline-light'>More</Link>
                     </div>
                 </div>
             </div>

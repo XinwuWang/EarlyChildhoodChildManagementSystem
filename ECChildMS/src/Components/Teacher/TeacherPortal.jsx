@@ -8,6 +8,7 @@ import TProfile from './TProfile.jsx'
 import TeachingTips from './TeachingTips.jsx'
 import CentreInfo from './CentreInfo.jsx'
 import GroupAnnon from './GroupAnnon.jsx'
+import TodoList from './TodoList.jsx'
 
 const TeacherPortal = () => {
     return (
@@ -22,6 +23,7 @@ const TeacherPortal = () => {
                     <Route path='/teacher_dashboard/teaching_tips' element={<TeachingTips />}></Route>
                     <Route path='/teacher_dashboard/centre_information' element={<CentreInfo />}></Route>
                     <Route path='/teacher_dashboard/group_announcement' element={<GroupAnnon />}></Route>
+                    <Route path='/teacher_dashboard/to_do_list' element={<TodoList />}></Route>
                 </Route>
 
             </Routes>
