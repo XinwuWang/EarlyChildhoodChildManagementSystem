@@ -70,6 +70,30 @@ const Dashboard = () => {
                                 </Link>
                             </li>
                             <li className="w-100">
+                                <Link to='/dashboard/teaching_resource'
+                                    className="nav-link px-0 align-middle text-white"
+                                >
+                                    <i className="fs-4 bi-book-half ms-2"></i>
+                                    <span className="ms-2 d-none d-sm-inline">Teaching Resources</span>
+                                </Link>
+                            </li>
+                            <li className="w-100">
+                                <Link to='/dashboard/announcement'
+                                    className="nav-link px-0 align-middle text-white"
+                                >
+                                    <i className="fs-4 bi-megaphone ms-2"></i>
+                                    <span className="ms-2 d-none d-sm-inline">Announcement</span>
+                                </Link>
+                            </li>
+                            <li className="w-100">
+                                <Link to='/dashboard/note'
+                                    className="nav-link px-0 align-middle text-white"
+                                >
+                                    <i className="fs-4 bi-list-ul ms-2"></i>
+                                    <span className="ms-2 d-none d-sm-inline">Note</span>
+                                </Link>
+                            </li>
+                            <li className="w-100">
                                 <Link to='/dashboard'
                                     className="nav-link px-0 align-middle text-white"
                                 >

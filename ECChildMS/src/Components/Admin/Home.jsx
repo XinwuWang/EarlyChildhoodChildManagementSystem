@@ -42,7 +42,16 @@ const Home = () => {
                         <Link to='/dashboard/profile' className='btn btn-outline-dark'>More</Link>
                     </div>
                 </div>
-                <div className="col-md-6 m-1">
+            </div>
+            <div className="row align-items-md-stretch m-1">
+                <div className="col-md-6">
+                    <div className="h-100 p-5 text-bg-dark rounded-3">
+                        <h2>Teaching Resources</h2>
+                        <p>Useful teaching resources</p>
+                        <Link to='/dashboard/teaching_resource' className='btn btn-outline-light'>More</Link>
+                    </div>
+                </div>
+                <div className="col-md-6">
                     <div className="h-100 p-5 bg-body-tertiary border rounded-3">
                         <h2>Centre Information</h2>
                         <p>Necessary information of our centre</p>
@@ -50,6 +59,23 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            <div className="row align-items-md-stretch m-1">
+                <div className="col-md-6">
+                    <div className="h-100 p-5 text-bg-dark rounded-3">
+                        <h2>Group Announcement</h2>
+                        <p>Centre wide group news</p>
+                        <Link to='/dashboard/announcement' className='btn btn-outline-light'>More</Link>
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="h-100 p-5 bg-body-tertiary border rounded-3">
+                        <h2>Note</h2>
+                        <p>Take a quick note</p>
+                        <Link to='/dashboard/note' className='btn btn-outline-dark'>More</Link>
+                    </div>
+                </div>
+            </div>
+
         </div>
     )
 }
