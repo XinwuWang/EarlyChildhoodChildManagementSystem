@@ -46,7 +46,7 @@ const CDashboard = () => {
                                 </Link>
                             </li>
                             <li className="w-100">
-                                <Link to='/child_dashboard/sendamessage'
+                                <Link to='/child_dashboard/sendmessage'
                                     className="nav-link px-0 align-middle text-white"
                                 >
                                     <i className="fs-4 bi-envelope-at ms-2"></i>
