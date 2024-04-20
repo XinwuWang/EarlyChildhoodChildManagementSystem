@@ -23,7 +23,7 @@ const AdminLogin = () => {
                 if (result.data.loginStatus) {
                     // stores data that persists when users close their browser tab
                     localStorage.setItem('valid', true)
-                    navigate('/admin/dashboard')
+                    navigate('/dashboard')
                 } else {
                     setError(result.data.Error)
                 }
