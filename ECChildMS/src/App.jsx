@@ -8,7 +8,6 @@ import PrivateRoute from './Components/PrivateRoute'
 import Dashboard from './Components/Admin/Dashboard'
 import Home from './Components/Admin/Home'
 import Teachers from './Components/Admin/Teachers'
-import { Children } from 'react'
 import Message from './Components/Admin/Message'
 import Profile from './Components/Admin/Profile'
 import TeachingResource from './Components/Admin/TeachingResource'
@@ -17,6 +16,7 @@ import Note from './Components/Admin/Note'
 import AddTeacher from './Components/Admin/AddTeacher'
 import AddChild from './Components/Admin/AddChild'
 import CentreIntro from './Components/Admin/CentreIntro'
+import ChildrenInfo from './Components/Admin/ChildrenInfo'
 // Teacher components
 import TeacherLogin from './Components/Teacher/TeacherLogin'
 import TDashboard from './Components/Teacher/TDashboard'
@@ -60,7 +60,7 @@ function App() {
         }>
           <Route path='' element={<Home />}></Route>
           <Route path='/dashboard/manageteachers' element={<Teachers />}></Route>
-          <Route path='/dashboard/managechildren' element={<Children />}></Route>
+          <Route path='/dashboard/managechildren' element={<ChildrenInfo />}></Route>
           <Route path='/dashboard/sendmessage' element={<Message />}></Route>
           <Route path='/dashboard/profile' element={<Profile />}></Route>
           <Route path='/dashboard/teaching_resource' element={<TeachingResource />}></Route>

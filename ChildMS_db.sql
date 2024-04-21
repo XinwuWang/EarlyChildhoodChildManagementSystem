@@ -24,16 +24,40 @@ USE earlychildhoodchildms;
 -- FOREIGN KEY (categoryID) REFERENCES category(id)
 -- );
 
--- create table child (
+-- CREATE TABLE center_info (
 -- id INT AUTO_INCREMENT PRIMARY KEY,
--- first_name varchar(30),
--- last_name varchar(30),
--- dad_name varchar(30),
--- mum_name varchar(30),
--- phone varchar(30),
--- address varchar(255),
--- allergy varchar(255)
+-- title VARCHAR(255),
+-- information_one TEXT,
+-- information_two TEXT,
+-- information_three TEXT
 -- );
 
-insert into child (first_name, last_name)
-values ('Noah', 'Muffin');
+-- CREATE TABLE teacher_info (
+-- id INT auto_increment PRIMARY KEY,
+-- name VARCHAR(50),
+-- email VARCHAR(50),
+-- password VARCHAR(255),
+-- phone VARCHAR(50),
+-- teaching_No INT,
+-- date_of_birth VARCHAR(100), 
+-- address VARCHAR(255),
+-- teaching_philosophy TEXT,
+-- image VARCHAR(255)
+-- );
+
+create table child_info (
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(100),
+email VARCHAR(50),
+password VARCHAR(255),
+date_of_birth VARCHAR(50),
+dad_name varchar(100),
+dad_phone varchar(30),
+mum_name varchar(100),
+mum_phone varchar(30),
+address varchar(255),
+allergy TEXT,
+interests_and_hobbies TEXT,
+other_notes TEXT,
+profile_img VARCHAR(255)
+);

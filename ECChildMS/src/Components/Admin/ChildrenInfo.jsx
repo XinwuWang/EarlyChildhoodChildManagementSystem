@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 
-
-const Children = () => {
+const ChildrenInfo = () => {
     return (
         <div className='px-5 mt-5'>
             <div className='d-flex justify-content-center'>
@@ -36,4 +35,4 @@ const Children = () => {
     )
 }
 
-export default Children
+export default ChildrenInfo
