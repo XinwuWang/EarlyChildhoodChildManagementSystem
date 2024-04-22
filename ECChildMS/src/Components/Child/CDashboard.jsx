@@ -74,7 +74,7 @@ const CDashboard = () => {
                 </div>
                 <div className='col p-0 m-0'>
                     <div className='p-2 d-flex justify-content-center shadow'>
-                        <h4>Early Childhood Child Management System - Child</h4>
+                        <h4>Early Childhood Management System - Child</h4>
                     </div>
                     <Outlet />
                 </div>

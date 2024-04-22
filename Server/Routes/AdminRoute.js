@@ -40,6 +40,13 @@ router.post('/admin_login', (req, res) => {
 
 });
 
+router.get('/manageteachers', (req, res) => {
+    const sql = 'SELECT * FROM teacher_info';
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
 
 
 // image upload using multer
