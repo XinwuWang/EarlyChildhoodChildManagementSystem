@@ -21,9 +21,12 @@ const AdminLogin = () => {
         axios.post('http://localhost:3000/auth/admin_login', values)
             .then(result => {
                 if (result.data.loginStatus) {
+                    // Store admin ID in localStorage
+                    localStorage.setItem('adminId', result.data.adminId);
                     // stores data that persists when users close their browser tab
                     localStorage.setItem('valid', true)
-                    navigate('/dashboard')
+                    console.log(result.data.adminID)
+                    navigate('/dashboard', { state: { adminId: result.data.adminId } })
                 } else {
                     setError(result.data.Error)
                 }

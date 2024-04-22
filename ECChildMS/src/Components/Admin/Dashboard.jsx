@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 const Dashboard = () => {
     const navigate = useNavigate()
     axios.defaults.withCredentials = true
+
     const handleLogout = () => {
         axios.get('http://localhost:3000/auth/logout')
             .then(result => {
@@ -14,16 +15,20 @@ const Dashboard = () => {
                     // Remove the data stored in the local storage
                     localStorage.removeItem('valid')
                     navigate('/')
+                    window.location.reload();
                 }
             })
     }
+
+    const adminId = localStorage.getItem('adminId');
+    console.log(adminId)
 
     return (
         <div className='container-fluid'>
             <div className='row flex-nowrap'>
                 <div className='col-auto col-md-4 col-xl-2 px-sm-2 px-0 bg-dark'>
                     <div className='d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100'>
-                        <Link to='/admin/dashboard'
+                        <Link to='/dashboard'
                             className='d-flex align-items-center pb-3 mb-md-1 mt-md-3 me-md-auto text-white text-decoration-none'
                         >
                             <span className='fs-5 fw-bolder d-none d-sm-inline'>
@@ -67,7 +72,7 @@ const Dashboard = () => {
                                 </Link>
                             </li>
                             <li className="w-100">
-                                <Link to='/dashboard/profile'
+                                <Link to={`/dashboard/profile/${adminId}`}
                                     className="nav-link px-0 align-middle text-white"
                                 >
                                     <i className="fs-4 bi-person-circle ms-2"></i>
@@ -108,6 +113,14 @@ const Dashboard = () => {
                                     <span className="ms-2 d-none d-sm-inline">Note</span>
                                 </Link>
                             </li>
+                            <li className="w-100">
+                                <Link to={'/dashboard/change_password/' + adminId}
+                                    className="nav-link px-0 align-middle text-white"
+                                >
+                                    <i className="fs-4 bi-key ms-2"></i>
+                                    <span className="ms-2 d-none d-sm-inline">Change Password</span>
+                                </Link>
+                            </li>
                             <li className="w-100" onClick={handleLogout}>
                                 <Link to='/dashboard'
                                     className="nav-link px-0 align-middle text-white"
@@ -121,7 +134,7 @@ const Dashboard = () => {
                 </div>
                 <div className='col p-0 m-0'>
                     <div className='p-2 d-flex justify-content-center shadow'>
-                        <h4>Early Childhood Child Management System</h4>
+                        <h4>Early Childhood Child Management System - Admin</h4>
                     </div>
                     <Outlet />
                 </div>

@@ -18,6 +18,7 @@ const AddChild = () => {
         interests: '',
         notes: '',
         profileImage: '',
+        start_date: ''
     });
     const navigate = useNavigate()
 
@@ -30,6 +31,7 @@ const AddChild = () => {
         formData.append('name', child.name);
         formData.append('email', child.email);
         formData.append('password', child.password);
+        formData.append('date_of_birth', child.date_of_birth);
         formData.append('father_name', child.father_name);
         formData.append('father_phone', child.father_phone);
         formData.append('mother_name', child.mother_name);
@@ -39,6 +41,7 @@ const AddChild = () => {
         formData.append('interests', child.interests);
         formData.append('notes', child.notes);
         formData.append('image', child.profileImage);
+        formData.append('start_date', child.start_date);
 
 
         axios.post('http://localhost:3000/auth/add_child', formData)
@@ -194,6 +197,19 @@ const AddChild = () => {
                             placeholder='Any interest or hobby'
                             className='form-control rounded-0'
                             onChange={(e) => setChild({ ...child, interests: e.target.value })}
+                        />
+                    </div>
+                    <div className='col-12'>
+                        <label htmlFor='start_date' className='form-label'>
+                            Start Date
+                        </label>
+                        <input
+                            type='date'
+                            id='start_date'
+                            name='date_of_birth'
+                            placeholder='start date'
+                            className='form-control rounded-0'
+                            onChange={(e) => setChild({ ...child, start_date: e.target.value })}
                         />
                     </div>
                     <div className='col-12'>

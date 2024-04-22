@@ -10,3 +10,9 @@
     background-color: rgba(193, 218, 165, 0.9);
     color: rgb(65, 61, 61);
 }
+
+.admin_image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}

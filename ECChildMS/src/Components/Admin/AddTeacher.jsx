@@ -14,6 +14,7 @@ const AddTeacher = () => {
         address: '',
         teaching_philosophy: '',
         profileImage: '',
+        start_date: ''
     });
     const navigate = useNavigate()
 
@@ -32,6 +33,7 @@ const AddTeacher = () => {
         formData.append('address', teacher.address);
         formData.append('teaching_philosophy', teacher.teaching_philosophy);
         formData.append('image', teacher.profileImage);
+        formData.append('start_date', teacher.start_date);
 
         axios.post('http://localhost:3000/auth/add_teacher', formData)
             // .then(result => console.log(result.data))
@@ -152,6 +154,19 @@ const AddTeacher = () => {
                                 placeholder='Enter teaching philosophy'
                                 className='form-control rounded-0'
                                 onChange={(e) => setTeacher({ ...teacher, teaching_philosophy: e.target.value })} />
+                        </div>
+                        <div className='col-12'>
+                            <label htmlFor='start_date' className='form-label'>
+                                Start Date
+                            </label>
+                            <input
+                                type='date'
+                                id='start_date'
+                                name='start_date'
+                                placeholder='start date'
+                                className='form-control rounded-0'
+                                onChange={(e) => setTeacher({ ...teacher, start_date: e.target.value })}
+                            />
                         </div>
                         <div className='col-12 mb-3'>
                             <label htmlFor='profileImage' className='form-label'>

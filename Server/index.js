@@ -22,6 +22,7 @@ app.use(cookieParser())
 app.use('/auth', adminRouter)
 app.use('/teacher', teacherRouter)
 app.use('/child', childRouter)
+app.use('/Images', express.static('public/images'));
 app.use(express.static('public'))
 
 app.listen(3000, () => {

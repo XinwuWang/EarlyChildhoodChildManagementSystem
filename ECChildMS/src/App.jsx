@@ -17,6 +17,8 @@ import AddTeacher from './Components/Admin/AddTeacher'
 import AddChild from './Components/Admin/AddChild'
 import CentreIntro from './Components/Admin/CentreIntro'
 import ChildrenInfo from './Components/Admin/ChildrenInfo'
+import EditProfile from './Components/Admin/EditProfile'
+
 // Teacher components
 import TeacherLogin from './Components/Teacher/TeacherLogin'
 import TDashboard from './Components/Teacher/TDashboard'
@@ -38,6 +40,7 @@ import Documents from './Components/Child/Documents'
 import Announce from './Components/Child/Announce'
 import CentreInformation from './Components/Child/CentreInformation'
 import Resource from './Components/Child/Resource'
+import ChangePassword from './Components/Admin/ChangePassword'
 
 
 
@@ -62,13 +65,15 @@ function App() {
           <Route path='/dashboard/manageteachers' element={<Teachers />}></Route>
           <Route path='/dashboard/managechildren' element={<ChildrenInfo />}></Route>
           <Route path='/dashboard/sendmessage' element={<Message />}></Route>
-          <Route path='/dashboard/profile' element={<Profile />}></Route>
+          <Route path='/dashboard/profile/:id' element={<Profile />}></Route>
           <Route path='/dashboard/teaching_resource' element={<TeachingResource />}></Route>
           <Route path='/dashboard/announcement' element={<Announcement />}></Route>
           <Route path='/dashboard/note' element={<Note />}></Route>
           <Route path='/dashboard/add_teacher' element={<AddTeacher />}></Route>
           <Route path='/dashboard/add_child' element={<AddChild />}></Route>
           <Route path='/dashboard/centreintro' element={<CentreIntro />}></Route>
+          <Route path='/dashboard/edit_profile/:id' element={<EditProfile />}></Route>
+          <Route path='/dashboard/change_password/:id' element={<ChangePassword />}></Route>
         </Route>
 
         {/* Teacher portal */}

@@ -8,24 +8,38 @@ import path from 'path'; // for image upload
 const router = express.Router()
 
 router.post('/admin_login', (req, res) => {
-    // console.log(req.body)
-    const sql = 'SELECT * FROM admin WHERE email = ? AND password = ?';
-    con.query(sql, [req.body.email, req.body.password], (err, result) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const sql = 'SELECT * FROM admin WHERE email = ?';
+    con.query(sql, [email], (err, result) => {
         if (err) return res.json({ loginStatus: false, Error: 'Query error' });
+
         if (result.length > 0) {
-            const email = result[0].email;
-            const token = jwt.sign(
-                { role: 'admin', email: email, id: result[0].id },
-                'jwt_secret_key',
-                { expiresIn: '1d' }
-            );
-            res.cookie('token', token)
-            return res.json({ loginStatus: true });
+            const admin = result[0];
+            bcrypt.compare(password, admin.password, (bcryptErr, bcryptResult) => {
+                if (bcryptErr) {
+                    return res.json({ loginStatus: false, Error: 'Bcrypt error' });
+                }
+                if (bcryptResult) {
+                    const token = jwt.sign(
+                        { role: 'admin', email: email, id: admin.id },
+                        'jwt_secret_key',
+                        { expiresIn: '1d' }
+                    );
+                    res.cookie('token', token);
+                    return res.json({ loginStatus: true, adminId: admin.id });
+                } else {
+                    return res.json({ loginStatus: false, Error: 'Invalid email or password' });
+                }
+            });
         } else {
             return res.json({ loginStatus: false, Error: 'Invalid email or password' });
         }
     });
+
 });
+
 
 
 // image upload using multer
@@ -34,7 +48,11 @@ const storage = multer.diskStorage({
         cb(null, 'public/images')
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '_' + Date.now() + path.extname(file.originalname))
+        const originalname = file.originalname; // Get the original filename
+        const extension = path.extname(originalname); // Get the file extension
+        const timestamp = Date.now(); // Get the current timestamp
+        const filename = originalname + '_' + timestamp + extension; // Concatenate original filename, timestamp, and extension
+        cb(null, filename); // Call the callback function with the filename
     }
 })
 const upload = multer({
@@ -43,7 +61,8 @@ const upload = multer({
 //
 
 router.post('/add_teacher', upload.single('image'), (req, res) => {
-    const sql = `INSERT INTO teacher_info (name, email, password, phone, teaching_No, date_of_birth, address, teaching_philosophy, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const sql = `INSERT INTO teacher_info (name, email, password, phone, teaching_No, date_of_birth, address, teaching_philosophy, image, start_date) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
 
@@ -56,7 +75,8 @@ router.post('/add_teacher', upload.single('image'), (req, res) => {
             req.body.date_of_birth,
             req.body.address,
             req.body.teaching_philosophy,
-            req.file ? req.file.filename : null
+            req.file ? req.file.filename : null,
+            req.body.start_date
         ]
         con.query(sql, values, (err, result) => {
             if (err) return res.json({ Status: false, Error: err })
@@ -69,7 +89,8 @@ router.post('/add_teacher', upload.single('image'), (req, res) => {
 
 
 router.post('/add_child', upload.single('image'), (req, res) => {
-    const sql = `INSERT INTO child_info (name, email, password, dad_name, dad_phone, mum_name, mum_phone, address, allergy, interests_and_hobbies, other_notes, profile_img) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const sql = `INSERT INTO child_info (name, email, password, date_of_birth, dad_name, dad_phone, mum_name, mum_phone, address, allergy, interests_and_hobbies, other_notes, profile_img, start_date) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
 
@@ -77,6 +98,7 @@ router.post('/add_child', upload.single('image'), (req, res) => {
             req.body.name,
             req.body.email,
             hash,
+            req.body.date_of_birth,
             req.body.father_name,
             req.body.father_phone,
             req.body.mother_name,
@@ -85,7 +107,8 @@ router.post('/add_child', upload.single('image'), (req, res) => {
             req.body.allergy,
             req.body.interests,
             req.body.notes,
-            req.file ? req.file.filename : null
+            req.file ? req.file.filename : null,
+            req.body.start_date
         ]
         con.query(sql, values, (err, result) => {
             if (err) return res.json({ Status: false, Error: err })
@@ -96,10 +119,93 @@ router.post('/add_child', upload.single('image'), (req, res) => {
 })
 
 
+router.get('/profile/:id', (req, res) => {
+    const adminId = req.params.id;
+    const sql = 'SELECT * FROM admin WHERE id = ?';
+    con.query(sql, [adminId], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        // console.log(result)
+        return res.json(result);
+    });
+})
+
+
+router.put('/edit_profile/:id', (req, res) => {
+    const adminId = req.params.id;
+    const sql = `UPDATE admin 
+                    SET 
+                    name = ?, 
+                    email = ?, 
+                    password = ?,
+                    date_of_birth = ?,
+                    phone = ?, 
+                    address = ?, 
+                    start_date = ?
+                    WHERE id = ?`
+
+    // bcrypt.hash(req.body.password, 10, (err, hash) => {
+    //     if (err) return res.json({ Status: false, Error: 'Query error' })
+
+    //     const values = [
+    //         req.body.name,
+    //         req.body.email,
+    //         hash,
+    //         req.body.date_of_birth,
+    //         req.body.phone,
+    //         req.body.address,
+    //         req.body.start_date
+    //     ]
+    //     con.query(sql, [...values, adminId], (err, result) => {
+    //         if (err) return res.json({ Status: false, Error: 'Query error' + err })
+    //         return res.json({ Status: true, Result: result })
+    //     })
+    // });
+
+    const values = [
+        req.body.name,
+        req.body.email,
+        req.body.password,
+        req.body.date_of_birth,
+        req.body.phone,
+        req.body.address,
+        req.body.start_date
+    ]
+    con.query(sql, [...values, adminId], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+
+});
+
+
+router.put('/change_password/:id', (req, res) => {
+    const adminId = req.params.id;
+    const sql = `UPDATE admin 
+                    SET 
+                    password = ?
+                    WHERE id = ?`
+
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+
+        const value = [
+            hash,
+        ]
+        con.query(sql, [...value, adminId], (err, result) => {
+            if (err) return res.json({ Status: false, Error: 'Query error' + err })
+            return res.json({ Status: true, Result: result })
+        })
+    });
+});
+
+
+
 router.get('/logout', (req, res) => {
     res.clearCookie('token');
     return res.json({ Status: true });
-
 })
 
 export { router as adminRouter }
