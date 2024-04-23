@@ -48,6 +48,14 @@ router.get('/manageteachers', (req, res) => {
     })
 })
 
+router.get('/managechildren', (req, res) => {
+    const sql = 'SELECT * FROM child_info';
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
 
 // image upload using multer
 const storage = multer.diskStorage({
@@ -150,7 +158,7 @@ router.put('/edit_profile/:id', (req, res) => {
                     date_of_birth = ?,
                     phone = ?, 
                     address = ?, 
-                    start_date = ?
+                    start_date = ?,
                     WHERE id = ?`
 
     // bcrypt.hash(req.body.password, 10, (err, hash) => {
@@ -178,7 +186,8 @@ router.put('/edit_profile/:id', (req, res) => {
         req.body.date_of_birth,
         req.body.phone,
         req.body.address,
-        req.body.start_date
+        req.body.start_date,
+
     ]
     con.query(sql, [...values, adminId], (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' + err })

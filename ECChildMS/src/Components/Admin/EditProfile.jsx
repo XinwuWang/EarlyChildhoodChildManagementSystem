@@ -13,8 +13,7 @@ const EditProfile = () => {
         phone: '',
         date_of_birth: '',
         address: '',
-        start_date: '',
-        password: '',
+        start_date: ''
     });
 
     const [loading, setLoading] = useState(true);
