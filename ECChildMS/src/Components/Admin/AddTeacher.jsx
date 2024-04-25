@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+
 
 
 const AddTeacher = () => {
@@ -180,7 +181,8 @@ const AddTeacher = () => {
                                 onChange={(e) => setTeacher({ ...teacher, profileImage: e.target.files[0] })} />
                         </div>
                         <div className='col-12'>
-                            <button className='btn btn-success w-100' type='submit'>Add Teacher</button>
+                            <button className='btn btn-success w-100 mb-2' type='submit'>Save</button>
+                            <Link to={'/dashboard/manageteachers'} className="btn btn-light w-100">Cancel</Link>
                         </div>
                     </form>
                 </div>

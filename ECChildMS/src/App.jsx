@@ -18,6 +18,9 @@ import AddChild from './Components/Admin/AddChild'
 import CentreIntro from './Components/Admin/CentreIntro'
 import ChildrenInfo from './Components/Admin/ChildrenInfo'
 import EditProfile from './Components/Admin/EditProfile'
+import ChangePassword from './Components/Admin/ChangePassword'
+import EditCentreinfo from './Components/Admin/EditCentreinfo'
+import AddCentreInfo from './Components/Admin/AddCentreInfo'
 
 // Teacher components
 import TeacherLogin from './Components/Teacher/TeacherLogin'
@@ -40,7 +43,7 @@ import Documents from './Components/Child/Documents'
 import Announce from './Components/Child/Announce'
 import CentreInformation from './Components/Child/CentreInformation'
 import Resource from './Components/Child/Resource'
-import ChangePassword from './Components/Admin/ChangePassword'
+
 
 
 
@@ -74,6 +77,8 @@ function App() {
           <Route path='/dashboard/centreintro' element={<CentreIntro />}></Route>
           <Route path='/dashboard/edit_profile/:id' element={<EditProfile />}></Route>
           <Route path='/dashboard/change_password/:id' element={<ChangePassword />}></Route>
+          <Route path='/dashboard/edit_centreinfo/:id' element={<EditCentreinfo />}></Route>
+          <Route path='/dashboard/add_centreinfo' element={<AddCentreInfo />}></Route>
         </Route>
 
         {/* Teacher portal */}

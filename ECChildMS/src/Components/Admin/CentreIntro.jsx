@@ -1,32 +1,66 @@
+import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import axios from 'axios'
+import { useState } from 'react'
 
-const KindyIntro = () => {
+
+const CentreIntro = () => {
+    const [centreInfo, setCentreInfo] = useState([])
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/auth/centreintro')
+            .then(result => {
+                // console.log(result.data)
+                if (result.data.Status) {
+                    console.log(result.data.Result)
+                    setCentreInfo(result.data.Result)
+                } else {
+                    alert(result.data.Error)
+                }
+            })
+            .catch(err => console.log(err))
+    }, [])
+
+    const handleDelete = (id) => {
+        axios.delete('http://localhost:3000/auth/delete_centreinfo/' + id)
+            .then(result => {
+                if (result.data.Status) {
+                    setCentreInfo(centreInfo.filter(e => e.id !== id))
+                    window.location.reload()
+                    // navigate('/dashboard/manageteachers')
+                } else {
+                    alert(result.data.Error)
+                }
+            })
+            .catch(err => console.log(err))
+    }
+
+
     return (
         <div className='px-5 mt-5'>
-            <div className="col-lg-7 p-3 p-lg-5 pt-lg-3">
-                <h4 className="fw-bold lh-1 text-body-emphasis">Centre philosophy</h4>
-                <p className="lead">Our centre is a home away home. We aim to provide quality education for children aged from 6 months to 5 years.</p>
-                <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                    <button type="button" className="btn btn-outline-secondary btn-sm">Edit</button>
+            {centreInfo.map(e => (
+                <div className="col-lg-7 p-3 p-lg-5 pt-lg-3" key={e.id}>
+                    <h4 className="fw-bold lh-1 text-body-emphasis">{e.title}</h4>
+                    <p className="lead">{e.content_one}</p>
+                    <p className="lead">{e.content_two}</p>
+                    <p className="lead">{e.content_three}</p>
+                    <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+                        <Link to={`/dashboard/edit_centreinfo/` + e.id} className='btn btn-outline-secondary btn-sm'>Edit</Link>
+                        <button type="button" className="btn btn-outline-secondary btn-sm" onClick={() => handleDelete(e.id)}>Delete</button>
+                    </div>
                 </div>
-            </div>
-            <div className="col-lg-7 p-3 p-lg-5 pt-lg-3">
-                <h4 className="fw-bold lh-1 text-body-emphasis">Centre history</h4>
-                <p className="lead">Our centre was established in 1980 by locals....</p>
-                <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                    <button type="button" className="btn btn-outline-secondary btn-sm">Edit</button>
-                </div>
-            </div>
-            <div className="col-lg-7 p-3 p-lg-5 pt-lg-3">
-                <h4 className="fw-bold lh-1 text-body-emphasis">Centre contact information</h4>
-                <p className="lead">Phone - 0238273948</p>
-                <p className="lead">Email - beststartmeadowbna@mail.com</p>
-                <p className="lead">Address - 123 Meadowbank Road, Auckland</p>
-                <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                    <button type="button" className="btn btn-outline-secondary btn-sm">Edit</button>
+            )
+            )}
+
+            <div className="container pt-5 mb-3">
+                <div className="row">
+                    <div className="col text-center">
+                        <Link to='/dashboard/add_centreinfo' className='btn btn-success'>Add Centre Information</Link>
+                    </div>
                 </div>
             </div>
         </div>
     )
 }
 
-export default KindyIntro
+export default CentreIntro

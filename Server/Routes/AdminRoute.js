@@ -134,6 +134,95 @@ router.post('/add_child', upload.single('image'), (req, res) => {
 })
 
 
+
+
+router.post('/add_centreinfo', (req, res) => {
+    const sql = `INSERT INTO centre_info (title, content_one, content_two, content_three, admin_id, update_date, update_time) 
+    VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    const values = [
+        req.body.title,
+        req.body.content_one,
+        req.body.content_two,
+        req.body.content_three,
+        req.body.admin_id,
+        req.body.update_date,
+        req.body.update_time
+    ]
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+
+})
+
+
+router.get('/centreintro', (req, res) => {
+    const sql = 'SELECT * FROM centre_info';
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+router.get('/centreintro/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'SELECT * FROM centre_info WHERE id = ?';
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result })
+    });
+})
+
+
+router.put('/edit_centreinfo/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `UPDATE centre_info 
+                    SET 
+                    title = ?, 
+                    content_one = ?, 
+                    content_two = ?,
+                    content_three = ?,
+                    admin_id = ?, 
+                    update_date = ?, 
+                    update_time = ?
+                    WHERE id = ?`;
+
+    const values = [
+        req.body.title,
+        req.body.content_one,
+        req.body.content_two,
+        req.body.content_three,
+        req.body.admin_id,
+        req.body.update_date,
+        req.body.update_time,
+
+    ]
+    con.query(sql, [...values, id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+});
+
+
+router.delete('/delete_centreinfo/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'DELETE FROM centre_info WHERE id = ?';
+
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
 router.get('/profile/:id', (req, res) => {
     const adminId = req.params.id;
     const sql = 'SELECT * FROM admin WHERE id = ?';
@@ -154,35 +243,15 @@ router.put('/edit_profile/:id', (req, res) => {
                     SET 
                     name = ?, 
                     email = ?, 
-                    password = ?,
                     date_of_birth = ?,
                     phone = ?, 
                     address = ?, 
-                    start_date = ?,
-                    WHERE id = ?`
-
-    // bcrypt.hash(req.body.password, 10, (err, hash) => {
-    //     if (err) return res.json({ Status: false, Error: 'Query error' })
-
-    //     const values = [
-    //         req.body.name,
-    //         req.body.email,
-    //         hash,
-    //         req.body.date_of_birth,
-    //         req.body.phone,
-    //         req.body.address,
-    //         req.body.start_date
-    //     ]
-    //     con.query(sql, [...values, adminId], (err, result) => {
-    //         if (err) return res.json({ Status: false, Error: 'Query error' + err })
-    //         return res.json({ Status: true, Result: result })
-    //     })
-    // });
+                    start_date = ?
+                    WHERE id = ?`;
 
     const values = [
         req.body.name,
         req.body.email,
-        req.body.password,
         req.body.date_of_birth,
         req.body.phone,
         req.body.address,

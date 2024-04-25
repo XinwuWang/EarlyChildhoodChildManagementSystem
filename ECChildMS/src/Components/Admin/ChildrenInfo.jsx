@@ -50,7 +50,7 @@ const ChildrenInfo = () => {
             <div className="container pt-5">
                 <div className="row">
                     <div className="col text-center">
-                        <Link to='/dashboard/add_teacher' className='btn btn-success'>Add Child</Link>
+                        <Link to='/dashboard/add_child' className='btn btn-success'>Add Child</Link>
                     </div>
                 </div>
             </div>

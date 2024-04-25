@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 
 const AddChild = () => {
@@ -82,7 +82,7 @@ const AddChild = () => {
                             Email
                         </label>
                         <input
-                            type='emaill'
+                            type='email'
                             name='inputEmail'
                             id='inputEmail'
                             placeholder='Enter email'
@@ -236,8 +236,9 @@ const AddChild = () => {
                             onChange={(e) => setChild({ ...child, profileImage: e.target.files[0] })}
                         />
                     </div>
-                    <div className='col-12 mt-4'>
-                        <button className='btn btn-success w-100' type='submit'>Add Child</button>
+                    <div className='col-12 mt-4 p-2'>
+                        <button className='btn btn-success w-100 mb-2' type='submit'>Save</button>
+                        <Link to={'/dashboard/managechildren'} className="btn btn-light w-100">Cancel</Link>
                     </div>
                 </form>
             </div>

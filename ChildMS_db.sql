@@ -116,10 +116,22 @@ USE earlychildhoodchildms;
 -- ALTER TABLE admin
 -- MODIFY COLUMN start_date VARCHAR(50);
 
-ALTER TABLE child_info
-MODIFY COLUMN date_of_birth VARCHAR(50);
+-- ALTER TABLE child_info
+-- MODIFY COLUMN date_of_birth VARCHAR(50);
 
-ALTER TABLE child_info
-MODIFY COLUMN start_date VARCHAR(50);
+-- ALTER TABLE child_info
+-- MODIFY COLUMN start_date VARCHAR(50);
+
+CREATE TABLE centre_info (
+id INT AUTO_INCREMENT PRIMARY KEY,
+title VARCHAR(255),
+content_one TEXT,
+content_two TEXT,
+content_three TEXT,
+admin_id INT,
+update_date VARCHAR(50),
+update_time VARCHAR(50),
+FOREIGN KEY (admin_id) REFERENCES admin(id)
+);
 
 

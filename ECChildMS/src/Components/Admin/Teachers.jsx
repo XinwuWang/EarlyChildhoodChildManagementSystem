@@ -48,14 +48,13 @@ const Teachers = () => {
             </div>
 
 
-            <div className="container pt-5">
+            <div className="container pt-5 mb-3">
                 <div className="row">
                     <div className="col text-center">
                         <Link to='/dashboard/add_teacher' className='btn btn-success'>Add Teacher</Link>
                     </div>
                 </div>
             </div>
-            <div className='mt-3'></div>
         </div>
     )
 }

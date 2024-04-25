@@ -66,10 +66,9 @@ const ChangePassword = () => {
                 <form className='row g-1' onSubmit={handleSubmit}>
                     <div className='col-12'>
                         <label htmlFor='password' className='form-label'>
-                            Password
+                            New Password
                         </label>
-                        <input type='password' name='password' id='password' placeholder='Enter new password' value={admin.password} className='form-control rounded-0' autoComplete='off' onChange={handleChange} required />
-                        {/* onChange={(e) => setAdmin({ ...admin, password: e.target.value })}  */}
+                        <input type='password' name='password' id='password' placeholder='Enter new password' className='form-control rounded-0' autoComplete='off' onChange={handleChange} required />
                     </div>
                     <div className='col-12 pt-3'>
                         <div className="d-flex justify-content-center">
