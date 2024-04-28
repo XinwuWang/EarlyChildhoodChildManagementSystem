@@ -287,6 +287,45 @@ router.put('/change_password/:id', (req, res) => {
 });
 
 
+router.get('/announcement', (req, res) => {
+    const sql = 'SELECT announcement.*, admin.name AS admin_name FROM announcement INNER JOIN admin ON announcement.person_who_posts = admin.id';
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+});
+
+router.post('/create_announcement', (req, res) => {
+    const sql = `INSERT INTO announcement (title, content, post_date, post_time, person_who_posts) 
+    VALUES (?, ?, ?, ?, ?)`;
+    const values = [
+        req.body.title,
+        req.body.content,
+        req.body.post_date,
+        req.body.post_time,
+        req.body.person_who_posts,
+    ]
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+});
+
+router.delete('/delete_announcement/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'DELETE FROM announcement WHERE id = ?';
+
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
 router.get('/note', (req, res) => {
     const sql = 'SELECT * FROM note';
     con.query(sql, (err, result) => {

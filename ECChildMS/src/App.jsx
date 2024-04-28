@@ -23,6 +23,8 @@ import AddCentreInfo from './Components/Admin/AddCentreInfo'
 import Note from './Components/Admin/Note'
 import AddNote from './Components/Admin/AddNote'
 import EditNote from './Components/Admin/EditNote'
+import CreateAnnouncement from './Components/Admin/CreateAnnouncement'
+
 
 
 // Teacher components
@@ -85,6 +87,7 @@ function App() {
           <Route path='/dashboard/add_centreinfo' element={<AddCentreInfo />}></Route>
           <Route path='/dashboard/add_note' element={<AddNote />}></Route>
           <Route path='/dashboard/edit_note/:id' element={<EditNote />}></Route>
+          <Route path='/dashboard/create_announcement' element={<CreateAnnouncement />}></Route>
         </Route>
 
         {/* Teacher portal */}
