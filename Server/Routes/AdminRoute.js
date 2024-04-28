@@ -365,6 +365,25 @@ router.delete('/delete_note/:id', (req, res) => {
 })
 
 
+router.get('/teaching_resource', (req, res) => {
+    const sql = 'SELECT teaching_resource.*, teacher_info.name AS teacher_name FROM teaching_resource INNER JOIN teacher_info ON teaching_resource.person_who_adds = teacher_info.id';
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+});
+
+router.delete('/delete_resource/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'DELETE FROM teaching_resource WHERE id = ?';
+
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
 router.get('/logout', (req, res) => {
     res.clearCookie('token');
     return res.json({ Status: true });

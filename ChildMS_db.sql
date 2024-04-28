@@ -150,10 +150,28 @@ USE earlychildhoodchildms;
 -- RENAME COLUMN note_id 
 -- TO id;
 
-CREATE TABLE teaching_resource (
+-- CREATE TABLE teaching_resource (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- title VARCHAR(255),
+-- resource_description TEXT,
+-- link VARCHAR(255),
+-- person_who_adds INT,
+-- update_date VARCHAR(50)
+-- FOREIGN KEY (person_who_adds) REFERENCES teacher_info (id)
+-- );
+
+-- INSERT INTO teaching_resource (title, resource_description, link, person_who_adds, update_date)
+-- VALUES ('learn play', 'play through learn', 'www.ab.com', '1', '2024-03-22'),
+-- ('toy', 'play playplay', 'www.scdss.com', '2', '2024-04-12'),
+-- ('car', 'drive car', 'www.xxxx.com', '3', '2024-01-15'),
+-- ('doll', 'play and learn', 'www.lskl.com', '5', '2024-02-02');
+
+CREATE TABLE announcement (
 id INT AUTO_INCREMENT PRIMARY KEY,
 title VARCHAR(255),
-resource_desciption TEXT,
-
+content TEXT,
+post_date VARCHAR(50),
+post_time VARCHAR(50),
+person_who_posts INT,
+FOREIGN KEY (person_who_posts) REFERENCES admin (id)
 );
-

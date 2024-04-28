@@ -24,7 +24,7 @@ const Note = () => {
         axios.delete('http://localhost:3000/auth/delete_note/' + id)
             .then(result => {
                 if (result.data.Status) {
-                    setUserInput(userInput.filter(e => e.note_id !== id))
+                    setUserInput(userInput.filter(e => e.id !== id))
                     window.location.reload()
                 } else {
                     alert(result.data.Error)

@@ -73,7 +73,7 @@ const ChangePassword = () => {
                     <div className='col-12 pt-3'>
                         <div className="d-flex justify-content-center">
                             <button className='btn btn-success me-2' type='submit' disabled={!isModified}>Save</button>
-                            <Link to={'/dashboard/change_password/' + adminId} className="btn btn-secondary" onClick={() => window.location.reload()}>Cancel</Link>
+                            <Link to={'/dashboard/change_password/' + adminId} className="btn btn-secondary" onClick={() => window.location.reload()}>Reset</Link>
                         </div>
                     </div>
                 </form>
