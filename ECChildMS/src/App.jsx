@@ -12,7 +12,6 @@ import Message from './Components/Admin/Message'
 import Profile from './Components/Admin/Profile'
 import TeachingResource from './Components/Admin/TeachingResource'
 import Announcement from './Components/Admin/Announcement'
-import Note from './Components/Admin/Note'
 import AddTeacher from './Components/Admin/AddTeacher'
 import AddChild from './Components/Admin/AddChild'
 import CentreIntro from './Components/Admin/CentreIntro'
@@ -21,6 +20,10 @@ import EditProfile from './Components/Admin/EditProfile'
 import ChangePassword from './Components/Admin/ChangePassword'
 import EditCentreinfo from './Components/Admin/EditCentreinfo'
 import AddCentreInfo from './Components/Admin/AddCentreInfo'
+import Note from './Components/Admin/Note'
+import AddNote from './Components/Admin/AddNote'
+import EditNote from './Components/Admin/EditNote'
+
 
 // Teacher components
 import TeacherLogin from './Components/Teacher/TeacherLogin'
@@ -43,6 +46,7 @@ import Documents from './Components/Child/Documents'
 import Announce from './Components/Child/Announce'
 import CentreInformation from './Components/Child/CentreInformation'
 import Resource from './Components/Child/Resource'
+
 
 
 
@@ -79,6 +83,8 @@ function App() {
           <Route path='/dashboard/change_password/:id' element={<ChangePassword />}></Route>
           <Route path='/dashboard/edit_centreinfo/:id' element={<EditCentreinfo />}></Route>
           <Route path='/dashboard/add_centreinfo' element={<AddCentreInfo />}></Route>
+          <Route path='/dashboard/add_note' element={<AddNote />}></Route>
+          <Route path='/dashboard/edit_note/:id' element={<EditNote />}></Route>
         </Route>
 
         {/* Teacher portal */}

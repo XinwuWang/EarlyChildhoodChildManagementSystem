@@ -1,32 +1,84 @@
+import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import axios from 'axios'
+import { useState } from 'react'
 
 const Note = () => {
+    const [userInput, setUserInput] = useState([])
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/auth/note')
+            .then(result => {
+                // console.log(result.data)
+                if (result.data.Status) {
+                    console.log(result.data.Result)
+                    setUserInput(result.data.Result)
+                } else {
+                    alert(result.data.Error)
+                }
+            })
+            .catch(err => console.log(err))
+    }, [])
+
+    const handleDelete = (id) => {
+        axios.delete('http://localhost:3000/auth/delete_note/' + id)
+            .then(result => {
+                if (result.data.Status) {
+                    setUserInput(userInput.filter(e => e.note_id !== id))
+                    window.location.reload()
+                } else {
+                    alert(result.data.Error)
+                }
+            })
+            .catch(err => console.log(err))
+    }
+
     return (
-        <div>
-            <div className="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
-                <div className="list-group">
-                    <label className="list-group-item d-flex gap-3">
-                        <input className="form-check-input flex-shrink-0" type="checkbox" value="" checked={true} style={{ fontSize: '1.375em' }} />
-                        <span className="pt-1 form-checked-content">
-                            <strong>Child A needs medicine at 12pm</strong>
-                            <small className="d-block text-body-secondary">
-                                <svg className="bi me-1" width="1em" height="1em"><use xlinkHref="#calendar-event"></use></svg>
-                                11:30am–12:30pm
-                            </small>
-                        </span>
-                    </label>
-                    <label className="list-group-item d-flex gap-3">
-                        <input className="form-check-input flex-shrink-0" type="checkbox" value="" checked={true} style={{ fontSize: '1.375em' }} />
-                        <span className="pt-1 form-checked-content">
-                            <strong>Finish sales report</strong>
-                            <small className="d-block text-body-secondary">
-                                <svg className="bi me-1" width="1em" height="1em"><use xlinkHref="#calendar-event"></use></svg>
-                                1:00–2:00pm
-                            </small>
-                        </span>
-                    </label>
+        <div className='px-5 mt-5'>
+            <div className='d-flex justify-content-center'>
+                <h3>Notes</h3>
+            </div>
+            <div className="row pt-3 align-items-center">
+                {
+                    userInput.map(e => (
+                        <div className="col-lg-4 pt-5" key={e.id}>
+                            <div className="col">
+                                <div className="card mb-4 rounded-3 shadow-sm">
+                                    <div className="card-header py-3 text-center">
+                                        <h4 className="my-0 fw-normal">{e.title}</h4>
+                                    </div>
+                                    <div className='mt-2 text-center'>
+                                        <p className='fw-lighter'>{e.update_date} at {e.update_time}</p>
+                                    </div>
+                                    <div className="card-body d-flex flex-column" style={{ height: '300px' }}>
+                                        <div>
+                                            <p>{e.content}</p>
+                                        </div>
+                                        <div className='mt-auto'>
+                                            <div className="row">
+                                                <div className="col text-center">
+                                                    <Link to={`/dashboard/edit_note/` + e.id} className="btn btn-sm btn-outline-dark m-3">Edit</Link>
+                                                    <button type="button" className="btn btn-sm btn-outline-dark" onClick={() => handleDelete(e.id)}>Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+
+
+            <div className="container pt-5 mb-3">
+                <div className="row">
+                    <div className="col text-center">
+                        <Link to='/dashboard/add_note' className='btn btn-success'>Add Note</Link>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

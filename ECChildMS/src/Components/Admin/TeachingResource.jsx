@@ -1,3 +1,8 @@
+import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import axios from 'axios'
+import { useState } from 'react'
+
 
 const TeachingResource = () => {
     return (

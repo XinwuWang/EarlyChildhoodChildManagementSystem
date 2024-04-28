@@ -21,7 +21,6 @@ const Dashboard = () => {
     }
 
     const adminId = localStorage.getItem('adminId');
-    console.log(adminId)
 
     return (
         <div className='container-fluid'>

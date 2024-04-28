@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 
 const Home = () => {
+    const adminId = localStorage.getItem('adminId');
+
     return (
         <div>
             <div className="container my-5">
@@ -39,7 +41,7 @@ const Home = () => {
                     <div className="h-100 p-5 bg-body-tertiary border rounded-3">
                         <h2>Profile</h2>
                         <p>Your personal details</p>
-                        <Link to='/dashboard/profile' className='btn btn-outline-dark'>More</Link>
+                        <Link to={'/dashboard/profile/' + adminId} className='btn btn-outline-dark'>More</Link>
                     </div>
                 </div>
             </div>

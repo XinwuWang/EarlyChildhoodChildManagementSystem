@@ -122,16 +122,38 @@ USE earlychildhoodchildms;
 -- ALTER TABLE child_info
 -- MODIFY COLUMN start_date VARCHAR(50);
 
-CREATE TABLE centre_info (
+-- CREATE TABLE centre_info (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- title VARCHAR(255),
+-- content_one TEXT,
+-- content_two TEXT,
+-- content_three TEXT,
+-- admin_id INT,
+-- update_date VARCHAR(50),
+-- update_time VARCHAR(50),
+-- FOREIGN KEY (admin_id) REFERENCES admin(id)
+-- );
+
+-- CREATE TABLE note (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- title VARCHAR(50),
+-- content TEXT,
+-- update_date VARCHAR(50),
+-- update_time VARCHAR(50),
+-- admin_id INT,
+-- teacher_id INT,
+-- FOREIGN KEY (admin_id) REFERENCES admin(id),
+-- FOREIGN KEY (teacher_id) REFERENCES teacher_info (id)
+-- );
+
+-- ALTER TABLE note 
+-- RENAME COLUMN note_id 
+-- TO id;
+
+CREATE TABLE teaching_resource (
 id INT AUTO_INCREMENT PRIMARY KEY,
 title VARCHAR(255),
-content_one TEXT,
-content_two TEXT,
-content_three TEXT,
-admin_id INT,
-update_date VARCHAR(50),
-update_time VARCHAR(50),
-FOREIGN KEY (admin_id) REFERENCES admin(id)
-);
+resource_desciption TEXT,
 
+);
 
