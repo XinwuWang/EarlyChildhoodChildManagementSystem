@@ -28,7 +28,7 @@ const EditProfile = () => {
             })
             .catch(err => {
                 console.log(err);
-                alert('Failed to fetch teacher data');
+                alert('Failed to fetch admin data');
             }).finally(() => {
                 setLoading(false)
             });
@@ -68,12 +68,7 @@ const EditProfile = () => {
                         </label>
                         <input type='emaill' name='inputEmail' id='inputEmail' placeholder='Enter email' value={admin.email} className='form-control rounded-0' autoComplete='off' onChange={(e) => setAdmin({ ...admin, email: e.target.value })} required />
                     </div>
-                    {/* <div className='col-12'>
-                        <label htmlFor='password' className='form-label'>
-                            Password
-                        </label>
-                        <input type='password' name='password' id='password' placeholder='Enter new password' value={admin.password} className='form-control rounded-0' autoComplete='off' onChange={(e) => setAdmin({ ...admin, password: e.target.value })} required />
-                    </div> */}
+
                     <div className='col-12'>
                         <label htmlFor='date_of_birth' className='form-label'>
                             Date of Birth

@@ -166,12 +166,13 @@ USE earlychildhoodchildms;
 -- ('car', 'drive car', 'www.xxxx.com', '3', '2024-01-15'),
 -- ('doll', 'play and learn', 'www.lskl.com', '5', '2024-02-02');
 
-CREATE TABLE announcement (
-id INT AUTO_INCREMENT PRIMARY KEY,
-title VARCHAR(255),
-content TEXT,
-post_date VARCHAR(50),
-post_time VARCHAR(50),
-person_who_posts INT,
-FOREIGN KEY (person_who_posts) REFERENCES admin (id)
-);
+-- CREATE TABLE announcement (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- title VARCHAR(255),
+-- content TEXT,
+-- post_date VARCHAR(50),
+-- post_time VARCHAR(50),
+-- person_who_posts INT,
+-- FOREIGN KEY (person_who_posts) REFERENCES admin (id)
+-- );
+

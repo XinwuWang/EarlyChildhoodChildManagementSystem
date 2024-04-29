@@ -23,16 +23,18 @@ const Announcement = () => {
     }, [])
 
     const handleDelete = (id) => {
-        axios.delete('http://localhost:3000/auth/delete_announcement/' + id)
-            .then(result => {
-                if (result.data.Status) {
-                    setAnnouncement(announcement.filter(e => e.id !== id))
-                    window.location.reload()
-                } else {
-                    alert(result.data.Error)
-                }
-            })
-            .catch(err => console.log(err))
+        if (window.confirm("ALERT! Are you sure you want to delete this announcement?")) {
+            axios.delete('http://localhost:3000/auth/delete_announcement/' + id)
+                .then(result => {
+                    if (result.data.Status) {
+                        setAnnouncement(announcement.filter(e => e.id !== id))
+                        window.location.reload()
+                    } else {
+                        alert(result.data.Error)
+                    }
+                })
+                .catch(err => console.log(err))
+        }
     }
 
     return (

@@ -24,8 +24,10 @@ import Note from './Components/Admin/Note'
 import AddNote from './Components/Admin/AddNote'
 import EditNote from './Components/Admin/EditNote'
 import CreateAnnouncement from './Components/Admin/CreateAnnouncement'
-
-
+import TeacherDetail from './Components/Admin/TeacherDetail'
+import EditTeacher from './Components/Admin/EditTeacher'
+import ChildDetail from './Components/Admin/ChildDetail'
+import EditChild from './Components/Admin/EditChild'
 
 // Teacher components
 import TeacherLogin from './Components/Teacher/TeacherLogin'
@@ -88,6 +90,10 @@ function App() {
           <Route path='/dashboard/add_note' element={<AddNote />}></Route>
           <Route path='/dashboard/edit_note/:id' element={<EditNote />}></Route>
           <Route path='/dashboard/create_announcement' element={<CreateAnnouncement />}></Route>
+          <Route path='/dashboard/manageteachers/:id' element={<TeacherDetail />}></Route>
+          <Route path='/dashboard/edit_teacher/:id' element={<EditTeacher />}></Route>
+          <Route path='/dashboard/managechildren/:id' element={<ChildDetail />}></Route>
+          <Route path='/dashboard/edit_child/:id' element={<EditChild />}></Route>
         </Route>
 
         {/* Teacher portal */}

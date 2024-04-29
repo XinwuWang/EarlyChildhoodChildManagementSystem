@@ -48,10 +48,148 @@ router.get('/manageteachers', (req, res) => {
     })
 })
 
+router.get('/manageteachers/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'SELECT * FROM teacher_info WHERE id = ?';
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        // console.log(result)
+        return res.json(result);
+    });
+})
+
+
+router.put('/edit_teacher/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `UPDATE teacher_info 
+                    SET 
+                    name = ?, 
+                    teaching_No = ?,
+                    email = ?, 
+                    date_of_birth = ?,
+                    phone = ?, 
+                    address = ?, 
+                    start_date = ?,
+                    teaching_philosophy = ?
+                    WHERE id = ?`;
+
+    const values = [
+        req.body.name,
+        req.body.teaching_No,
+        req.body.email,
+        req.body.date_of_birth,
+        req.body.phone,
+        req.body.address,
+        req.body.start_date,
+        req.body.teaching_philosophy
+    ]
+    con.query(sql, [...values, id], (err, result) => {
+        if (err) {
+            console.error('Query error:', err);
+            return res.status(500).json({ Status: false, Error: 'An error occurred while updating the teacher information.' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ Status: false, Error: 'Teacher not found.' });
+        }
+
+        return res.json({ Status: true, Message: 'Teacher information updated successfully.' });
+    });
+
+});
+
+
+router.delete('/delete_teacher/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'DELETE FROM teacher_info WHERE id = ?';
+
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+
 router.get('/managechildren', (req, res) => {
     const sql = 'SELECT * FROM child_info';
     con.query(sql, (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+router.get('/managechildren/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'SELECT * FROM child_info WHERE id = ?';
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        // console.log(result)
+        return res.json(result);
+    });
+})
+
+
+router.put('/edit_child/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `UPDATE child_info 
+                    SET 
+                    name = ?, 
+                    email = ?, 
+                    date_of_birth = ?,
+                    dad_name = ?,
+                    dad_phone = ?, 
+                    mum_name = ?,
+                    mum_phone = ?,
+                    address = ?, 
+                    allergy = ?,
+                    interests_and_hobbies = ?,
+                    start_date = ?,
+                    other_notes = ?
+                    WHERE id = ?`;
+
+    const values = [
+        req.body.name,
+        req.body.email,
+        req.body.date_of_birth,
+        req.body.dad_name,
+        req.body.dad_phone,
+        req.body.mum_name,
+        req.body.mum_phone,
+        req.body.address,
+        req.body.allergy,
+        req.body.interests_and_hobbies,
+        req.body.start_date,
+        req.body.other_notes
+    ]
+    con.query(sql, [...values, id], (err, result) => {
+        if (err) {
+            console.error('Query error:', err);
+            return res.status(500).json({ Status: false, Error: 'An error occurred while updating the child information.' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ Status: false, Error: 'Child not found.' });
+        }
+
+        return res.json({ Status: true, Message: 'Child information updated successfully.' });
+    });
+
+});
+
+
+router.delete('/delete_child/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'DELETE FROM child_info WHERE id = ?';
+
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
         return res.json({ Status: true, Result: result })
     })
 })

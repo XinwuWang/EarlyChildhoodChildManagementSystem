@@ -22,17 +22,18 @@ const CentreIntro = () => {
     }, [])
 
     const handleDelete = (id) => {
-        axios.delete('http://localhost:3000/auth/delete_centreinfo/' + id)
-            .then(result => {
-                if (result.data.Status) {
-                    setCentreInfo(centreInfo.filter(e => e.id !== id))
-                    window.location.reload()
-                    // navigate('/dashboard/manageteachers')
-                } else {
-                    alert(result.data.Error)
-                }
-            })
-            .catch(err => console.log(err))
+        if (window.confirm("ALERT! Are you sure you want to delete this information?")) {
+            axios.delete('http://localhost:3000/auth/delete_centreinfo/' + id)
+                .then(result => {
+                    if (result.data.Status) {
+                        setCentreInfo(centreInfo.filter(e => e.id !== id))
+                        window.location.reload()
+                    } else {
+                        alert(result.data.Error)
+                    }
+                })
+                .catch(err => console.log(err))
+        }
     }
 
 

@@ -40,7 +40,7 @@ const ChildrenInfo = () => {
                                 preserveAspectRatio="xMidYMid slice"
                             />
                             <h2 className="fw-normal">{e.name}</h2>
-                            <p><a className="btn btn-secondary" href="#">View details »</a></p>
+                            <p><Link className="btn btn-secondary" to={"/dashboard/managechildren/" + e.id}>View details »</Link></p>
                         </div>
                     ))
                 }

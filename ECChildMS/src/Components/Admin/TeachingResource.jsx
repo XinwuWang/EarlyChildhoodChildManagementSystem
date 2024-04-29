@@ -21,17 +21,23 @@ const TeachingResource = () => {
     }, [])
 
     const handleDelete = (id) => {
-        axios.delete('http://localhost:3000/auth/delete_resource/' + id)
-            .then(result => {
-                if (result.data.Status) {
-                    setResource(resource.filter(e => e.id !== id))
-                    window.location.reload()
-                } else {
-                    alert(result.data.Error)
-                }
-            })
-            .catch(err => console.log(err))
+        if (window.confirm("ALERT! Are you sure you want to delete this information?")) {
+            axios.delete('http://localhost:3000/auth/delete_resource/' + id)
+                .then(result => {
+                    if (result.data.Status) {
+                        setResource(resource.filter(e => e.id !== id))
+                        window.location.reload()
+                    } else {
+                        alert(result.data.Error)
+                    }
+                })
+                .catch(err => console.log(err))
+        }
+
+
     }
+
+
     return (
         <div>
             <div className="accordion" id="accordionPanelsStayOpenExample">
