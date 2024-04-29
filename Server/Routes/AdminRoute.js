@@ -426,7 +426,7 @@ router.put('/change_password/:id', (req, res) => {
 
 
 router.get('/announcement', (req, res) => {
-    const sql = 'SELECT announcement.*, admin.name AS admin_name FROM announcement INNER JOIN admin ON announcement.person_who_posts = admin.id';
+    const sql = 'SELECT announcement.*, COALESCE(admin.name, teacher_info.name) AS poster_name FROM announcement LEFT JOIN admin ON announcement.person_who_posts = admin.id LEFT JOIN teacher_info ON announcement.teacher_who_posts = teacher_info.id';
     con.query(sql, (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
         return res.json({ Status: true, Result: result })
@@ -530,6 +530,7 @@ router.put('/edit_note/:id', (req, res) => {
         return res.json({ Status: true, Result: result })
     })
 });
+
 
 router.delete('/delete_note/:id', (req, res) => {
     const id = req.params.id;

@@ -1,30 +1,43 @@
+import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import axios from 'axios'
+import { useState } from 'react'
+
 
 const CentreInfo = () => {
+    const [centreInfo, setCentreInfo] = useState([])
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/teacher/centre_information')
+            .then(result => {
+                // console.log(result.data)
+                if (result.data.Status) {
+                    console.log(result.data.Result)
+                    setCentreInfo(result.data.Result)
+                } else {
+                    alert(result.data.Error)
+                }
+            })
+            .catch(err => console.log(err))
+    }, [])
+
+
     return (
-        <div>
-            <div className="accordion" id="accordionPanelsStayOpenExample">
-                <div className="accordion-item">
-                    <h2 className="accordion-header">
-                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                            1. Centre philosophy
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show">
-                        <div className="accordion-body">
-                            <p>Our centre is a home away home. We aim to provide quality education for children aged from 6 months to 5 years.</p>
-                        </div>
-                    </div>
+        <div className='px-5 mt-5'>
+            {centreInfo.map(e => (
+                <div className="col-lg-7 p-3 p-lg-5 pt-lg-3" key={e.id}>
+                    <h4 className="fw-bold lh-1 text-body-emphasis">{e.title}</h4>
+                    <p className="lead">{e.content_one}</p>
+                    <p className="lead">{e.content_two}</p>
+                    <p className="lead">{e.content_three}</p>
                 </div>
-                <div className="accordion-item">
-                    <h2 className="accordion-header">
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                            2. Our spaces
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse">
-                        <div className="accordion-body">
-                            <p>Our indoor environments are built purposely to support the learning and development of different age groups and each room is equipped with high-quality, age-focused resources designed to spark curious minds. Our internal environments are connected to a challenging outdoor area, to encourage physical outdoor learning for your child.</p>
-                        </div>
+            )
+            )}
+
+            <div className="container pt-5 mb-3">
+                <div className="row">
+                    <div className="col text-center">
+                        <Link to='/teacher_dashboard' className='btn btn-success'>Home</Link>
                     </div>
                 </div>
             </div>

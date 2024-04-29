@@ -25,7 +25,7 @@ const AdminLogin = () => {
                     localStorage.setItem('adminId', result.data.adminId);
                     // stores data that persists when users close their browser tab
                     localStorage.setItem('valid', true)
-                    console.log(result.data.adminID)
+                    console.log(result.data.adminId)
                     navigate('/dashboard', { state: { adminId: result.data.adminId } })
                 } else {
                     setError(result.data.Error)

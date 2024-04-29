@@ -4,12 +4,11 @@ import axios from 'axios'
 import { useState } from 'react'
 
 
-
-const Announcement = () => {
+const GroupAnnon = () => {
     const [announcement, setAnnouncement] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/announcement')
+        axios.get('http://localhost:3000/teacher/announcement')
             .then(result => {
                 // console.log(result.data)
                 if (result.data.Status) {
@@ -24,7 +23,7 @@ const Announcement = () => {
 
     const handleDelete = (id) => {
         if (window.confirm("ALERT! Are you sure you want to delete this announcement?")) {
-            axios.delete('http://localhost:3000/auth/delete_announcement/' + id)
+            axios.delete('http://localhost:3000/teacher/delete_announcement/' + id)
                 .then(result => {
                     if (result.data.Status) {
                         setAnnouncement(announcement.filter(e => e.id !== id))
@@ -65,7 +64,7 @@ const Announcement = () => {
             <div className="container pt-5 mb-3">
                 <div className="row">
                     <div className="col text-center">
-                        <Link to='/dashboard/create_announcement' className='btn btn-success'>Create Announcement</Link>
+                        <Link to='/teacher_dashboard/create_announcement' className='btn btn-success'>Create Announcement</Link>
                     </div>
                 </div>
             </div>
@@ -73,4 +72,4 @@ const Announcement = () => {
     )
 }
 
-export default Announcement
+export default GroupAnnon

@@ -37,8 +37,16 @@ import ViewChildren from './Components/Teacher/ViewChildren'
 import TProfile from './Components/Teacher/TProfile'
 import TeachingTips from './Components/Teacher/TeachingTips'
 import CentreInfo from './Components/Teacher/CentreInfo'
-import GroupAnnon from './Components/Teacher/GroupAnnon'
 import TodoList from './Components/Teacher/TodoList'
+import EditTeacherProfile from './Components/Teacher/EditTeacherProfile'
+import TChangePassword from './Components/Teacher/TChangePassword'
+import TAnnouncement from './Components/Teacher/TAnnouncement'
+import TCreateAnnounce from './Components/Teacher/TCreateAnnounce'
+import AddTeachingTips from './Components/Teacher/AddTeachingTips'
+import EditResource from './Components/Teacher/EditResource'
+
+
+
 // Child components
 import ChildLogin from './Components/Child/ChildLogin'
 import CDashboard from './Components/Child/CDashboard'
@@ -106,11 +114,17 @@ function App() {
           <Route path='' element={<THome />}></Route>
           <Route path='/teacher_dashboard/view_children' element={<ViewChildren />}></Route>
           <Route path='/teacher_dashboard/message' element={<Message />}></Route>
-          <Route path='/teacher_dashboard/teacher_profile' element={<TProfile />}></Route>
-          <Route path='/teacher_dashboard/teaching_tips' element={<TeachingTips />}></Route>
+          <Route path='/teacher_dashboard/teacher_profile/:id' element={<TProfile />}></Route>
+          <Route path='/teacher_dashboard/teaching_resource' element={<TeachingTips />}></Route>
           <Route path='/teacher_dashboard/centre_information' element={<CentreInfo />}></Route>
-          <Route path='/teacher_dashboard/group_announcement' element={<GroupAnnon />}></Route>
+          <Route path='/teacher_dashboard/announcement' element={<TAnnouncement />}></Route>
           <Route path='/teacher_dashboard/to_do_list' element={<TodoList />}></Route>
+          <Route path='/teacher_dashboard/edit_profile/:id' element={<EditTeacherProfile />}></Route>
+          <Route path='/teacher_dashboard/change_password/:id' element={<TChangePassword />}></Route>
+          <Route path='/teacher_dashboard/create_announcement' element={<TCreateAnnounce />}></Route>
+          <Route path='/teacher_dashboard/add_resource' element={<AddTeachingTips />}></Route>
+          <Route path='/teacher_dashboard/edit_resource/:id' element={<EditResource />}></Route>
+
         </Route>
 
         {/* Child portal */}

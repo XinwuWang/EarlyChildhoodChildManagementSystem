@@ -1,71 +1,89 @@
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { Link } from 'react-router-dom'
 
 const TProfile = () => {
+    const [teacher, setTeacher] = useState([])
+    const teacherId = localStorage.getItem('teacherId');
+    useEffect(() => {
+        axios.get(`http://localhost:3000/teacher/teacher_profile/${teacherId}`)
+            .then(result => {
+                console.log(result.data)
+                setTeacher(result.data[0])
+
+            })
+            .catch(err => console.error("Error fetching profile data:", err))
+    }, [teacherId])
+
+
     return (
-        <div className="container">
-            <div className="d-flex justify-content-center align-items-center mt-5">
-                <div className="row">
-                    <div className="col-lg-4">
-                        <svg className="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
-                        <h5 className="fw-normal">Teacher1</h5>
-                        <p><a className="btn btn-secondary" href="#">Edit</a></p>
-                    </div>
-                </div>
-                <div className="col-md-4">
-                    <div className="tab-content profile-tab" id="myTabContent">
-                        <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <label>Teacher Id</label>
-                                </div>
-                                <div className="col-md-6">
-                                    <p>2345</p>
-                                </div>
+        <div>
+            <div className="container mt-4">
+                {teacher && Object.keys(teacher).length > 0 ? (
+                    <div className="card">
+                        <div>
+                            <div className="card-header text-center">
+                                <img src={'http://localhost:3000/Images/' + teacher.image} alt={teacher.name} className="teacher_image" />
                             </div>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <label>Name</label>
-                                </div>
-                                <div className="col-md-6">
-                                    <p>Teacher 1</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <label>Email</label>
-                                </div>
-                                <div className="col-md-6">
-                                    <p>teacher1@gmail.com</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <label>Phone</label>
-                                </div>
-                                <div className="col-md-6">
-                                    <p>1283847</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <label>Registration NO.</label>
-                                </div>
-                                <div className="col-md-6">
-                                    <p>298746</p>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <label>Home Address</label>
-                                </div>
-                                <div className="col-md-6">
-                                    <p>1 K Road, Auckland</p>
+                        </div>
+                        <div className="card-body text-center">
+                            <table className="table">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Name:</th>
+                                        <td>{teacher.name}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Staff ID:</th>
+                                        <td>{teacher.id}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Teaching Registration Number:</th>
+                                        <td>{teacher.teaching_No}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Email:</th>
+                                        <td>{teacher.email}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Date of Birth:</th>
+                                        <td>{teacher.date_of_birth}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Phone:</th>
+                                        <td>{teacher.phone}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Address:</th>
+                                        <td>{teacher.address}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Start Date:</th>
+                                        <td>{teacher.start_date}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Teaching Philosophy:</th>
+                                        <td>{teacher.teaching_philosophy}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div className="container pt-2 ">
+                                <div className='col-12 pt-3'>
+                                    <div className="d-flex justify-content-center">
+                                        <Link className='btn btn-success me-2' to={'/teacher_dashboard/edit_profile/' + teacherId}>Edit</Link>
+                                        <Link to={'/teacher_dashboard'} className="btn btn-secondary me-2">Home</Link>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                ) : (
+                    <p>Loading...</p>
+                )}
             </div>
         </div>
+
     )
 }
 

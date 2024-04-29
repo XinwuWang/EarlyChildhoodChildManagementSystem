@@ -173,6 +173,7 @@ USE earlychildhoodchildms;
 -- post_date VARCHAR(50),
 -- post_time VARCHAR(50),
 -- person_who_posts INT,
--- FOREIGN KEY (person_who_posts) REFERENCES admin (id)
+-- teacher_who_posts INT;
+-- FOREIGN KEY (person_who_posts) REFERENCES admin (id),
+-- FOREIGN KEY (teacher_who_posts) REFERENCES teacher_info (id)
 -- );
-

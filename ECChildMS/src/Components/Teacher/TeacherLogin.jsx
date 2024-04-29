@@ -21,6 +21,8 @@ const TeacherLogin = () => {
         axios.post('http://localhost:3000/teacher/teacher_login', values)
             .then(result => {
                 if (result.data.loginStatus) {
+                    localStorage.setItem('teacherId', result.data.teacherId);
+                    console.log(result.data.teacherId)
                     // stores data that persists when users close their browser tab
                     localStorage.setItem('valid', true)
                     navigate('/teacher_dashboard')
