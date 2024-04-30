@@ -3,16 +3,17 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
 
-const Note = () => {
-    const [userInput, setUserInput] = useState([])
-    const adminId = localStorage.getItem('adminId')
+
+const TNote = () => {
+    const [note, setNote] = useState([])
+    const teacherId = localStorage.getItem('teacherId');
+
 
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/note/' + adminId)
+        axios.get('http://localhost:3000/teacher/note/' + teacherId)
             .then(result => {
-                // console.log(result.data)
                 if (result.data.Status) {
-                    setUserInput(result.data.Result)
+                    setNote(result.data.Result)
                 } else {
                     alert(result.data.Error)
                 }
@@ -22,10 +23,10 @@ const Note = () => {
 
     const handleDelete = (id) => {
         if (window.confirm("ALERT! Are you sure you want to delete this note?")) {
-            axios.delete(`http://localhost:3000/auth/delete_note/${adminId}/${id}`)
+            axios.delete(`http://localhost:3000/teacher/delete_note/${teacherId}/${id}`)
                 .then(result => {
                     if (result.data.Status) {
-                        setUserInput(userInput.filter(e => e.id !== id))
+                        setNote(note.filter(e => e.id !== id))
                         window.location.reload()
                     } else {
                         alert(result.data.Error)
@@ -42,7 +43,7 @@ const Note = () => {
             </div>
             <div className="row pt-3 align-items-center">
                 {
-                    userInput.map(e => (
+                    note.map(e => (
                         <div className="col-lg-4 pt-5" key={e.id}>
                             <div className="col">
                                 <div className="card mb-4 rounded-3 shadow-sm">
@@ -59,7 +60,7 @@ const Note = () => {
                                         <div className='mt-auto'>
                                             <div className="row">
                                                 <div className="col text-center">
-                                                    <Link to={`/dashboard/edit_note/${adminId}/${e.id}`} className="btn btn-sm btn-outline-dark m-3">Edit</Link>
+                                                    <Link to={`/teacher_dashboard/edit_note/${teacherId}/${e.id}`} className="btn btn-sm btn-outline-dark m-3">Edit</Link>
                                                     <button type="button" className="btn btn-sm btn-outline-dark" onClick={() => handleDelete(e.id)}>Delete</button>
                                                 </div>
                                             </div>
@@ -76,7 +77,7 @@ const Note = () => {
             <div className="container pt-5 mb-3">
                 <div className="row">
                     <div className="col text-center">
-                        <Link to='/dashboard/add_note' className='btn btn-success'>Add Note</Link>
+                        <Link to='/teacher_dashboard/add_note' className='btn btn-success'>Add Note</Link>
                     </div>
                 </div>
             </div>
@@ -84,4 +85,4 @@ const Note = () => {
     )
 }
 
-export default Note
+export default TNote

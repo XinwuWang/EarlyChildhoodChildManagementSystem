@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 const TProfile = () => {
     const [teacher, setTeacher] = useState([])
     const teacherId = localStorage.getItem('teacherId');
+    console.log(teacherId)
     useEffect(() => {
         axios.get(`http://localhost:3000/teacher/teacher_profile/${teacherId}`)
             .then(result => {

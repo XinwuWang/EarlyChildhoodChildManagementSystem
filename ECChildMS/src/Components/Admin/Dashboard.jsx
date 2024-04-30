@@ -105,7 +105,7 @@ const Dashboard = () => {
                                 </Link>
                             </li>
                             <li className="w-100">
-                                <Link to='/dashboard/note'
+                                <Link to={'/dashboard/note/' + adminId}
                                     className="nav-link px-0 align-middle text-white"
                                 >
                                     <i className="fs-4 bi-list-ul ms-2"></i>

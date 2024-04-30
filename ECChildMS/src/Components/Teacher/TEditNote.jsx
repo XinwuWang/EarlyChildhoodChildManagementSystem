@@ -2,13 +2,14 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const EditNote = () => {
-    const admin_id = localStorage.getItem('adminId');
+
+const TEditNOte = () => {
+    const teacherId = localStorage.getItem('teacherId');
     const { noteId } = useParams()
-    const [userInput, setUserInput] = useState({
+    const [note, setNote] = useState({
         title: '',
         content: '',
-        admin_id: admin_id,
+        teacher_id: teacherId,
         update_date: '',
         update_time: ''
     });
@@ -17,14 +18,15 @@ const EditNote = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/auth/note/${admin_id}/${noteId}`)
+        axios.get(`http://localhost:3000/teacher/note/${teacherId}/${noteId}`)
             .then(result => {
                 if (result.data.Status && result.data.Result.length > 0) {
-                    setUserInput({
-                        ...userInput,
+                    // const teacherData = result.data.Result[0];
+                    setNote({
+                        ...note,
                         title: result.data.Result[0].title,
                         content: result.data.Result[0].content,
-                        admin_id: result.data.Result[0].admin_id,
+                        teacher_id: result.data.Result[0].teacherId,
                         update_date: result.data.Result[0].update_date,
                         update_time: result.data.Result[0].update_time
                     })
@@ -48,24 +50,24 @@ const EditNote = () => {
 
 
 
-        setUserInput(prevState => ({
+        setNote(prevState => ({
             ...prevState,
             update_date: currentDate,
             update_time: currentTime
         }));
 
         const Data = {
-            title: userInput.title,
-            content: userInput.content,
-            admin_id: userInput.admin_id,
+            title: note.title,
+            content: note.content,
+            teacher_id: teacherId,
             update_date: currentDate,
             update_time: currentTime
         }
 
-        axios.put(`http://localhost:3000/auth/edit_note/${admin_id}/${noteId}`, Data)
+        axios.put(`http://localhost:3000/teacher/edit_note/${teacherId}/${noteId}`, Data)
             .then(result => {
                 if (result.data.Status) {
-                    navigate('/dashboard/note/' + admin_id)
+                    navigate('/teacher_dashboard/note/' + teacherId)
                 } else {
                     alert(result.data.Error)
                 }
@@ -93,8 +95,8 @@ const EditNote = () => {
                             id='title'
                             placeholder='Enter a title'
                             className='form-control rounded-0'
-                            value={userInput.title}
-                            onChange={(e) => setUserInput({ ...userInput, title: e.target.value })}
+                            value={note.title}
+                            onChange={(e) => setNote({ ...note, title: e.target.value })}
                             required />
                     </div>
                     <div className='col-12'>
@@ -105,27 +107,28 @@ const EditNote = () => {
                             name='content'
                             id='content'
                             placeholder='Enter the content'
-                            value={userInput.content}
+                            value={note.content}
                             className='form-control rounded-0'
                             rows="4"
                             cols="50"
                             autoComplete='off'
-                            onChange={(e) => setUserInput({ ...userInput, content: e.target.value })}
+                            onChange={(e) => setNote({ ...note, content: e.target.value })}
                             required />
                     </div>
 
 
 
                     <div className='col-12 mt-2'>
-                        <p className='fw-light'>*Last update at {userInput.update_time} on {userInput.update_date}</p>
+                        <p className='fw-light'>*Last update at {note.update_time} on {note.update_date}</p>
                     </div>
                     <div className='col-12 mt-4 p-2'>
                         <button className='btn btn-success w-100 mb-2' type='submit'>Save</button>
-                        <Link to={'/dashboard/note/' + admin_id} className="btn btn-light w-100">Cancel</Link>
+                        <Link to={'/teacher_dashboard/note/' + teacherId} className="btn btn-light w-100">Cancel</Link>
                     </div>
                 </form>
             </div >
         </div >
     )
 }
-export default EditNote
+
+export default TEditNOte

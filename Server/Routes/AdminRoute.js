@@ -464,19 +464,20 @@ router.delete('/delete_announcement/:id', (req, res) => {
 })
 
 
-router.get('/note', (req, res) => {
-    const sql = 'SELECT * FROM note';
-    con.query(sql, (err, result) => {
+router.get('/note/:adminId', (req, res) => {
+    const adminId = req.params.adminId;
+    const sql = 'SELECT * FROM note WHERE admin_id = ?';
+    con.query(sql, [adminId], (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
         return res.json({ Status: true, Result: result })
     })
 });
 
 
-router.get('/note/:id', (req, res) => {
-    const id = req.params.id;
+router.get('/note/:adminId/:noteId', (req, res) => {
+    const noteId = req.params.noteId;
     const sql = 'SELECT * FROM note WHERE id = ?';
-    con.query(sql, [id], (err, result) => {
+    con.query(sql, [noteId], (err, result) => {
         if (err) {
             console.error('Error executing SQL query:', err);
             return res.status(500).json({ error: 'Internal server error' });
@@ -506,8 +507,8 @@ router.post('/add_note', (req, res) => {
 });
 
 
-router.put('/edit_note/:id', (req, res) => {
-    const id = req.params.id;
+router.put('/edit_note/:adminid/:noteId', (req, res) => {
+    const noteId = req.params.noteId;
     const sql = `UPDATE note 
                     SET 
                     title = ?, 
@@ -525,18 +526,18 @@ router.put('/edit_note/:id', (req, res) => {
         req.body.update_time,
 
     ]
-    con.query(sql, [...values, id], (err, result) => {
+    con.query(sql, [...values, noteId], (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' + err })
         return res.json({ Status: true, Result: result })
     })
 });
 
 
-router.delete('/delete_note/:id', (req, res) => {
-    const id = req.params.id;
+router.delete('/delete_note/:adminId/:noteId', (req, res) => {
+    const noteId = req.params.noteId;
     const sql = 'DELETE FROM note WHERE id = ?';
 
-    con.query(sql, [id], (err, result) => {
+    con.query(sql, [noteId], (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' + err })
         return res.json({ Status: true, Result: result })
     })

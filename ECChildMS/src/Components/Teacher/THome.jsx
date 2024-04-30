@@ -34,7 +34,7 @@ const THome = () => {
                     <div className="h-100 p-5 text-bg-dark rounded-3">
                         <h2>Teaching Resources</h2>
                         <p>A list of useful teaching resources</p>
-                        <Link to='/teacher_dashboard/teaching_tips' className='btn btn-outline-light'>More</Link>
+                        <Link to='/teacher_dashboard/teaching_resource' className='btn btn-outline-light'>More</Link>
                     </div>
                 </div>
                 <div className="col-md-6">
@@ -50,7 +50,7 @@ const THome = () => {
                     <div className="h-100 p-5 text-bg-dark rounded-3">
                         <h2>Group Announcement</h2>
                         <p>Centre wide group announcement</p>
-                        <Link to='/teacher_dashboard/group_announcement' className='btn btn-outline-light'>More</Link>
+                        <Link to='/teacher_dashboard/announcement' className='btn btn-outline-light'>More</Link>
                     </div>
                 </div>
                 <div className="col-md-6">
@@ -65,9 +65,9 @@ const THome = () => {
             <div className="row align-items-md-stretch m-1">
                 <div className="col-md-6">
                     <div className="h-100 p-5 text-bg-dark rounded-3">
-                        <h2>To-do List</h2>
+                        <h2>Notebook</h2>
                         <p>Record your important notes</p>
-                        <Link to='/teacher_dashboard/to_do_list' className='btn btn-outline-light'>More</Link>
+                        <Link to='/teacher_dashboard/note' className='btn btn-outline-light'>More</Link>
                     </div>
                 </div>
             </div>

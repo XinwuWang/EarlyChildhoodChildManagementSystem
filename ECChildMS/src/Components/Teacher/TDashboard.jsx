@@ -101,7 +101,7 @@ const TDashboard = () => {
                                 </Link>
                             </li>
                             <li className='w-100'>
-                                <Link to='/teacher_dashboard/to_do_list'
+                                <Link to={'/teacher_dashboard/note/' + teacherId}
                                     className='nav-link px-0 align-middle text-white'
                                 >
                                     <i className="fs-4 bi-list-ul ms-2"></i>

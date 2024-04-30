@@ -2,14 +2,15 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
 
-const AddNote = () => {
-    const admin_id = localStorage.getItem('adminId');
-    const [userInput, setUserInput] = useState({
+
+const TAddNote = () => {
+    const teacherId = localStorage.getItem('teacherId');
+    const [note, setNote] = useState({
         title: '',
         content: '',
         update_date: '',
         update_time: '',
-        admin_id: admin_id
+        teacher_id: teacherId
     });
     const navigate = useNavigate()
 
@@ -21,25 +22,25 @@ const AddNote = () => {
         const currentDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
         const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
 
-        setUserInput(prevState => ({
+        setNote(prevState => ({
             ...prevState,
             update_date: currentDate,
             update_time: currentTime
         }));
 
         const Data = {
-            title: userInput.title,
-            content: userInput.content,
+            title: note.title,
+            content: note.content,
             update_date: currentDate,
             update_time: currentTime,
-            admin_id: admin_id,
+            teacher_id: teacherId,
         }
 
 
-        axios.post('http://localhost:3000/auth/add_note', Data)
+        axios.post('http://localhost:3000/teacher/add_note', Data)
             .then(result => {
                 if (result.data.Status) {
-                    navigate('/dashboard/note/' + admin_id)
+                    navigate('/teacher_dashboard/note/' + teacherId)
                 } else {
                     console.log(result.data)
                     alert(result.data.Error || 'Error adding information')
@@ -66,7 +67,7 @@ const AddNote = () => {
                             id='title'
                             placeholder='Enter a title'
                             className='form-control rounded-0'
-                            onChange={(e) => setUserInput({ ...userInput, title: e.target.value })}
+                            onChange={(e) => setNote({ ...note, title: e.target.value })}
                             required />
                     </div>
                     <div className='col-12'>
@@ -81,14 +82,14 @@ const AddNote = () => {
                             autoComplete='off'
                             rows="4"
                             cols="50"
-                            onChange={(e) => setUserInput({ ...userInput, content: e.target.value })}
+                            onChange={(e) => setNote({ ...note, content: e.target.value })}
                             required />
                     </div>
 
 
                     <div className='col-12 mt-4 p-2'>
                         <button className='btn btn-success w-100 mb-2' type='submit'>Save</button>
-                        <Link to={'/dashboard/note/' + admin_id} className="btn btn-light w-100">Cancel</Link>
+                        <Link to={'/teacher_dashboard/note/' + teacherId} className="btn btn-light w-100">Cancel</Link>
                     </div>
                 </form>
             </div>
@@ -96,4 +97,4 @@ const AddNote = () => {
     )
 }
 
-export default AddNote
+export default TAddNote

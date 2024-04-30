@@ -236,6 +236,89 @@ router.delete('/delete_resource/:id', (req, res) => {
     })
 })
 
+
+router.get('/note/:teacherId', (req, res) => {
+    const teacherId = req.params.teacherId;
+    const sql = 'SELECT * FROM note WHERE teacher_id = ?';
+    con.query(sql, [teacherId], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+});
+
+
+router.get('/note/:teacherId/:noteId', (req, res) => {
+    const noteId = req.params.noteId;
+
+    const sql = 'SELECT * FROM note WHERE id = ?';
+    con.query(sql, [noteId], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result })
+    });
+})
+
+
+router.post('/add_note', (req, res) => {
+    const sql = `INSERT INTO note (title, content, update_date, update_time, teacher_id) 
+    VALUES (?, ?, ?, ?, ?)`;
+    const values = [
+        req.body.title,
+        req.body.content,
+        req.body.update_date,
+        req.body.update_time,
+        req.body.teacher_id,
+    ]
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+});
+
+
+
+router.put('/edit_note/:teacherId/:noteId', (req, res) => {
+    const noteId = req.params.noteId;
+    const sql = `UPDATE note 
+                    SET 
+                    title = ?, 
+                    content = ?, 
+                    teacher_id = ?, 
+                    update_date = ?, 
+                    update_time = ?
+                    WHERE id = ?`;
+
+    const values = [
+        req.body.title,
+        req.body.content,
+        req.body.teacher_id,
+        req.body.update_date,
+        req.body.update_time,
+
+    ]
+    con.query(sql, [...values, noteId], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+});
+
+router.delete('/delete_note/:teacherId/:noteId', (req, res) => {
+    const noteId = req.params.noteId;
+    const sql = 'DELETE FROM note WHERE id = ?';
+
+    con.query(sql, [noteId], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
 router.get('/logout', (req, res) => {
     res.clearCookie('token');
     return res.json({ Status: true });
