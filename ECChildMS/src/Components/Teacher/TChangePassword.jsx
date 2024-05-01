@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
@@ -9,24 +9,9 @@ const TChangePassword = () => {
         password: '',
     });
 
-    const [loading, setLoading] = useState(true);
     const [isModified, setIsModified] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        axios.get(`http://localhost:3000/auth/profile/${teacherId}`)
-            .then(result => {
-                console.log(result.data)
-                setTeacher(result.data[0])
-
-            })
-            .catch(err => {
-                console.log(err);
-                alert('Failed to fetch teacher data');
-            }).finally(() => {
-                setLoading(false)
-            });
-    }, [teacherId])
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -53,10 +38,6 @@ const TChangePassword = () => {
             }).catch(err => console.log(err))
     }
 
-    // Render loading state while fetching data
-    if (loading) {
-        return <div>Loading...</div>;
-    }
 
     return (
         <div className='d-flex justify-content-center align-items-center mt-3'>

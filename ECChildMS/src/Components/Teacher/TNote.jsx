@@ -58,12 +58,12 @@ const TNote = () => {
                                             <p>{e.content}</p>
                                         </div>
                                         <div className='mt-auto'>
-                                            <div className="row">
-                                                <div className="col text-center">
-                                                    <Link to={`/teacher_dashboard/edit_note/${teacherId}/${e.id}`} className="btn btn-sm btn-outline-dark m-3">Edit</Link>
-                                                    <button type="button" className="btn btn-sm btn-outline-dark" onClick={() => handleDelete(e.id)}>Delete</button>
-                                                </div>
-                                            </div>
+                                        </div>
+                                        <div className="text-end">
+                                            <Link to={`/teacher_dashboard/edit_note/${teacherId}/${e.id}`} className='btn btn-black p-0 me-3' title='Edit'><i className="bi bi-pencil-square"></i></Link>
+                                            <button type='button' className="btn btn-black p-0" title='Delete' onClick={() => handleDelete(e.id)}>
+                                                <i className="bi bi-trash" />
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

@@ -45,7 +45,7 @@ const TDashboard = () => {
                                 </Link>
                             </li>
                             <li className='w-100'>
-                                <Link to='/teacher_dashboard/view_children'
+                                <Link to='/teacher_dashboard/children'
                                     className='nav-link px-0 align-middle text-white'
                                 >
                                     <i className="fs-4 bi-people ms-2"></i>

@@ -46,6 +46,7 @@ import AddTeachingTips from './Components/Teacher/AddTeachingTips'
 import EditResource from './Components/Teacher/EditResource'
 import TEditNote from './Components/Teacher/TEditNote'
 import TAddNote from './Components/Teacher/TAddNote'
+import ChildProfile from './Components/Teacher/ChildProfile'
 
 
 
@@ -114,7 +115,8 @@ function App() {
           </PrivateRoute>
         }>
           <Route path='' element={<THome />}></Route>
-          <Route path='/teacher_dashboard/view_children' element={<ViewChildren />}></Route>
+          <Route path='/teacher_dashboard/children' element={<ViewChildren />}></Route>
+          <Route path='/teacher_dashboard/children/:id' element={<ChildProfile />}></Route>
           <Route path='/teacher_dashboard/message' element={<Message />}></Route>
           <Route path='/teacher_dashboard/teacher_profile/:id' element={<TProfile />}></Route>
           <Route path='/teacher_dashboard/teaching_resource' element={<TeachingTips />}></Route>
