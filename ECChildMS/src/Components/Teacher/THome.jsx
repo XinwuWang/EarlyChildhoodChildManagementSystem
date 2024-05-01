@@ -70,6 +70,13 @@ const THome = () => {
                         <Link to={'/teacher_dashboard/note/' + teacherId} className='btn btn-outline-light'>More</Link>
                     </div>
                 </div>
+                <div className="col-md-6">
+                    <div className="h-100 p-5 bg-body-tertiary border rounded-3">
+                        <h2>Document</h2>
+                        <p>Documents of enrolled children</p>
+                        <Link to='/teacher_dashboard/document' className='btn btn-outline-dark'>More</Link>
+                    </div>
+                </div>
             </div>
         </div>
     )

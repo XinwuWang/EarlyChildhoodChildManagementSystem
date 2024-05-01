@@ -47,6 +47,16 @@ import EditResource from './Components/Teacher/EditResource'
 import TEditNote from './Components/Teacher/TEditNote'
 import TAddNote from './Components/Teacher/TAddNote'
 import ChildProfile from './Components/Teacher/ChildProfile'
+import TDocument from './Components/Teacher/TDocument'
+import TMealChart from './Components/Teacher/TMealChart'
+import TMealDetail from './Components/Teacher/TMealDetail'
+import TAddMeal from './Components/Teacher/TAddMeal'
+import TSleepRecord from './Components/Teacher/TSleepRecord'
+import TBottleChart from './Components/Teacher/TBottleChart'
+import TAccidentReport from './Components/Teacher/TAccidentReport'
+import TSunblockChart from './Components/Teacher/TSunblockChart'
+import TAttendance from './Components/Teacher/TAttendance'
+
 
 
 
@@ -57,7 +67,7 @@ import CHome from './Components/Child/CHome'
 import ViewTeachers from './Components/Child/ViewTeachers'
 import ChildMessage from './Components/Child/ChildMessage'
 import CProfile from './Components/Child/CProfile'
-import Documents from './Components/Child/Documents'
+import CDocuments from './Components/Child/CDocuments'
 import Announce from './Components/Child/Announce'
 import CentreInformation from './Components/Child/CentreInformation'
 import Resource from './Components/Child/Resource'
@@ -130,7 +140,15 @@ function App() {
           <Route path='/teacher_dashboard/edit_resource/:id' element={<EditResource />}></Route>
           <Route path='/teacher_dashboard/edit_note/:teacherId/:noteId' element={<TEditNote />}></Route>
           <Route path='/teacher_dashboard/add_note' element={<TAddNote />}></Route>
-
+          <Route path='/teacher_dashboard/document' element={<TDocument />}></Route>
+          <Route path='/teacher_dashboard/meal_chart' element={<TMealChart />}></Route>
+          <Route path='/teacher_dashboard/sleep_record' element={<TSleepRecord />}></Route>
+          <Route path='/teacher_dashboard/bottle_chart' element={<TBottleChart />}></Route>
+          <Route path='/teacher_dashboard/accident_report' element={<TAccidentReport />}></Route>
+          <Route path='/teacher_dashboard/sunblock_chart' element={<TSunblockChart />}></Route>
+          <Route path='/teacher_dashboard/attendance' element={<TAttendance />}></Route>
+          <Route path='/teacher_dashboard/meal_chart/:id' element={<TMealDetail />}></Route>
+          <Route path='/teacher_dashboard/add_meal' element={<TAddMeal />}></Route>
         </Route>
 
 
@@ -141,7 +159,7 @@ function App() {
           <Route path='/child_dashboard/view_teachers' element={<ViewTeachers />}></Route>
           <Route path='/child_dashboard/sendmessage' element={<ChildMessage />}></Route>
           <Route path='/child_dashboard/child_profile' element={<CProfile />}></Route>
-          <Route path='/child_dashboard/documents' element={<Documents />}></Route>
+          <Route path='/child_dashboard/document' element={<CDocuments />}></Route>
           <Route path='/child_dashboard/announcement' element={<Announce />}></Route>
           <Route path='/child_dashboard/centreinfo' element={<CentreInformation />}></Route>
           <Route path='/child_dashboard/resource' element={<Resource />}></Route>
