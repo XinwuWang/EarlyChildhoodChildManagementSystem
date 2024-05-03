@@ -177,3 +177,25 @@ USE earlychildhoodchildms;
 -- FOREIGN KEY (person_who_posts) REFERENCES admin (id),
 -- FOREIGN KEY (teacher_who_posts) REFERENCES teacher_info (id)
 -- );
+
+-- CREATE TABLE meal_chart (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- meal_date VARCHAR(50),
+-- morning_tea VARCHAR(255),
+-- lunch VARCHAR(255),
+-- afternoon_tea VARCHAR(255),
+-- supervisor INT,
+-- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
+-- );
+
+CREATE TABLE meal_detail (
+id INT AUTO_INCREMENT PRIMARY KEY,
+child INT,
+meal_day INT,
+mt_portion VARCHAR(255),
+lunch_portion VARCHAR(255),
+at_portion VARCHAR(255),
+note VARCHAR(255),
+FOREIGN KEY (child) REFERENCES child_info (id),
+FOREIGN KEY (meal_day) REFERENCES meal_chart (id)
+);

@@ -149,6 +149,7 @@ function App() {
           <Route path='/teacher_dashboard/attendance' element={<TAttendance />}></Route>
           <Route path='/teacher_dashboard/meal_chart/:id' element={<TMealDetail />}></Route>
           <Route path='/teacher_dashboard/add_meal' element={<TAddMeal />}></Route>
+          <Route path='/teacher_dashboard/meal_detail/:id' element={<TMealDetail />}></Route>
         </Route>
 
 

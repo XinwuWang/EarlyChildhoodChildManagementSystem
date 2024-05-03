@@ -22,7 +22,9 @@ const TeacherLogin = () => {
             .then(result => {
                 if (result.data.loginStatus) {
                     localStorage.setItem('teacherId', result.data.teacherId);
+                    localStorage.setItem('teacherName', result.data.teacherName);
                     console.log(result.data.teacherId)
+                    console.log(result.data.teacherName)
                     // stores data that persists when users close their browser tab
                     localStorage.setItem('valid', true)
                     navigate('/teacher_dashboard')

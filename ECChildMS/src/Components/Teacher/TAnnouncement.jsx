@@ -64,7 +64,7 @@ const GroupAnnon = () => {
             <div className="container pt-5 mb-3">
                 <div className="row">
                     <div className="col text-center">
-                        <Link to='/teacher_dashboard/create_announcement' className='btn btn-success'>Create Announcement</Link>
+                        <Link to='/teacher_dashboard/create_announcement' className='btn btn-success'>+ Create Announcement</Link>
                     </div>
                 </div>
             </div>

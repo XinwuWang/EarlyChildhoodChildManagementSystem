@@ -18,12 +18,13 @@ router.post('/teacher_login', (req, res) => {
                 if (response) {
                     const email = result[0].email;
                     const token = jwt.sign(
-                        { role: 'teacher', email: email, id: result[0].id },
+                        { role: 'teacher', email: email, id: result[0].id, name: result[0].name },
                         'jwt_secret_key',
                         { expiresIn: '1d' }
                     );
                     res.cookie('token', token)
-                    return res.json({ loginStatus: true, teacherId: result[0].id });
+                    console.log(result[0])
+                    return res.json({ loginStatus: true, teacherId: result[0].id, teacherName: result[0].name });
                 } else {
                     return res.json({ loginStatus: false, Error: 'Invalid email or password' });
                 }
@@ -340,6 +341,36 @@ router.delete('/delete_note/:teacherId/:noteId', (req, res) => {
         return res.json({ Status: true, Result: result })
     })
 })
+
+
+router.get('/meal_chart', (req, res) => {
+    const sql = 'SELECT * FROM meal_chart';
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+router.post('/add_meal', (req, res) => {
+    const sql = `INSERT INTO meal_chart (meal_date, morning_tea, lunch, afternoon_tea, supervisor) 
+    VALUES (?, ?, ?, ?, ?)`;
+    const values = [
+        req.body.date,
+        req.body.morning_tea,
+        req.body.lunch,
+        req.body.afternoon_tea,
+        req.body.supervisor,
+    ]
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+});
 
 
 router.get('/logout', (req, res) => {

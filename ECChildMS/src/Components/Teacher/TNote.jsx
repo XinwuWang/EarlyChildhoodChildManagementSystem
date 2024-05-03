@@ -77,7 +77,7 @@ const TNote = () => {
             <div className="container pt-5 mb-3">
                 <div className="row">
                     <div className="col text-center">
-                        <Link to='/teacher_dashboard/add_note' className='btn btn-success'>Add Note</Link>
+                        <Link to='/teacher_dashboard/add_note' className='btn btn-success'>+ Add Note</Link>
                     </div>
                 </div>
             </div>

@@ -81,7 +81,7 @@ const TeachingTips = () => {
             <div className="container pt-5 mb-3">
                 <div className="row">
                     <div className="col text-center">
-                        <Link to='/teacher_dashboard/add_resource' className='btn btn-success'>Add Resource</Link>
+                        <Link to='/teacher_dashboard/add_resource' className='btn btn-success'>+ Add Resource</Link>
                     </div>
                 </div>
             </div>
