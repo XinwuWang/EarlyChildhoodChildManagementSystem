@@ -68,6 +68,9 @@ const TEditNOte = () => {
             .then(result => {
                 if (result.data.Status) {
                     navigate('/teacher_dashboard/note/' + teacherId)
+                    setTimeout(() => {
+                        alert('Note updated successfully');
+                    }, 300);
                 } else {
                     alert(result.data.Error)
                 }

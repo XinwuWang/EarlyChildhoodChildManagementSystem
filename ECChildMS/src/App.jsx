@@ -44,6 +44,7 @@ import TAnnouncement from './Components/Teacher/TAnnouncement'
 import TCreateAnnounce from './Components/Teacher/TCreateAnnounce'
 import AddTeachingTips from './Components/Teacher/AddTeachingTips'
 import EditResource from './Components/Teacher/EditResource'
+// import TEditNote from './Components/Teacher/TEditNote'
 import TEditNote from './Components/Teacher/TEditNote'
 import TAddNote from './Components/Teacher/TAddNote'
 import ChildProfile from './Components/Teacher/ChildProfile'
@@ -56,6 +57,7 @@ import TBottleChart from './Components/Teacher/TBottleChart'
 import TAccidentReport from './Components/Teacher/TAccidentReport'
 import TSunblockChart from './Components/Teacher/TSunblockChart'
 import TAttendance from './Components/Teacher/TAttendance'
+import TEditMeal from './Components/Teacher/TEditMeal'
 
 
 
@@ -147,9 +149,9 @@ function App() {
           <Route path='/teacher_dashboard/accident_report' element={<TAccidentReport />}></Route>
           <Route path='/teacher_dashboard/sunblock_chart' element={<TSunblockChart />}></Route>
           <Route path='/teacher_dashboard/attendance' element={<TAttendance />}></Route>
-          <Route path='/teacher_dashboard/meal_chart/:id' element={<TMealDetail />}></Route>
           <Route path='/teacher_dashboard/add_meal' element={<TAddMeal />}></Route>
           <Route path='/teacher_dashboard/meal_detail/:id' element={<TMealDetail />}></Route>
+          <Route path='/teacher_dashboard/edit_meal/:id' element={<TEditMeal />}></Route>
         </Route>
 
 

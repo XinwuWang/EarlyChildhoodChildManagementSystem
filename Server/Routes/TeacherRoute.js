@@ -352,6 +352,19 @@ router.get('/meal_chart', (req, res) => {
 })
 
 
+router.get('/meal_chart/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'SELECT * FROM meal_chart WHERE id = ?';
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result })
+    });
+})
+
+
 router.post('/add_meal', (req, res) => {
     const sql = `INSERT INTO meal_chart (meal_date, morning_tea, lunch, afternoon_tea, supervisor) 
     VALUES (?, ?, ?, ?, ?)`;
@@ -372,6 +385,41 @@ router.post('/add_meal', (req, res) => {
     });
 });
 
+
+router.put('/edit_meal/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `UPDATE meal_chart 
+                    SET 
+                    meal_date = ?, 
+                    morning_tea = ?, 
+                    lunch = ?, 
+                    afternoon_tea = ?, 
+                    supervisor = ?
+                    WHERE id = ?`;
+
+    const values = [
+        req.body.date,
+        req.body.morning_tea,
+        req.body.lunch,
+        req.body.afternoon_tea,
+        req.body.supervisor,
+
+    ]
+    con.query(sql, [...values, id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+});
+
+router.delete('/delete_meal/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'DELETE FROM meal_chart WHERE id = ?';
+
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+})
 
 router.get('/logout', (req, res) => {
     res.clearCookie('token');

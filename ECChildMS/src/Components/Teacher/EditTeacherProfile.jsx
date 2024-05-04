@@ -39,6 +39,9 @@ const EditTeacherProfile = () => {
             .then(result => {
                 if (result.data.Status) {
                     navigate('/teacher_dashboard/teacher_profile/' + teacherId)
+                    setTimeout(() => {
+                        alert('Your profile updated successfully');
+                    }, 300);
                 } else {
                     alert(result.data.Error)
                 }

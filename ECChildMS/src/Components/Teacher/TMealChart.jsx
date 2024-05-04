@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
 
+
 const TMealChart = () => {
     const [meal, setMeal] = useState([])
     // const teacherId = localStorage.getItem('teacherId');
@@ -14,6 +15,7 @@ const TMealChart = () => {
             .then(result => {
                 if (result.data.Status) {
                     setMeal(result.data.Result)
+                    console.log(result.data.Result)
                 } else {
                     alert(result.data.Error)
                 }
@@ -21,20 +23,20 @@ const TMealChart = () => {
             .catch(err => console.log(err))
     }, [])
 
-    // const handleDelete = (id) => {
-    //     if (window.confirm("ALERT! Are you sure you want to delete this note?")) {
-    //         axios.delete(`http://localhost:3000/teacher/delete_note/${teacherId}/${id}`)
-    //             .then(result => {
-    //                 if (result.data.Status) {
-    //                     setNote(note.filter(e => e.id !== id))
-    //                     window.location.reload()
-    //                 } else {
-    //                     alert(result.data.Error)
-    //                 }
-    //             })
-    //             .catch(err => console.log(err))
-    //     }
-    // }
+    const handleDelete = (id) => {
+        if (window.confirm("ALERT! Are you sure you want to delete this record?")) {
+            axios.delete(`http://localhost:3000/teacher/delete_meal/${id}`)
+                .then(result => {
+                    if (result.data.Status) {
+                        setMeal(meal.filter(e => e.id !== id))
+                        window.location.reload()
+                    } else {
+                        alert(result.data.Error)
+                    }
+                })
+                .catch(err => console.log(err))
+        }
+    }
 
     return (
         <div>
@@ -58,18 +60,48 @@ const TMealChart = () => {
                             <th scope="col">Lunch</th>
                             <th scope="col">Afternoon Tea</th>
                             <th scope="col">Supervisor</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             meal.map(e => (
-                                <tr key={e.id}>
+                                <tr key={e.id} className="">
                                     <td></td>
-                                    <Link to={`/teacher_dashboard/meal_detail/${e.id}`}><td>{e.meal_date}</td></Link>
+                                    {/* Insert console.log() here */}
+                                    {console.log({
+                                        id: e.id,
+                                        date: e.meal_date,
+                                        morning_tea: e.morning_tea,
+                                        lunch: e.lunch,
+                                        afternoon_tea: e.afternoon_tea,
+                                        supervisor: teacherName
+                                    })}
+                                    <td><Link
+                                        to={{
+                                            pathname: `/teacher_dashboard/meal_detail/${e.id}`,
+                                            state: {
+                                                id: e.id,
+                                                date: e.meal_date,
+                                                morning_tea: e.morning_tea,
+                                                lunch: e.lunch,
+                                                afternoon_tea: e.afternoon_tea,
+                                                supervisor: teacherName
+                                            }
+                                        }}
+
+                                    >{e.meal_date}</Link></td>
                                     <td>{e.morning_tea}</td>
                                     <td>{e.lunch}</td>
                                     <td>{e.afternoon_tea}</td>
                                     <td>{teacherName}</td>
+                                    <td>
+                                        <Link to={`/teacher_dashboard/edit_meal/${e.id}`} className='btn btn-black p-0 me-3' title='Edit'>
+                                            <i className="bi bi-pencil-square"></i>
+                                        </Link>
+                                        <button type='button' className="btn btn-black p-0" title='Delete' onClick={() => handleDelete(e.id)}>
+                                            <i className="bi bi-trash" />
+                                        </button></td>
                                 </tr>
                             )
                             )
@@ -77,7 +109,7 @@ const TMealChart = () => {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div >
 
     )
 }

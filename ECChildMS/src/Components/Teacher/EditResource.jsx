@@ -69,6 +69,9 @@ const EditResource = () => {
             .then(result => {
                 if (result.data.Status) {
                     navigate('/teacher_dashboard/teaching_resource')
+                    setTimeout(() => {
+                        alert('Resource updated successfully');
+                    }, 300);
                 } else {
                     alert(result.data.Error)
                 }
