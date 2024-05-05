@@ -258,11 +258,11 @@ USE earlychildhoodchildms;
 -- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
 -- );
 
-CREATE TABLE attendance_chart (
-id INT AUTO_INCREMENT PRIMARY KEY,
-child INT,
-attendance_date VARCHAR(50),
-time_in VARCHAR(50),
-time_out VARCHAR(50),
-FOREIGN KEY (child) REFERENCES child_info(id)
-);
+-- CREATE TABLE attendance_chart (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- child INT,
+-- attendance_date VARCHAR(50),
+-- time_in VARCHAR(50),
+-- time_out VARCHAR(50),
+-- FOREIGN KEY (child) REFERENCES child_info(id)
+-- );

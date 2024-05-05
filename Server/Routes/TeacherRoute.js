@@ -343,6 +343,7 @@ router.delete('/delete_note/:teacherId/:noteId', (req, res) => {
 })
 
 
+// Meal chart
 router.get('/meal_chart', (req, res) => {
     const sql = 'SELECT * FROM meal_chart';
     con.query(sql, (err, result) => {
@@ -363,6 +364,7 @@ router.get('/meal_chart/:id', (req, res) => {
         return res.json({ Status: true, Result: result })
     });
 })
+
 
 router.get('/meal_detail/:id', (req, res) => {
     const id = req.params.id;
@@ -474,7 +476,99 @@ router.post('/add_childMeal', (req, res) => {
 });
 
 
+// Sleep chart 
+router.get('/sleep_record', (req, res) => {
+    const sql = `
+    SELECT sleep_chart.*, child_info.name AS child_name
+    FROM sleep_chart
+    INNER JOIN child_info ON sleep_chart.child = child_info.id
+    `;
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
 
+
+router.get('/sleep_record/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT sleep_chart.*, child_info.name AS child_name
+    FROM sleep_chart
+    INNER JOIN child_info ON sleep_chart.child = child_info.id
+    WHERE sleep_chart.id = ?;
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result })
+    });
+})
+
+
+router.post('/add_sleep_record', (req, res) => {
+    const sql = `INSERT INTO sleep_chart (sleep_date, child, time_to_bed, time_of_sleep, time_of_wakeup, time_out_of_bed, note, supervisor) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    const values = [
+        req.body.sleep_date,
+        req.body.child_id,
+        req.body.time_to_bed,
+        req.body.time_of_sleep,
+        req.body.time_of_wakeup,
+        req.body.time_out_of_bed,
+        req.body.note,
+        req.body.supervisor
+    ]
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+});
+
+
+router.put('/edit_sleep_record/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `UPDATE sleep_chart 
+                    SET 
+                    sleep_date = ?, 
+                    time_to_bed = ?, 
+                    time_of_sleep = ?, 
+                    time_of_wakeup = ?, 
+                    time_out_of_bed = ?,
+                    note = ?
+                    WHERE id = ?`;
+
+    const values = [
+        req.body.sleep_date,
+        req.body.time_to_bed,
+        req.body.time_of_sleep,
+        req.body.time_of_wakeup,
+        req.body.time_out_of_bed,
+        req.body.note
+    ]
+    con.query(sql, [...values, id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+});
+
+router.delete('/delete_sleep_record/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'DELETE FROM sleep_chart WHERE id = ?';
+
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+// Logout route
 router.get('/logout', (req, res) => {
     res.clearCookie('token');
     return res.json({ Status: true });

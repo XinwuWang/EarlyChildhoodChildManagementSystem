@@ -79,7 +79,7 @@ const AddChildToMeal = () => {
                         </label>
                         <select name='child' id='child' className='form-select'
                             onChange={(e) => {
-                                setMeal({ ...meal, child_id: e.target.value });
+                                setMeal({ ...meal, child_id: parseInt(e.target.value, 10) });
                             }}>
                             {
                                 child.map(c => {

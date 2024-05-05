@@ -52,12 +52,14 @@ import TMealChart from './Components/Teacher/TMealChart'
 import TMealDetail from './Components/Teacher/TMealDetail'
 import TAddMeal from './Components/Teacher/TAddMeal'
 import TSleepRecord from './Components/Teacher/TSleepRecord'
+import TAddSleepRecord from './Components/Teacher/TAddSleepRecord'
 import TBottleChart from './Components/Teacher/TBottleChart'
 import TAccidentReport from './Components/Teacher/TAccidentReport'
 import TSunblockChart from './Components/Teacher/TSunblockChart'
 import TAttendance from './Components/Teacher/TAttendance'
 import TEditMeal from './Components/Teacher/TEditMeal'
 import AddChildToMeal from './Components/Teacher/AddChildToMeal'
+import TEditSleep from './Components/Teacher/TEditSleep'
 
 
 
@@ -145,6 +147,8 @@ function App() {
           <Route path='/teacher_dashboard/document' element={<TDocument />}></Route>
           <Route path='/teacher_dashboard/meal_chart' element={<TMealChart />}></Route>
           <Route path='/teacher_dashboard/sleep_record' element={<TSleepRecord />}></Route>
+          <Route path='/teacher_dashboard/add_sleep_record' element={<TAddSleepRecord />}></Route>
+          <Route path='/teacher_dashboard/edit_sleep_record/:id' element={<TEditSleep />}></Route>
           <Route path='/teacher_dashboard/bottle_chart' element={<TBottleChart />}></Route>
           <Route path='/teacher_dashboard/accident_report' element={<TAccidentReport />}></Route>
           <Route path='/teacher_dashboard/sunblock_chart' element={<TSunblockChart />}></Route>
