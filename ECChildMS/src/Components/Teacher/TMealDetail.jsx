@@ -129,7 +129,7 @@ const TMealDetail = () => {
                     </tbody>
                 </table>
                 <div className='p-3'>
-                    <p className="fw-light">*Amount: L-Large, M-Medium, S-Small</p>
+                    <p className="fw-light">*Amount: L-Large, M-Medium, S-Small, R-Refuse to eat</p>
                 </div>
             </div>
         </div>

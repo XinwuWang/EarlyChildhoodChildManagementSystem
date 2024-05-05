@@ -67,11 +67,11 @@ const AddChildToMeal = () => {
     return (
         <div className='d-flex justify-content-center align-items-center mt-3'>
             <div className='p-3 rounded w-50 border'>
-                <h3 className='text-center'>Add a Meal Chart</h3>
+                <h3 className='text-center'>Add a Record</h3>
                 <hr></hr>
                 <form className='row g-1' onSubmit={handleSubmit}>
                     <div className='col-12 '>
-                        <p>*Amount: L-Large, M-Medium, S-Small</p>
+                        <p>*Amount: L-Large, M-Medium, S-Small, R-Refuse to eat</p>
                     </div>
                     <div className='col-12'>
                         <label htmlFor='child' className='form-label'>
