@@ -364,6 +364,34 @@ router.get('/meal_chart/:id', (req, res) => {
     });
 })
 
+router.get('/meal_detail/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+        SELECT meal_detail.*, child_info.name AS child_name
+        FROM meal_detail
+        INNER JOIN child_info ON meal_detail.child = child_info.id
+        WHERE meal_detail.meal_day = ?;
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result });
+    });
+})
+
+
+router.delete('/delete_childMeal/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'DELETE FROM meal_detail WHERE id = ?';
+
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
 
 router.post('/add_meal', (req, res) => {
     const sql = `INSERT INTO meal_chart (meal_date, morning_tea, lunch, afternoon_tea, supervisor) 
@@ -411,15 +439,41 @@ router.put('/edit_meal/:id', (req, res) => {
     })
 });
 
-router.delete('/delete_meal/:id', (req, res) => {
-    const id = req.params.id;
-    const sql = 'DELETE FROM meal_chart WHERE id = ?';
+// router.delete('/delete_meal/:id', (req, res) => {
+//     const id = req.params.id;
+//     const sql = 'DELETE FROM meal_chart WHERE id = ?';
 
-    con.query(sql, [id], (err, result) => {
-        if (err) return res.json({ Status: false, Error: 'Query error' + err })
-        return res.json({ Status: true, Result: result })
-    })
-})
+//     con.query(sql, [id], (err, result) => {
+//         if (err) return res.json({ Status: false, Error: 'Query error' + err })
+//         return res.json({ Status: true, Result: result })
+//     })
+// })
+
+
+router.post('/add_childMeal', (req, res) => {
+    const sql = `INSERT INTO meal_detail (child, meal_day, mt_portion, lunch_portion, at_portion, note) 
+    VALUES (?, ?, ?, ?, ?, ?)`;
+    const values = [
+        req.body.child_id,
+        req.body.date_id,
+        req.body.morning_tea,
+        req.body.lunch,
+        req.body.afternoon_tea,
+        req.body.note,
+    ]
+
+    console.log(values)
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+});
+
+
 
 router.get('/logout', (req, res) => {
     res.clearCookie('token');

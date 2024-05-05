@@ -188,14 +188,81 @@ USE earlychildhoodchildms;
 -- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
 -- );
 
-CREATE TABLE meal_detail (
+-- CREATE TABLE meal_detail (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- child INT,
+-- meal_day INT,
+-- mt_portion VARCHAR(255),
+-- lunch_portion VARCHAR(255),
+-- at_portion VARCHAR(255),
+-- note VARCHAR(255),
+-- FOREIGN KEY (child) REFERENCES child_info (id),
+-- FOREIGN KEY (meal_day) REFERENCES meal_chart (id)
+-- );
+
+-- CREATE TABLE bottle_chart (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- bottle_date VARCHAR(50),
+-- child INT,
+-- time_one VARCHAR(50),
+-- time_two VARCHAR(50),
+-- time_three VARCHAR(50),
+-- note VARCHAR(255),
+-- supervisor INT,
+-- FOREIGN KEY (child) REFERENCES child_info(id),
+-- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
+-- );
+
+
+-- CREATE TABLE sleep_chart (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- sleep_date VARCHAR(50),
+-- child INT,
+-- time_to_bed VARCHAR(50),
+-- time_of_sleep VARCHAR(50),
+-- time_of_wakeup VARCHAR(50),
+-- time_out_of_bed VARCHAR(50),
+-- note VARCHAR(255),
+-- supervisor INT,
+-- FOREIGN KEY (child) REFERENCES child_info(id),
+-- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
+-- );
+
+
+-- CREATE TABLE accident_form (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- child INT,
+-- accident_date VARCHAR(50),
+-- accident_time VARCHAR(50),
+-- location_of_incident VARCHAR(255),
+-- description_of_incident TEXT,
+-- injury_assessment VARCHAR(255),
+-- medical_treatment VARCHAR(255),
+-- staff_response VARCHAR(255),
+-- additional_notes VARCHAR(255),
+-- supervisor INT,
+-- FOREIGN KEY (child) REFERENCES child_info(id),
+-- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
+-- );
+
+-- CREATE TABLE sunblock_chart (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- apply_date VARCHAR(50),
+-- child INT,
+-- apply_time_one VARCHAR(50),
+-- apply_time_two VARCHAR(50),
+-- apply_time_three VARCHAR(50),
+-- note VARCHAR(255),
+-- supervisor INT,
+-- FOREIGN KEY (child) REFERENCES child_info(id),
+-- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
+-- );
+
+CREATE TABLE attendance_chart (
 id INT AUTO_INCREMENT PRIMARY KEY,
 child INT,
-meal_day INT,
-mt_portion VARCHAR(255),
-lunch_portion VARCHAR(255),
-at_portion VARCHAR(255),
-note VARCHAR(255),
-FOREIGN KEY (child) REFERENCES child_info (id),
-FOREIGN KEY (meal_day) REFERENCES meal_chart (id)
+attendance_date VARCHAR(50),
+time_in VARCHAR(50),
+time_out VARCHAR(50),
+FOREIGN KEY (child) REFERENCES child_info(id)
 );
