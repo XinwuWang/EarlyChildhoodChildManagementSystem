@@ -54,6 +54,8 @@ import TAddMeal from './Components/Teacher/TAddMeal'
 import TSleepRecord from './Components/Teacher/TSleepRecord'
 import TAddSleepRecord from './Components/Teacher/TAddSleepRecord'
 import TBottleChart from './Components/Teacher/TBottleChart'
+import TAddBottleChart from './Components/Teacher/TAddBottleChart'
+import TEditBottle from './Components/Teacher/TEditBottle'
 import TAccidentReport from './Components/Teacher/TAccidentReport'
 import TSunblockChart from './Components/Teacher/TSunblockChart'
 import TAttendance from './Components/Teacher/TAttendance'
@@ -150,6 +152,8 @@ function App() {
           <Route path='/teacher_dashboard/add_sleep_record' element={<TAddSleepRecord />}></Route>
           <Route path='/teacher_dashboard/edit_sleep_record/:id' element={<TEditSleep />}></Route>
           <Route path='/teacher_dashboard/bottle_chart' element={<TBottleChart />}></Route>
+          <Route path='/teacher_dashboard/add_bottle_record' element={<TAddBottleChart />}></Route>
+          <Route path='/teacher_dashboard/edit_bottle_record/:id' element={<TEditBottle />}></Route>
           <Route path='/teacher_dashboard/accident_report' element={<TAccidentReport />}></Route>
           <Route path='/teacher_dashboard/sunblock_chart' element={<TSunblockChart />}></Route>
           <Route path='/teacher_dashboard/attendance' element={<TAttendance />}></Route>

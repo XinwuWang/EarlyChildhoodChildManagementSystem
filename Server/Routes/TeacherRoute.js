@@ -558,6 +558,8 @@ router.put('/edit_sleep_record/:id', (req, res) => {
     })
 });
 
+
+
 router.delete('/delete_sleep_record/:id', (req, res) => {
     const id = req.params.id;
     const sql = 'DELETE FROM sleep_chart WHERE id = ?';
@@ -567,6 +569,100 @@ router.delete('/delete_sleep_record/:id', (req, res) => {
         return res.json({ Status: true, Result: result })
     })
 })
+
+
+// Bottle chart
+router.get('/bottle_chart', (req, res) => {
+    const sql = `
+    SELECT bottle_chart.*, child_info.name AS child_name
+    FROM bottle_chart
+    INNER JOIN child_info ON bottle_chart.child = child_info.id
+    `;
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+
+router.get('/bottle_chart/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT bottle_chart.*, child_info.name AS child_name
+    FROM bottle_chart
+    INNER JOIN child_info ON bottle_chart.child = child_info.id
+    WHERE bottle_chart.id = ?;
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result })
+    });
+})
+
+
+router.post('/add_bottle_record', (req, res) => {
+    const sql = `INSERT INTO bottle_chart (bottle_date, child, time_one, time_two, time_three, note, supervisor) 
+    VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    const values = [
+        req.body.bottle_date,
+        req.body.child_id,
+        req.body.time_one,
+        req.body.time_two,
+        req.body.time_three,
+        req.body.note,
+        req.body.supervisor
+    ]
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+});
+
+
+router.put('/edit_bottle_record/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `UPDATE bottle_chart 
+                    SET 
+                    bottle_date = ?, 
+                    time_one = ?, 
+                    time_two = ?, 
+                    time_three = ?, 
+                    note = ?
+                    WHERE id = ?`;
+
+    const values = [
+        req.body.bottle_date,
+        req.body.time_one,
+        req.body.time_two,
+        req.body.time_three,
+        req.body.note
+    ]
+    con.query(sql, [...values, id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+});
+
+
+
+router.delete('/delete_bottle_record/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'DELETE FROM bottle_chart WHERE id = ?';
+
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
 
 // Logout route
 router.get('/logout', (req, res) => {

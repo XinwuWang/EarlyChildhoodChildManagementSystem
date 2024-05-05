@@ -33,7 +33,7 @@ const Profile = () => {
                                     <td>{admin.name}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Staff ID:</th>
+                                    <th scope="row">Admin ID:</th>
                                     <td>{admin.id}</td>
                                 </tr>
                                 <tr>

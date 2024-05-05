@@ -3,18 +3,17 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 
-const TEditSleep = () => {
+const TEditBottle = () => {
     const teacherId = localStorage.getItem('teacherId');
     // const teacherName = localStorage.getItem('teacherName');
     const { id } = useParams()
-    const [sleepRecord, setSleepRecord] = useState({
-        sleep_date: '',
+    const [bottleChart, setBottleChart] = useState({
+        bottle_date: '',
         child_id: '',
         child_name: '',
-        time_to_bed: '',
-        time_of_sleep: '',
-        time_of_wakeup: '',
-        time_out_of_bed: '',
+        time_one: '',
+        time_two: '',
+        time_three: '',
         note: '',
         supervisor: teacherId
     })
@@ -23,22 +22,19 @@ const TEditSleep = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/teacher/sleep_record/${id}`)
+        axios.get(`http://localhost:3000/teacher/bottle_chart/${id}`)
             .then(result => {
                 if (result.data.Status && result.data.Result.length > 0) {
-                    setSleepRecord({
-                        ...sleepRecord,
-                        sleep_date: result.data.Result[0].sleep_date,
+                    setBottleChart({
+                        ...bottleChart,
+                        bottle_date: result.data.Result[0].bottle_date,
                         child_id: result.data.Result[0].child,
                         child_name: result.data.Result[0].child_name,
-                        time_to_bed: result.data.Result[0].time_to_bed,
-                        time_of_sleep: result.data.Result[0].time_of_sleep,
-                        time_of_wakeup: result.data.Result[0].time_of_wakeup,
-                        time_out_of_bed: result.data.Result[0].time_out_of_bed,
+                        time_one: result.data.Result[0].time_one,
+                        time_two: result.data.Result[0].time_two,
+                        time_three: result.data.Result[0].time_three,
                         note: result.data.Result[0].note,
                         supervisor: result.data.Result[0].supervisor
-
-
                     })
                     console.log(result.data.Result)
                 } else {
@@ -58,20 +54,19 @@ const TEditSleep = () => {
 
 
         const Data = {
-            sleep_date: sleepRecord.sleep_date,
+            bottle_date: bottleChart.bottle_date,
             // child_id: sleepRecord.child_id,
-            time_to_bed: sleepRecord.time_to_bed,
-            time_of_sleep: sleepRecord.time_of_sleep,
-            time_of_wakeup: sleepRecord.time_of_wakeup,
-            time_out_of_bed: sleepRecord.time_out_of_bed,
-            note: sleepRecord.note,
+            time_one: bottleChart.time_one,
+            time_two: bottleChart.time_two,
+            time_three: bottleChart.time_three,
+            note: bottleChart.note,
         }
 
 
-        axios.put(`http://localhost:3000/teacher/edit_sleep_record/${id}`, Data)
+        axios.put(`http://localhost:3000/teacher/edit_bottle_record/${id}`, Data)
             .then(result => {
                 if (result.data.Status) {
-                    navigate('/teacher_dashboard/sleep_record')
+                    navigate('/teacher_dashboard/bottle_chart')
                     setTimeout(() => {
                         alert('Sleep chart updated successfully');
                     }, 300);
@@ -92,7 +87,7 @@ const TEditSleep = () => {
     return (
         <div className='d-flex justify-content-center align-items-center mt-3'>
             <div className='p-3 rounded w-50 border'>
-                <h3 className='text-center'>Edit a Sleep Record</h3>
+                <h3 className='text-center'>Edit a Feeding Record</h3>
                 <hr></hr>
                 <form className='row g-1' onSubmit={handleSubmit}>
                     <div className='col-12'>
@@ -102,9 +97,9 @@ const TEditSleep = () => {
                             name='date'
                             id='date'
                             placeholder='Choose the date'
-                            value={sleepRecord.sleep_date}
+                            value={bottleChart.bottle_date}
                             className='form-control rounded-0'
-                            onChange={(e) => setSleepRecord({ ...sleepRecord, sleep_date: e.target.value })}
+                            onChange={(e) => setBottleChart({ ...bottleChart, bottle_date: e.target.value })}
                             required />
                     </div>
                     <div className='col-12'>
@@ -115,74 +110,56 @@ const TEditSleep = () => {
                             type='text'
                             name='child'
                             id='child'
-                            value={sleepRecord.child_name}
+                            value={bottleChart.child_name}
                             className='form-control rounded-0'
                             disabled />
                     </div>
                     <div className='col-12'>
-                        <label htmlFor='time_to_bed' className='form-label'><strong>Time to Bed</strong></label>
+                        <label htmlFor='time_one' className='form-label'><strong>Time One</strong></label>
                         <input
                             type='text'
-                            name='time_to_bed'
-                            id='time_to_bed'
-                            value={sleepRecord.time_to_bed}
-                            placeholder='Enter the time to bed'
+                            name='time_one'
+                            id='time_one'
+                            value={bottleChart.time_one}
+                            placeholder='Enter the first feeding time'
                             className='form-control rounded-0'
-                            onChange={(e) => setSleepRecord({ ...sleepRecord, time_to_bed: e.target.value })}
+                            onChange={(e) => setBottleChart({ ...bottleChart, time_one: e.target.value })}
                             required />
                     </div>
                     <div className='col-12'>
-                        <label htmlFor='time_of_sleep' className='form-label'>
-                            <strong>Time of Sleep</strong>
+                        <label htmlFor='time_two' className='form-label'>
+                            <strong>Time Two</strong>
                         </label>
                         <input
                             type='text'
-                            name='time_of_sleep'
-                            id='time_of_sleep'
-                            value={sleepRecord.time_of_sleep}
-                            placeholder='Enter the time of sleep'
+                            name='time_two'
+                            id='time_two'
+                            value={bottleChart.time_two}
+                            placeholder='Enter the second feeding time'
                             className='form-control rounded-0'
                             autoComplete='off'
                             rows="4"
                             cols="50"
-                            onChange={(e) => setSleepRecord({ ...sleepRecord, time_of_sleep: e.target.value })}
+                            onChange={(e) => setBottleChart({ ...bottleChart, time_two: e.target.value })}
                             required />
                     </div>
                     <div className='col-12'>
-                        <label htmlFor='time_of_wake' className='form-label'>
-                            <strong>Time of Wake</strong>
+                        <label htmlFor='time_three' className='form-label'>
+                            <strong>Time Three</strong>
                         </label>
                         <input
                             type='text'
-                            name='time_of_wake'
-                            id='time_of_wake'
-                            value={sleepRecord.time_of_wakeup}
-                            placeholder='Enter the time of wake'
+                            name='time_three'
+                            id='time_three'
+                            value={bottleChart.time_three}
+                            placeholder='Enter the third feeding time'
                             className='form-control rounded-0'
                             autoComplete='off'
                             rows="4"
                             cols="50"
-                            onChange={(e) => setSleepRecord({ ...sleepRecord, time_of_wakeup: e.target.value })}
+                            onChange={(e) => setBottleChart({ ...bottleChart, time_three: e.target.value })}
                             required />
                     </div>
-                    <div className='col-12'>
-                        <label htmlFor='time_out_of_bed' className='form-label'>
-                            <strong>Time Out of Bed</strong>
-                        </label>
-                        <input
-                            type='text'
-                            name='time_out_of_bed'
-                            id='time_out_of_bed'
-                            value={sleepRecord.time_out_of_bed}
-                            placeholder='Enter the time out of bed'
-                            className='form-control rounded-0'
-                            autoComplete='off'
-                            rows="4"
-                            cols="50"
-                            onChange={(e) => setSleepRecord({ ...sleepRecord, time_out_of_bed: e.target.value })}
-                            required />
-                    </div>
-
                     <div className='col-12'>
                         <label htmlFor='note' className='form-label'>
                             <strong>Note</strong>
@@ -191,19 +168,19 @@ const TEditSleep = () => {
                             type='text'
                             name='note'
                             id='note'
-                            value={sleepRecord.note}
+                            value={bottleChart.note}
                             placeholder='Enter a note'
                             className='form-control rounded-0'
                             autoComplete='off'
                             rows="4"
                             cols="50"
-                            onChange={(e) => setSleepRecord({ ...sleepRecord, note: e.target.value })}
+                            onChange={(e) => setBottleChart({ ...bottleChart, note: e.target.value })}
                         />
                     </div>
 
                     <div className='col-12 mt-4 p-2'>
                         <button className='btn btn-success w-100 mb-2' type='submit'>Save</button>
-                        <Link to={'/teacher_dashboard/sleep_record'} className="btn btn-light w-100">Cancel</Link>
+                        <Link to={'/teacher_dashboard/bottle_chart'} className="btn btn-light w-100">Cancel</Link>
                     </div>
                 </form>
             </div>
@@ -211,4 +188,4 @@ const TEditSleep = () => {
     )
 }
 
-export default TEditSleep
+export default TEditBottle

@@ -36,7 +36,7 @@ const TProfile = () => {
                                         <td>{teacher.name}</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Staff ID:</th>
+                                        <th scope="row">Teacher ID:</th>
                                         <td>{teacher.id}</td>
                                     </tr>
                                     <tr>
