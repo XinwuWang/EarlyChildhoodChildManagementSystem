@@ -58,6 +58,8 @@ import TAddBottleChart from './Components/Teacher/TAddBottleChart'
 import TEditBottle from './Components/Teacher/TEditBottle'
 import TAccidentReport from './Components/Teacher/TAccidentReport'
 import TSunblockChart from './Components/Teacher/TSunblockChart'
+import TAddSunblock from './Components/Teacher/TAddSunblock'
+import TEditSunblock from './Components/Teacher/TEditSunblock'
 import TAttendance from './Components/Teacher/TAttendance'
 import TEditMeal from './Components/Teacher/TEditMeal'
 import AddChildToMeal from './Components/Teacher/AddChildToMeal'
@@ -156,6 +158,8 @@ function App() {
           <Route path='/teacher_dashboard/edit_bottle_record/:id' element={<TEditBottle />}></Route>
           <Route path='/teacher_dashboard/accident_report' element={<TAccidentReport />}></Route>
           <Route path='/teacher_dashboard/sunblock_chart' element={<TSunblockChart />}></Route>
+          <Route path='/teacher_dashboard/edit_sunblock_record/:id' element={<TEditSunblock />}></Route>
+          <Route path='/teacher_dashboard/add_sunblock_record' element={<TAddSunblock />}></Route>
           <Route path='/teacher_dashboard/attendance' element={<TAttendance />}></Route>
           <Route path='/teacher_dashboard/add_meal' element={<TAddMeal />}></Route>
           <Route path='/teacher_dashboard/meal_detail/:id' element={<TMealDetail />}></Route>

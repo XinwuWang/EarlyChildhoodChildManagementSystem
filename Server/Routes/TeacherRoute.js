@@ -664,6 +664,99 @@ router.delete('/delete_bottle_record/:id', (req, res) => {
 })
 
 
+
+// Sunblock chart
+router.get('/sunblock_chart', (req, res) => {
+    const sql = `
+    SELECT sunblock_chart.*, child_info.name AS child_name
+    FROM sunblock_chart
+    INNER JOIN child_info ON sunblock_chart.child = child_info.id
+    `;
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+router.get('/sunblock_chart/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT sunblock_chart.*, child_info.name AS child_name
+    FROM sunblock_chart
+    INNER JOIN child_info ON sunblock_chart.child = child_info.id
+    WHERE sunblock_chart.id = ?;
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result })
+    });
+})
+
+
+router.post('/add_sunblock_record', (req, res) => {
+    const sql = `INSERT INTO sunblock_chart (apply_date, child, apply_time_one, apply_time_two, apply_time_three, note, supervisor) 
+    VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    const values = [
+        req.body.apply_date,
+        req.body.child_id,
+        req.body.apply_time_one,
+        req.body.apply_time_two,
+        req.body.apply_time_three,
+        req.body.note,
+        req.body.supervisor
+    ]
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+});
+
+
+router.put('/edit_sunblock_record/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `UPDATE sunblock_chart 
+                    SET 
+                    apply_date = ?, 
+                    apply_time_one = ?, 
+                    apply_time_two = ?, 
+                    apply_time_three = ?, 
+                    note = ?
+                    WHERE id = ?`;
+
+    const values = [
+        req.body.apply_date,
+        req.body.apply_time_one,
+        req.body.apply_time_two,
+        req.body.apply_time_three,
+        req.body.note
+    ]
+    con.query(sql, [...values, id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+});
+
+
+
+router.delete('/delete_sunblock_record/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'DELETE FROM sunblock_chart WHERE id = ?';
+
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
 // Logout route
 router.get('/logout', (req, res) => {
     res.clearCookie('token');
