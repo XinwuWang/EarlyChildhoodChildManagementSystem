@@ -234,8 +234,8 @@ USE earlychildhoodchildms;
 -- child INT,
 -- accident_date VARCHAR(50),
 -- accident_time VARCHAR(50),
--- location_of_incident VARCHAR(255),
--- description_of_incident TEXT,
+-- location_of_accident VARCHAR(255),
+-- description_of_acciden TEXT,
 -- injury_assessment VARCHAR(255),
 -- medical_treatment VARCHAR(255),
 -- staff_response VARCHAR(255),
@@ -266,3 +266,5 @@ USE earlychildhoodchildms;
 -- time_out VARCHAR(50),
 -- FOREIGN KEY (child) REFERENCES child_info(id)
 -- );
+
+

@@ -40,7 +40,7 @@ const TDocument = () => {
                             <svg className="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
 
                             <div className="card-body text-center">
-                                <h4 className="card-text">Bottle Chart</h4>
+                                <h4 className="card-text">Formula Feeding Chart</h4>
                                 <div className="d-flex justify-content-end align-items-center">
                                     <div className="btn-group">
                                         <Link to={'/teacher_dashboard/bottle_chart'} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
@@ -58,7 +58,7 @@ const TDocument = () => {
                                 <h4 className="card-text">Accident Report</h4>
                                 <div className="d-flex justify-content-end align-items-center">
                                     <div className="btn-group">
-                                        <Link to={'/teacher_dashboard/accident_report'} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
+                                        <Link to={'/teacher_dashboard/accident_form'} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
                                     </div>
                                 </div>
                             </div>

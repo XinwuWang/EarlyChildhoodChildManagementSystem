@@ -757,6 +757,62 @@ router.delete('/delete_sunblock_record/:id', (req, res) => {
 })
 
 
+
+// Accident form
+router.get('/accident_form', (req, res) => {
+    const sql = `
+    SELECT accident_form.*, child_info.name AS child_name, teacher_info.name AS supervisor_name
+    FROM accident_form
+    INNER JOIN child_info ON accident_form.child = child_info.id
+    INNER JOIN teacher_info ON accident_form.supervisor = teacher_info.id
+    `;
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+
+router.post('/add_accident_form', (req, res) => {
+    const sql = `INSERT INTO accident_form 
+    (child, accident_date, accident_time, location_of_accident, description_of_accident, injury_assessment, medical_treatment, staff_response, additional_notes, supervisor) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const values = [
+        req.body.child_id,
+        req.body.accident_date,
+        req.body.accident_time,
+        req.body.location_of_accident,
+        req.body.description_of_accident,
+        req.body.injury_assessment,
+        req.body.medical_treatment,
+        req.body.staff_response,
+        req.body.additional_notes,
+        req.body.supervisor
+    ]
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+});
+
+
+
+router.delete('/delete_accident_form/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'DELETE FROM accident_form WHERE id = ?';
+
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
 // Logout route
 router.get('/logout', (req, res) => {
     res.clearCookie('token');

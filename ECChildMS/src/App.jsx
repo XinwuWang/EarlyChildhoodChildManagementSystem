@@ -57,6 +57,8 @@ import TBottleChart from './Components/Teacher/TBottleChart'
 import TAddBottleChart from './Components/Teacher/TAddBottleChart'
 import TEditBottle from './Components/Teacher/TEditBottle'
 import TAccidentReport from './Components/Teacher/TAccidentReport'
+import TAccidentDetail from './Components/Teacher/TAccidentDetail'
+import TAddAccidentForm from './Components/Teacher/TAddAccidentForm'
 import TSunblockChart from './Components/Teacher/TSunblockChart'
 import TAddSunblock from './Components/Teacher/TAddSunblock'
 import TEditSunblock from './Components/Teacher/TEditSunblock'
@@ -156,7 +158,9 @@ function App() {
           <Route path='/teacher_dashboard/bottle_chart' element={<TBottleChart />}></Route>
           <Route path='/teacher_dashboard/add_bottle_record' element={<TAddBottleChart />}></Route>
           <Route path='/teacher_dashboard/edit_bottle_record/:id' element={<TEditBottle />}></Route>
-          <Route path='/teacher_dashboard/accident_report' element={<TAccidentReport />}></Route>
+          <Route path='/teacher_dashboard/accident_form' element={<TAccidentReport />}></Route>
+          <Route path='/teacher_dashboard/accident_form/:id' element={<TAccidentDetail />}></Route>
+          <Route path='/teacher_dashboard/add_accident_form' element={<TAddAccidentForm />}></Route>
           <Route path='/teacher_dashboard/sunblock_chart' element={<TSunblockChart />}></Route>
           <Route path='/teacher_dashboard/edit_sunblock_record/:id' element={<TEditSunblock />}></Route>
           <Route path='/teacher_dashboard/add_sunblock_record' element={<TAddSunblock />}></Route>
