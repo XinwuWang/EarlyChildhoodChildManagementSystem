@@ -1,10 +1,10 @@
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate, Link } from 'react-router-dom'
 
 
-const TAddAccidentForm = () => {
-    const navigate = useNavigate()
+const TEditAccidentForm = () => {
+    const { id } = useParams()
     const teacherId = localStorage.getItem('teacherId')
     const [accidentForm, setAccidentForm] = useState({
         child_id: '',
@@ -16,57 +16,48 @@ const TAddAccidentForm = () => {
         medical_treatment: '',
         staff_response: '',
         additional_notes: '',
-        supervisor: teacherId
-    })
+        supervisor: teacherId,
+    });
 
-    const [child, setChild] = useState([])
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+
     useEffect(() => {
-        axios.get('http://localhost:3000/teacher/children')
+        axios.get(`http://localhost:3000/teacher/accident_form/${id}`)
             .then(result => {
-                if (result.data.Status) {
-                    console.log(result.data.Result)
-                    setChild(result.data.Result)
-                } else {
-                    alert(result.data.Error)
-                }
+                console.log(result.data)
+                setAccidentForm(result.data.Result[0])
+
             })
-            .catch(err => console.log(err))
-    }, [])
+            .catch(err => {
+                console.log(err);
+                alert('Failed to fetch data');
+            }).finally(() => {
+                setLoading(false)
+            });
+    }, [id])
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const Data = {
-            child_id: accidentForm.child_id,
-            accident_date: accidentForm.accident_date,
-            accident_time: accidentForm.accident_time,
-            location_of_accident: accidentForm.location_of_accident,
-            description_of_accident: accidentForm.description_of_accident,
-            injury_assessment: accidentForm.injury_assessment,
-            medical_treatment: accidentForm.medical_treatment,
-            staff_response: accidentForm.staff_response,
-            additional_notes: accidentForm.additional_notes,
-            supervisor: accidentForm.supervisor
-        }
-
-        axios.post('http://localhost:3000/teacher/add_accident_form', Data)
+        axios.put('http://localhost:3000/teacher/edit_accident_form/' + id, accidentForm)
             .then(result => {
                 if (result.data.Status) {
-                    navigate('/teacher_dashboard/accident_form')
+                    navigate('/teacher_dashboard/accident_form/' + id)
                 } else {
-                    console.log(result.data)
-                    alert(result.data.Error || 'Error adding information')
+                    alert(result.data.Error)
                 }
-            })
-            .catch(err => {
-                console.error('Error:', err);
-                alert('An error occurred while processing your request');
-            });
+            }).catch(err => console.log(err))
+    }
+
+    // Render loading state while fetching data
+    if (loading) {
+        return <div>Loading...</div>;
     }
 
     return (
         <div className='d-flex justify-content-center align-items-center mt-3'>
             <div className='p-3 rounded w-50 border'>
-                <h3 className='text-center'>Add a Record</h3>
+                <h3 className='text-center'>Edit a Record</h3>
                 <hr></hr>
                 <form className='row g-1' onSubmit={handleSubmit}>
                     <div className='col-12'>
@@ -75,6 +66,7 @@ const TAddAccidentForm = () => {
                             type='date'
                             name='date'
                             id='date'
+                            value={accidentForm.accident_date}
                             placeholder='Choose the date'
                             className='form-control rounded-0'
                             onChange={(e) => setAccidentForm({ ...accidentForm, accident_date: e.target.value })}
@@ -84,15 +76,14 @@ const TAddAccidentForm = () => {
                         <label htmlFor='child' className='form-label'>
                             <strong>Child</strong>
                         </label>
-                        <select name='child' id='child' className='form-select'
-                            onChange={(e) => {
-                                setAccidentForm({ ...accidentForm, child_id: e.target.value });
-                            }}>
-                            {
-                                child.map(c => {
-                                    return <option value={c.id} key={c.id}>{c.id} {c.name}</option>
-                                })}
-                        </select>
+                        <input
+                            type='text'
+                            name='child'
+                            id='child'
+                            value={accidentForm.child_name}
+                            className='form-control rounded-0'
+                            autoComplete='off'
+                            disabled />
                     </div>
                     <div className='col-12'>
                         <label htmlFor='time' className='form-label'><strong>Accident Time</strong></label>
@@ -100,6 +91,7 @@ const TAddAccidentForm = () => {
                             type='text'
                             name='time'
                             id='time'
+                            value={accidentForm.accident_time}
                             placeholder='Enter the accident time'
                             className='form-control rounded-0'
                             onChange={(e) => setAccidentForm({ ...accidentForm, accident_time: e.target.value })}
@@ -113,6 +105,7 @@ const TAddAccidentForm = () => {
                             type='text'
                             name='location'
                             id='location'
+                            value={accidentForm.location_of_accident}
                             placeholder='Enter the location of the accident'
                             className='form-control rounded-0'
                             autoComplete='off'
@@ -128,6 +121,7 @@ const TAddAccidentForm = () => {
                         <textarea
                             name='description'
                             id='description'
+                            value={accidentForm.description_of_accident}
                             placeholder='Describe the accident'
                             className='form-control rounded-0'
                             autoComplete='off'
@@ -143,6 +137,7 @@ const TAddAccidentForm = () => {
                         <textarea
                             name='assessment'
                             id='assessment'
+                            value={accidentForm.injury_assessment}
                             placeholder='Assess the injury'
                             className='form-control rounded-0'
                             autoComplete='off'
@@ -158,6 +153,7 @@ const TAddAccidentForm = () => {
                         <textarea
                             name='treatment'
                             id='treatment'
+                            value={accidentForm.medical_treatment}
                             placeholder='Any medical treatment given'
                             className='form-control rounded-0'
                             autoComplete='off'
@@ -173,6 +169,7 @@ const TAddAccidentForm = () => {
                         <textarea
                             name='staff_response'
                             id='staff_response'
+                            value={accidentForm.staff_response}
                             placeholder='Staff response to the accident'
                             className='form-control rounded-0'
                             autoComplete='off'
@@ -188,6 +185,7 @@ const TAddAccidentForm = () => {
                         <textarea
                             name='note'
                             id='note'
+                            value={accidentForm.additional_notes}
                             placeholder='Enter a note'
                             className='form-control rounded-0'
                             autoComplete='off'
@@ -199,7 +197,7 @@ const TAddAccidentForm = () => {
 
                     <div className='col-12 mt-4 p-2'>
                         <button className='btn btn-success w-100 mb-2' type='submit'>Save</button>
-                        <Link to={'/teacher_dashboard/accident_form'} className="btn btn-light w-100">Cancel</Link>
+                        <Link to={'/teacher_dashboard/accident_form/' + id} className="btn btn-light w-100">Cancel</Link>
                     </div>
                 </form>
             </div>
@@ -207,4 +205,4 @@ const TAddAccidentForm = () => {
     )
 }
 
-export default TAddAccidentForm
+export default TEditAccidentForm

@@ -18,21 +18,6 @@ const ChildProfile = () => {
             .catch(err => console.log(err))
     }, [id])
 
-    // const handleDelete = (id) => {
-    //     // Display confirmation dialog
-    //     if (window.confirm("ALERT! Are you sure you want to delete this child?")) {
-    //         axios.delete('http://localhost:3000/auth/delete_child/' + id)
-    //             .then(result => {
-    //                 if (result.data.Status) {
-    //                     setChild({});
-    //                     navigate('/dashboard/managechildren')
-    //                 } else {
-    //                     alert(result.data.Error)
-    //                 }
-    //             })
-    //             .catch(err => console.log(err))
-    //     }
-    // }
 
     return (
         <div>
@@ -106,9 +91,6 @@ const ChildProfile = () => {
                                     <div className="d-flex justify-content-center">
                                         {/* <Link className='btn btn-success me-2' to={'/dashboard/edit_child/' + id}>Edit</Link> */}
                                         <Link to={'/teacher_dashboard/children'} className="btn btn-secondary me-2">Return</Link>
-                                        {/* <button type='button' className="btn btn-danger p-2" title='Remove this child' onClick={() => handleDelete(child.id)}>
-                                            <i className="bi bi-trash" /> Delete
-                                        </button> */}
                                     </div>
 
                                 </div>

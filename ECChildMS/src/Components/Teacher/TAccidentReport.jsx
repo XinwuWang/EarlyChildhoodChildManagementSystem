@@ -7,7 +7,7 @@ const TAccidentReport = () => {
     const [accidentForm, setAccidentForm] = useState([])
 
     // const teacherId = localStorage.getItem('teacherId');
-    const teacherName = localStorage.getItem('teacherName');
+    // const teacherName = localStorage.getItem('teacherName');
 
 
     useEffect(() => {
@@ -15,7 +15,7 @@ const TAccidentReport = () => {
             .then(result => {
                 if (result.data.Status) {
                     setAccidentForm(result.data.Result)
-                    console.log(result.data.Result)
+                    // console.log(result.data.Result)
                 } else {
                     alert(result.data.Error)
                 }

@@ -720,23 +720,32 @@ router.post('/add_sunblock_record', (req, res) => {
 });
 
 
-router.put('/edit_sunblock_record/:id', (req, res) => {
+router.put('/edit_accident_form/:id', (req, res) => {
     const id = req.params.id;
-    const sql = `UPDATE sunblock_chart 
+    const sql = `UPDATE accident_form 
                     SET 
-                    apply_date = ?, 
-                    apply_time_one = ?, 
-                    apply_time_two = ?, 
-                    apply_time_three = ?, 
-                    note = ?
+                    accident_date = ?, 
+                    accident_time = ?, 
+                    location_of_accident = ?,
+                    description_of_accident = ?,
+                    injury_assessment = ?,
+                    medical_treatment = ?,
+                    staff_response = ?,
+                    additional_notes = ?,
+                    supervisor = ?
                     WHERE id = ?`;
 
+
     const values = [
-        req.body.apply_date,
-        req.body.apply_time_one,
-        req.body.apply_time_two,
-        req.body.apply_time_three,
-        req.body.note
+        req.body.accident_date,
+        req.body.accident_time,
+        req.body.location_of_accident,
+        req.body.description_of_accident,
+        req.body.injury_assessment,
+        req.body.medical_treatment,
+        req.body.staff_response,
+        req.body.additional_notes,
+        req.body.supervisor
     ]
     con.query(sql, [...values, id], (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' + err })
@@ -770,6 +779,25 @@ router.get('/accident_form', (req, res) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
         return res.json({ Status: true, Result: result })
     })
+})
+
+
+router.get('/accident_form/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT accident_form.*, child_info.name AS child_name, teacher_info.name AS supervisor_name
+    FROM accident_form
+    INNER JOIN child_info ON accident_form.child = child_info.id
+    INNER JOIN teacher_info ON accident_form.supervisor = teacher_info.id
+    WHERE accident_form.id = ?;
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result })
+    });
 })
 
 
