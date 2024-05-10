@@ -82,7 +82,8 @@ import CDocuments from './Components/Child/CDocuments'
 import Announce from './Components/Child/Announce'
 import CentreInformation from './Components/Child/CentreInformation'
 import Resource from './Components/Child/Resource'
-import TeacherProfile from './Components/Child/TeacherProfile'
+import CTeacherProfile from './Components/Child/CTeacherProfile'
+import CEditProfile from './Components/Child/CEditProfile'
 
 
 
@@ -182,9 +183,10 @@ function App() {
           </PrivateRoute>}>
           <Route path='' element={<CHome />}></Route>
           <Route path='/child_dashboard/teachers' element={<ViewTeachers />}></Route>
-          <Route path='/child_dashboard/teacher/:id' element={<TeacherProfile />}></Route>
+          <Route path='/child_dashboard/teacher/:id' element={<CTeacherProfile />}></Route>
           <Route path='/child_dashboard/sendmessage' element={<ChildMessage />}></Route>
-          <Route path='/child_dashboard/child_profile' element={<CProfile />}></Route>
+          <Route path='/child_dashboard/profile/:id' element={<CProfile />}></Route>
+          <Route path='/child_dashboard/edit_profile/:id' element={<CEditProfile />}></Route>
           <Route path='/child_dashboard/document' element={<CDocuments />}></Route>
           <Route path='/child_dashboard/announcement' element={<Announce />}></Route>
           <Route path='/child_dashboard/centreinfo' element={<CentreInformation />}></Route>

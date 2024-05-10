@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 
 
 const CHome = () => {
+    const childId = localStorage.getItem('childId');
+
     return (
         <div>
             <div className="container my-5">
@@ -17,7 +19,7 @@ const CHome = () => {
                     <div className="h-100 p-5 text-bg-dark rounded-3">
                         <h2>View Teachers</h2>
                         <p>View teachers&apos; informtion</p>
-                        <Link to='/child_dashboard/view_teachers' className='btn btn-outline-light'>More</Link>
+                        <Link to='/child_dashboard/teachers' className='btn btn-outline-light'>More</Link>
                     </div>
                 </div>
                 <div className="col-md-6">
@@ -40,7 +42,7 @@ const CHome = () => {
                     <div className="h-100 p-5 bg-body-tertiary border rounded-3">
                         <h2>Profile</h2>
                         <p>Your personal details</p>
-                        <Link to='/child_dashboard/child_profile' className='btn btn-outline-dark'>More</Link>
+                        <Link to={'/child_dashboard/profile/' + childId} className='btn btn-outline-dark'>More</Link>
                     </div>
                 </div>
             </div>
