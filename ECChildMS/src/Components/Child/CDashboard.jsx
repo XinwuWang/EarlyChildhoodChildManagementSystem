@@ -65,6 +65,14 @@ const CDashboard = () => {
                                 </Link>
                             </li>
                             <li className="w-100">
+                                <Link to='/child_dashboard/resource'
+                                    className="nav-link px-0 align-middle text-white"
+                                >
+                                    <i className="fs-4 bi-book-half ms-2"></i>
+                                    <span className="ms-2 d-none d-sm-inline">Learning Resources</span>
+                                </Link>
+                            </li>
+                            <li className="w-100">
                                 <Link to='/child_dashboard/sendmessage'
                                     className="nav-link px-0 align-middle text-white"
                                 >
@@ -78,6 +86,24 @@ const CDashboard = () => {
                                 >
                                     <i className="fs-4 bi-person-circle ms-2"></i>
                                     <span className="ms-2 d-none d-sm-inline">Profile</span>
+                                </Link>
+                            </li>
+                            <li className="w-100">
+                                <Link to={'/child_dashboard/change_password/' + childId}
+                                    className="nav-link px-0 align-middle text-white"
+                                >
+                                    <i className="fs-4 bi-key ms-2"></i>
+                                    <span className="ms-2 d-none d-sm-inline">Change Password</span>
+                                </Link>
+                            </li>
+                            <li className='w-100'>
+                                <Link to='/child_dashboard/centreinfo'
+                                    className='nav-link px-0 align-middle text-white'
+                                >
+                                    <i className="fs-4 bi-info-circle ms-2"></i>
+                                    <span className="ms-2 d-none d-sm-inline">
+                                        About
+                                    </span>
                                 </Link>
                             </li>
                             <li className="w-100" onClick={handleLogout}>

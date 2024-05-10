@@ -118,6 +118,49 @@ router.put('/edit_profile/:id', (req, res) => {
 
 
 
+// Learning resources
+router.get('/resource', (req, res) => {
+    const sql = 'SELECT * FROM teaching_resource';
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+});
+
+
+
+// Centre information
+router.get('/centreinfo', (req, res) => {
+    const sql = 'SELECT * FROM centre_info';
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+});
+
+
+
+// Change the password
+router.put('/change_password/:id', (req, res) => {
+    const childId = req.params.id;
+    const sql = `UPDATE child_info 
+                    SET 
+                    password = ?
+                    WHERE id = ?`
+
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+
+        const value = [
+            hash,
+        ]
+        con.query(sql, [...value, childId], (err, result) => {
+            if (err) return res.json({ Status: false, Error: 'Query error' + err })
+            return res.json({ Status: true, Result: result })
+        })
+    });
+});
+
 
 // Logout
 router.get('/logout', (req, res) => {

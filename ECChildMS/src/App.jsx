@@ -80,10 +80,11 @@ import ChildMessage from './Components/Child/ChildMessage'
 import CProfile from './Components/Child/CProfile'
 import CDocuments from './Components/Child/CDocuments'
 import Announce from './Components/Child/Announce'
-import CentreInformation from './Components/Child/CentreInformation'
 import Resource from './Components/Child/Resource'
 import CTeacherProfile from './Components/Child/CTeacherProfile'
 import CEditProfile from './Components/Child/CEditProfile'
+import CCentreInfo from './Components/Child/CCentreInfo'
+import CChangePassword from './Components/Child/CChangePassword'
 
 
 
@@ -189,8 +190,9 @@ function App() {
           <Route path='/child_dashboard/edit_profile/:id' element={<CEditProfile />}></Route>
           <Route path='/child_dashboard/document' element={<CDocuments />}></Route>
           <Route path='/child_dashboard/announcement' element={<Announce />}></Route>
-          <Route path='/child_dashboard/centreinfo' element={<CentreInformation />}></Route>
           <Route path='/child_dashboard/resource' element={<Resource />}></Route>
+          <Route path='/child_dashboard/centreinfo' element={<CCentreInfo />}></Route>
+          <Route path='/child_dashboard/change_password/:id' element={<CChangePassword />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
