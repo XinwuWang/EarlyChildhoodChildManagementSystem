@@ -1,8 +1,27 @@
 import { Link, Outlet } from 'react-router-dom'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const CDashboard = () => {
+    const navigate = useNavigate()
+    axios.defaults.withCredentials = true
+
+    const handleLogout = () => {
+        axios.get('http://localhost:3000/child/logout')
+            .then(result => {
+                if (result.data.Status) {
+                    // Remove the data stored in the local storage
+                    localStorage.removeItem('valid')
+                    navigate('/')
+                    window.location.reload();
+                }
+            })
+    }
+
+    const childId = localStorage.getItem('childId');
+
+
     return (
         <div className='container-fluid'>
             <div className='row flex-nowrap'>
@@ -26,7 +45,7 @@ const CDashboard = () => {
                                 </Link>
                             </li>
                             <li className='w-100'>
-                                <Link to='/child_dashboard/view_teachers'
+                                <Link to='/child_dashboard/teachers'
                                     className='nav-link px-0 align-middle text-white'
                                 >
                                     <i className="fs-4 bi-people ms-2"></i>
@@ -61,8 +80,8 @@ const CDashboard = () => {
                                     <span className="ms-2 d-none d-sm-inline">Profile</span>
                                 </Link>
                             </li>
-                            <li className="w-100">
-                                <Link to='/child_dashboard'
+                            <li className="w-100" onClick={handleLogout}>
+                                <Link to='/'
                                     className="nav-link px-0 align-middle text-white"
                                 >
                                     <i className="fs-4 bi-power ms-2"></i>

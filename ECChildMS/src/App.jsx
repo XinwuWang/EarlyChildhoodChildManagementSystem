@@ -82,7 +82,7 @@ import CDocuments from './Components/Child/CDocuments'
 import Announce from './Components/Child/Announce'
 import CentreInformation from './Components/Child/CentreInformation'
 import Resource from './Components/Child/Resource'
-
+import TeacherProfile from './Components/Child/TeacherProfile'
 
 
 
@@ -176,9 +176,13 @@ function App() {
 
         {/* Child portal */}
         <Route path='/child_login' element={<ChildLogin />}></Route>
-        <Route path='/child_dashboard' element={<CDashboard />}>
+        <Route path='/child_dashboard' element={
+          <PrivateRoute>
+            <CDashboard />
+          </PrivateRoute>}>
           <Route path='' element={<CHome />}></Route>
-          <Route path='/child_dashboard/view_teachers' element={<ViewTeachers />}></Route>
+          <Route path='/child_dashboard/teachers' element={<ViewTeachers />}></Route>
+          <Route path='/child_dashboard/teacher/:id' element={<TeacherProfile />}></Route>
           <Route path='/child_dashboard/sendmessage' element={<ChildMessage />}></Route>
           <Route path='/child_dashboard/child_profile' element={<CProfile />}></Route>
           <Route path='/child_dashboard/document' element={<CDocuments />}></Route>
