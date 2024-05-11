@@ -79,12 +79,18 @@ import ViewTeachers from './Components/Child/ViewTeachers'
 import ChildMessage from './Components/Child/ChildMessage'
 import CProfile from './Components/Child/CProfile'
 import CDocuments from './Components/Child/CDocuments'
-import Announce from './Components/Child/Announce'
+import CAnnouncement from './Components/Child/CAnnouncement'
 import Resource from './Components/Child/Resource'
 import CTeacherProfile from './Components/Child/CTeacherProfile'
 import CEditProfile from './Components/Child/CEditProfile'
 import CCentreInfo from './Components/Child/CCentreInfo'
 import CChangePassword from './Components/Child/CChangePassword'
+import CMealChart from './Components/Child/CMealChart'
+import CSleepRecord from './Components/Child/CSleepRecord'
+import CBottleChart from './Components/Child/CBottleChart'
+import CAccidentForm from './Components/Child/CAccidentForm'
+import CSunblockChart from './Components/Child/CSunblockChart'
+import CAttendance from './Components/Child/CAttendance'
 
 
 
@@ -188,11 +194,17 @@ function App() {
           <Route path='/child_dashboard/sendmessage' element={<ChildMessage />}></Route>
           <Route path='/child_dashboard/profile/:id' element={<CProfile />}></Route>
           <Route path='/child_dashboard/edit_profile/:id' element={<CEditProfile />}></Route>
-          <Route path='/child_dashboard/document' element={<CDocuments />}></Route>
-          <Route path='/child_dashboard/announcement' element={<Announce />}></Route>
+          <Route path='/child_dashboard/documents' element={<CDocuments />}></Route>
+          <Route path='/child_dashboard/announcement' element={<CAnnouncement />}></Route>
           <Route path='/child_dashboard/resource' element={<Resource />}></Route>
           <Route path='/child_dashboard/centreinfo' element={<CCentreInfo />}></Route>
           <Route path='/child_dashboard/change_password/:id' element={<CChangePassword />}></Route>
+          <Route path='/child_dashboard/meal_chart' element={<CMealChart />}></Route>
+          <Route path='/child_dashboard/sleep_record' element={<CSleepRecord />}></Route>
+          <Route path='/child_dashboard/bottle_chart' element={<CBottleChart />}></Route>
+          <Route path='/child_dashboard/accident_form' element={<CAccidentForm />}></Route>
+          <Route path='/child_dashboard/sunblock_chart' element={<CSunblockChart />}></Route>
+          <Route path='/child_dashboard/attendance' element={<CAttendance />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

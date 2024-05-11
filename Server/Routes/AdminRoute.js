@@ -433,6 +433,8 @@ router.get('/announcement', (req, res) => {
     })
 });
 
+
+
 router.post('/create_announcement', (req, res) => {
     const sql = `INSERT INTO announcement (title, content, post_date, post_time, person_who_posts) 
     VALUES (?, ?, ?, ?, ?)`;

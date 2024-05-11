@@ -73,6 +73,14 @@ const CDashboard = () => {
                                 </Link>
                             </li>
                             <li className="w-100">
+                                <Link to='/child_dashboard/announcement'
+                                    className="nav-link px-0 align-middle text-white"
+                                >
+                                    <i className="fs-4 bi-megaphone ms-2"></i>
+                                    <span className="ms-2 d-none d-sm-inline">Announcement</span>
+                                </Link>
+                            </li>
+                            <li className="w-100">
                                 <Link to='/child_dashboard/sendmessage'
                                     className="nav-link px-0 align-middle text-white"
                                 >

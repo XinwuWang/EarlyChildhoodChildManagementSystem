@@ -139,6 +139,15 @@ router.get('/centreinfo', (req, res) => {
 });
 
 
+// Announcement
+router.get('/announcement', (req, res) => {
+    const sql = 'SELECT announcement.*, COALESCE(admin.name, teacher_info.name) AS poster_name FROM announcement LEFT JOIN admin ON announcement.person_who_posts = admin.id LEFT JOIN teacher_info ON announcement.teacher_who_posts = teacher_info.id';
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+});
+
 
 // Change the password
 router.put('/change_password/:id', (req, res) => {

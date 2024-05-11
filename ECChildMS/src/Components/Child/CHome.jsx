@@ -65,7 +65,7 @@ const CHome = () => {
             <div className="row align-items-md-stretch m-1">
                 <div className="col-md-6">
                     <div className="h-100 p-5 text-bg-dark rounded-3">
-                        <h2>Group Announcement</h2>
+                        <h2>Announcement</h2>
                         <p>Centre wide group news</p>
                         <Link to='/child_dashboard/announcement' className='btn btn-outline-light'>More</Link>
                     </div>
