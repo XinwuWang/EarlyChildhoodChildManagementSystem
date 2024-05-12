@@ -149,6 +149,58 @@ router.get('/announcement', (req, res) => {
 });
 
 
+
+// Documents
+// Sleep record
+router.get('/sleep_record/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT sleep_chart.*, teacher_info.name AS teacher_name
+    FROM sleep_chart
+    LEFT JOIN teacher_info ON sleep_chart.supervisor = teacher_info.id
+    WHERE child= ?
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+});
+
+
+// Sunblock chart
+router.get('/sunblock_chart/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT sunblock_chart.*, teacher_info.name AS teacher_name
+    FROM sunblock_chart
+    LEFT JOIN teacher_info ON sunblock_chart.supervisor = teacher_info.id
+    WHERE child = ?
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+
+// Bottle chart
+router.get('/bottle_chart/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT bottle_chart.*, teacher_info.name AS teacher_name
+    FROM bottle_chart
+    LEFT JOIN teacher_info ON bottle_chart.supervisor = teacher_info.id
+    WHERE child = ?
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+
 // Change the password
 router.put('/change_password/:id', (req, res) => {
     const childId = req.params.id;

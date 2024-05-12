@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 
 
 const Documents = () => {
+    const childId = localStorage.getItem('childId');
     return (
         <div className="album py-5 bg-light">
             <div className="container">
@@ -15,7 +16,7 @@ const Documents = () => {
                                 <h4 className="card-text">Meal Chart</h4>
                                 <div className="d-flex justify-content-end align-items-center">
                                     <div className="btn-group">
-                                        <Link to='/child_dashboard/meal_chart' className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
+                                        <Link to={'/child_dashboard/meal_chart/' + childId} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
                                     </div>
                                 </div>
                             </div>
@@ -29,7 +30,7 @@ const Documents = () => {
                                 <h4 className="card-text">Sleep Record</h4>
                                 <div className="d-flex justify-content-end align-items-center">
                                     <div className="btn-group">
-                                        <Link to={'/child_dashboard/sleep_record'} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
+                                        <Link to={'/child_dashboard/sleep_record/' + childId} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +44,7 @@ const Documents = () => {
                                 <h4 className="card-text">Formula Feeding Chart</h4>
                                 <div className="d-flex justify-content-end align-items-center">
                                     <div className="btn-group">
-                                        <Link to={'/child_dashboard/bottle_chart'} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
+                                        <Link to={'/child_dashboard/bottle_chart/' + childId} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +59,7 @@ const Documents = () => {
                                 <h4 className="card-text">Accident Report</h4>
                                 <div className="d-flex justify-content-end align-items-center">
                                     <div className="btn-group">
-                                        <Link to={'/child_dashboard/accident_form'} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
+                                        <Link to={'/child_dashboard/accident_form/' + childId} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +73,7 @@ const Documents = () => {
                                 <h4 className="card-text">Sunblock Chart</h4>
                                 <div className="d-flex justify-content-end align-items-center">
                                     <div className="btn-group">
-                                        <Link to={'/child_dashboard/sunblock_chart'} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
+                                        <Link to={'/child_dashboard/sunblock_chart/' + childId} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +87,7 @@ const Documents = () => {
                                 <h4 className="card-text">Attendance Record</h4>
                                 <div className="d-flex justify-content-end align-items-center">
                                     <div className="btn-group">
-                                        <Link to={'/child_dashboard/attendance'} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
+                                        <Link to={'/child_dashboard/attendance/' + childId} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
                                     </div>
                                 </div>
                             </div>
