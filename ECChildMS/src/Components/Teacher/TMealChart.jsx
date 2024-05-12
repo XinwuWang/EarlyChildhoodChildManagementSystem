@@ -9,7 +9,6 @@ import axios from 'axios'
 const TMealChart = () => {
     const [meal, setMeal] = useState([])
 
-    // const teacherId = localStorage.getItem('teacherId');
     const teacherName = localStorage.getItem('teacherName');
 
 
@@ -26,20 +25,7 @@ const TMealChart = () => {
             .catch(err => console.log(err))
     }, [])
 
-    // const handleDelete = (id) => {
-    //     if (window.confirm("ALERT! Are you sure you want to delete this record?")) {
-    //         axios.delete(`http://localhost:3000/teacher/delete_meal/${id}`)
-    //             .then(result => {
-    //                 if (result.data.Status) {
-    //                     setMeal(meal.filter(e => e.id !== id));
-    //                     window.location.reload()
-    //                 } else {
-    //                     alert(result.data.Error)
-    //                 }
-    //             })
-    //             .catch(err => console.log(err))
-    //     }
-    // }
+
 
     return (
         <div>
@@ -84,9 +70,7 @@ const TMealChart = () => {
                                         <Link to={`/teacher_dashboard/edit_meal/${e.id}`} className='btn btn-black p-0 me-3' title='Edit'>
                                             <i className="bi bi-pencil-square"></i>
                                         </Link>
-                                        {/* <button type='button' className="btn btn-black p-0" title='Delete' onClick={() => handleDelete(e.id)}>
-                                            <i className="bi bi-trash" />
-                                    </button>*/}
+
                                     </td>
                                 </tr>
                             )

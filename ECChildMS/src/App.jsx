@@ -91,6 +91,8 @@ import CBottleChart from './Components/Child/CBottleChart'
 import CAccidentForm from './Components/Child/CAccidentForm'
 import CSunblockChart from './Components/Child/CSunblockChart'
 import CAttendance from './Components/Child/CAttendance'
+import CAccidentDetail from './Components/Child/CAccidentDetail'
+import CMealDetail from './Components/Child/CMealDetail'
 
 
 
@@ -199,10 +201,12 @@ function App() {
           <Route path='/child_dashboard/resource' element={<Resource />}></Route>
           <Route path='/child_dashboard/centreinfo' element={<CCentreInfo />}></Route>
           <Route path='/child_dashboard/change_password/:id' element={<CChangePassword />}></Route>
-          <Route path='/child_dashboard/meal_chart/:id' element={<CMealChart />}></Route>
+          <Route path='/child_dashboard/meal_chart' element={<CMealChart />}></Route>
+          <Route path='/child_dashboard/meal_detail/:id/:childId' element={<CMealDetail />}></Route>
           <Route path='/child_dashboard/sleep_record/:id' element={<CSleepRecord />}></Route>
           <Route path='/child_dashboard/bottle_chart/:id' element={<CBottleChart />}></Route>
-          <Route path='/child_dashboard/accident_form/:id' element={<CAccidentForm />}></Route>
+          <Route path='/child_dashboard/accident_form/:childId' element={<CAccidentForm />}></Route>
+          <Route path='/child_dashboard/accident_detail/:id' element={<CAccidentDetail />}></Route>
           <Route path='/child_dashboard/sunblock_chart/:id' element={<CSunblockChart />}></Route>
           <Route path='/child_dashboard/attendance/:id' element={<CAttendance />}></Route>
         </Route>

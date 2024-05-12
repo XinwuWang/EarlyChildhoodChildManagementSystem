@@ -200,6 +200,88 @@ router.get('/bottle_chart/:id', (req, res) => {
 })
 
 
+// Accident form
+router.get('/accident_form/:childId', (req, res) => {
+    const childId = req.params.childId;
+    const sql = `
+    SELECT accident_form.*, teacher_info.name AS supervisor_name
+    FROM accident_form
+    INNER JOIN teacher_info ON accident_form.supervisor = teacher_info.id
+    WHERE child = ?
+    `;
+    con.query(sql, [childId], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+router.get('/accident_detail/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT accident_form.*, child_info.name AS child_name, teacher_info.name AS supervisor_name
+    FROM accident_form
+    INNER JOIN child_info ON accident_form.child = child_info.id
+    INNER JOIN teacher_info ON accident_form.supervisor = teacher_info.id
+    WHERE accident_form.id = ?;
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result })
+    });
+})
+
+
+
+// Meal chart
+router.get('/meal_chart', (req, res) => {
+    const sql = `SELECT meal_chart.*, teacher_info.name As supervisor_name
+    FROM meal_chart 
+    INNER JOIN teacher_info ON meal_chart.supervisor = teacher_info.id`;
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+router.get('/meal_chart/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `SELECT meal_chart.*, teacher_info.name As supervisor_name
+     FROM meal_chart 
+     INNER JOIN teacher_info ON meal_chart.supervisor = teacher_info.id
+     WHERE meal_chart.id = ?`;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result })
+    });
+})
+
+
+router.get('/meal_detail/:id/:childId', (req, res) => {
+    const id = req.params.id;
+    const childId = req.params.childId;
+    const sql = `
+        SELECT meal_detail.*, child_info.name AS child_name
+        FROM meal_detail
+        INNER JOIN child_info ON meal_detail.child = child_info.id
+        WHERE meal_detail.meal_day = ? AND meal_detail.child = ?;
+    `;
+    con.query(sql, [id, childId], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result });
+    });
+})
+
+
 
 // Change the password
 router.put('/change_password/:id', (req, res) => {

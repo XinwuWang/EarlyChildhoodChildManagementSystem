@@ -16,7 +16,7 @@ const Documents = () => {
                                 <h4 className="card-text">Meal Chart</h4>
                                 <div className="d-flex justify-content-end align-items-center">
                                     <div className="btn-group">
-                                        <Link to={'/child_dashboard/meal_chart/' + childId} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
+                                        <Link to={'/child_dashboard/meal_chart'} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
                                     </div>
                                 </div>
                             </div>
