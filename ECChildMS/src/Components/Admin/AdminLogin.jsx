@@ -23,10 +23,12 @@ const AdminLogin = () => {
                 if (result.data.loginStatus) {
                     // Store admin ID in localStorage
                     localStorage.setItem('adminId', result.data.adminId);
+                    localStorage.setItem('adminName', result.data.adminName);
                     // stores data that persists when users close their browser tab
                     localStorage.setItem('valid', true)
                     console.log(result.data.adminId)
-                    navigate('/dashboard', { state: { adminId: result.data.adminId } })
+                    console.log(result.data.adminName)
+                    navigate('/dashboard', { state: { adminId: result.data.adminId, adminName: result.data.adminName } })
                 } else {
                     setError(result.data.Error)
                 }

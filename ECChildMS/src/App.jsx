@@ -28,6 +28,14 @@ import TeacherDetail from './Components/Admin/TeacherDetail'
 import EditTeacher from './Components/Admin/EditTeacher'
 import ChildDetail from './Components/Admin/ChildDetail'
 import EditChild from './Components/Admin/EditChild'
+import ADocument from './Components/Admin/ADocument'
+import AAttendanceForm from './Components/Admin/AAttendanceForm'
+import CreateAttendanceForm from './Components/Admin/CreateAttendanceForm'
+import AAttendanceDetail from './Components/Admin/AAttendanceDetail'
+import EditAttendanceForm from './Components/Admin/EditAttendanceForm'
+import AddChildToAttendance from './Components/Admin/AddChildToAttendance'
+
+
 
 // Teacher components
 import TeacherLogin from './Components/Teacher/TeacherLogin'
@@ -136,6 +144,12 @@ function App() {
           <Route path='/dashboard/edit_teacher/:id' element={<EditTeacher />}></Route>
           <Route path='/dashboard/managechildren/:id' element={<ChildDetail />}></Route>
           <Route path='/dashboard/edit_child/:id' element={<EditChild />}></Route>
+          <Route path='/dashboard/document' element={<ADocument />}></Route>
+          <Route path='/dashboard/attendance' element={<AAttendanceForm />}></Route>
+          <Route path='/dashboard/add_attendance' element={<CreateAttendanceForm />}></Route>
+          <Route path='/dashboard/edit_attendance/:id' element={<EditAttendanceForm />}></Route>
+          <Route path='/dashboard/attendance_detail/:id' element={<AAttendanceDetail />}></Route>
+          <Route path='/dashboard/attendance/:id/add_child_to_attendance' element={<AddChildToAttendance />}></Route>
         </Route>
 
         {/* Teacher portal */}

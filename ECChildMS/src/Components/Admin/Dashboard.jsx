@@ -62,6 +62,16 @@ const Dashboard = () => {
                                     <span className="ms-2 d-none d-sm-inline">Manage Children</span>
                                 </Link>
                             </li>
+                            <li className='w-100'>
+                                <Link to='/dashboard/document'
+                                    className='nav-link px-0 align-middle text-white'
+                                >
+                                    <i className="fs-4 bi-file-earmark-text ms-2"></i>
+                                    <span className="ms-2 d-none d-sm-inline">
+                                        Document
+                                    </span>
+                                </Link>
+                            </li>
                             <li className="w-100">
                                 <Link to='/dashboard/sendmessage'
                                     className="nav-link px-0 align-middle text-white"
