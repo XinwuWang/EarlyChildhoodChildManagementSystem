@@ -117,7 +117,7 @@ const TEditBottle = () => {
                     <div className='col-12'>
                         <label htmlFor='time_one' className='form-label'><strong>Time One</strong></label>
                         <input
-                            type='text'
+                            type='time'
                             name='time_one'
                             id='time_one'
                             value={bottleChart.time_one}
@@ -131,7 +131,7 @@ const TEditBottle = () => {
                             <strong>Time Two</strong>
                         </label>
                         <input
-                            type='text'
+                            type='time'
                             name='time_two'
                             id='time_two'
                             value={bottleChart.time_two}
@@ -148,7 +148,7 @@ const TEditBottle = () => {
                             <strong>Time Three</strong>
                         </label>
                         <input
-                            type='text'
+                            type='time'
                             name='time_three'
                             id='time_three'
                             value={bottleChart.time_three}

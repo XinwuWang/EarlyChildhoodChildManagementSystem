@@ -88,7 +88,7 @@ const TEditAccidentForm = () => {
                     <div className='col-12'>
                         <label htmlFor='time' className='form-label'><strong>Accident Time</strong></label>
                         <input
-                            type='text'
+                            type='time'
                             name='time'
                             id='time'
                             value={accidentForm.accident_time}

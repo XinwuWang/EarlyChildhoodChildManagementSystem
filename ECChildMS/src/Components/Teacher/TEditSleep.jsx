@@ -122,7 +122,7 @@ const TEditSleep = () => {
                     <div className='col-12'>
                         <label htmlFor='time_to_bed' className='form-label'><strong>Time to Bed</strong></label>
                         <input
-                            type='text'
+                            type='time'
                             name='time_to_bed'
                             id='time_to_bed'
                             value={sleepRecord.time_to_bed}
@@ -136,7 +136,7 @@ const TEditSleep = () => {
                             <strong>Time of Sleep</strong>
                         </label>
                         <input
-                            type='text'
+                            type='time'
                             name='time_of_sleep'
                             id='time_of_sleep'
                             value={sleepRecord.time_of_sleep}
@@ -153,7 +153,7 @@ const TEditSleep = () => {
                             <strong>Time of Wake</strong>
                         </label>
                         <input
-                            type='text'
+                            type='time'
                             name='time_of_wake'
                             id='time_of_wake'
                             value={sleepRecord.time_of_wakeup}
@@ -170,7 +170,7 @@ const TEditSleep = () => {
                             <strong>Time Out of Bed</strong>
                         </label>
                         <input
-                            type='text'
+                            type='time'
                             name='time_out_of_bed'
                             id='time_out_of_bed'
                             value={sleepRecord.time_out_of_bed}

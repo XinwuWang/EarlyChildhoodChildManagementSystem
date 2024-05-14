@@ -92,7 +92,7 @@ const TAddBottleChart = () => {
                     <div className='col-12'>
                         <label htmlFor='time_one' className='form-label'><strong>Time One</strong></label>
                         <input
-                            type='text'
+                            type='time'
                             name='time_one'
                             id='time_one'
                             placeholder='Enter the first feeding time'
@@ -105,7 +105,7 @@ const TAddBottleChart = () => {
                             <strong>Time Two</strong>
                         </label>
                         <input
-                            type='text'
+                            type='time'
                             name='time_two'
                             id='time_two'
                             placeholder='Enter the second feeding time'
@@ -121,7 +121,7 @@ const TAddBottleChart = () => {
                             <strong>Time Three</strong>
                         </label>
                         <input
-                            type='text'
+                            type='time'
                             name='time_three'
                             id='time_three'
                             placeholder='Enter the third feeding time'

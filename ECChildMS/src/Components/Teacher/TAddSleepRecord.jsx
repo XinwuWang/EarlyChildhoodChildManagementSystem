@@ -93,7 +93,7 @@ const TAddSleepRecord = () => {
                     <div className='col-12'>
                         <label htmlFor='time_to_bed' className='form-label'><strong>Time to Bed</strong></label>
                         <input
-                            type='text'
+                            type='time'
                             name='time_to_bed'
                             id='time_to_bed'
                             placeholder='Enter the time to bed'
@@ -106,7 +106,7 @@ const TAddSleepRecord = () => {
                             <strong>Time of Sleep</strong>
                         </label>
                         <input
-                            type='text'
+                            type='time'
                             name='time_of_sleep'
                             id='time_of_sleep'
                             placeholder='Enter the time of sleep'
@@ -122,7 +122,7 @@ const TAddSleepRecord = () => {
                             <strong>Time of Wake</strong>
                         </label>
                         <input
-                            type='text'
+                            type='time'
                             name='time_of_wake'
                             id='time_of_wake'
                             placeholder='Enter the time of wake'
@@ -138,7 +138,7 @@ const TAddSleepRecord = () => {
                             <strong>Time Out of Bed</strong>
                         </label>
                         <input
-                            type='text'
+                            type='time'
                             name='time_out_of_bed'
                             id='time_out_of_bed'
                             placeholder='Enter the time out of bed'
