@@ -9,7 +9,6 @@ import axios from 'axios'
 const TMealChart = () => {
     const [meal, setMeal] = useState([])
 
-    const teacherName = localStorage.getItem('teacherName');
 
 
     useEffect(() => {
@@ -65,7 +64,7 @@ const TMealChart = () => {
                                     <td>{e.morning_tea}</td>
                                     <td>{e.lunch}</td>
                                     <td>{e.afternoon_tea}</td>
-                                    <td>{teacherName}</td>
+                                    <td>{e.supervisor_name}</td>
                                     <td>
                                         <Link to={`/teacher_dashboard/edit_meal/${e.id}`} className='btn btn-black p-0 me-3' title='Edit'>
                                             <i className="bi bi-pencil-square"></i>

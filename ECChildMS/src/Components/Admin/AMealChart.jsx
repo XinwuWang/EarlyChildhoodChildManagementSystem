@@ -1,19 +1,15 @@
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const CAttendance = () => {
-    const { id } = useParams()
-    const childName = localStorage.getItem('childName')
-    const [attendance, setAttendance] = useState([])
-
-
-
+const AMealChart = () => {
+    const [meal, setMeal] = useState([])
     useEffect(() => {
-        axios.get('http://localhost:3000/child/attendance/' + id)
+        axios.get('http://localhost:3000/auth/meal_chart')
             .then(result => {
                 if (result.data.Status) {
-                    setAttendance(result.data.Result)
+                    setMeal(result.data.Result)
+                    console.log(result.data.Result)
                 } else {
                     alert(result.data.Error)
                 }
@@ -27,10 +23,9 @@ const CAttendance = () => {
         <div>
             <div className="container">
                 <div className="d-flex justify-content-between align-items-center mt-auto p-3 m-3">
-                    <h5 className="display-4 fw-normal">Attendance Record for {childName}</h5>
+                    <h1 className="display-4 fw-normal">Meal Chart</h1>
                     <div>
-                        <Link to={`/child_dashboard/add_attendance`} className='btn btn-lg p-2' title="Sign in/Sign out"><i className="bi bi-plus-circle-fill text-dark"></i></Link>
-                        <Link to={'/child_dashboard/documents'} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
+                        <Link to={'/dashboard/document'} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
                     </div>
                 </div>
             </div >
@@ -41,20 +36,27 @@ const CAttendance = () => {
                         <tr>
                             <th></th>
                             <th scope="col">Date</th>
-                            <th scope="col">Time In</th>
-                            <th scope="col">Time Out</th>
-                            <th scope="col">Person Who Signed</th>
+                            <th scope="col">Morning Tea</th>
+                            <th scope="col">Lunch</th>
+                            <th scope="col">Afternoon Tea</th>
+                            <th scope="col">Supervisor</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            attendance.map(e => (
+                            meal.map(e => (
                                 <tr key={e.id} className="">
                                     <td></td>
-                                    <td>{e.date_of_attendance}</td>
-                                    <td>{e.time_in}</td>
-                                    <td>{e.time_out}</td>
-                                    <td>{e.person_who_signed}</td>
+
+                                    <td><Link
+                                        to={`/dashboard/meal_detail/${e.id}`
+                                        }
+                                    >{e.meal_date}</Link></td>
+                                    <td>{e.morning_tea}</td>
+                                    <td>{e.lunch}</td>
+                                    <td>{e.afternoon_tea}</td>
+                                    <td>{e.supervisor_name}</td>
+
                                 </tr>
                             )
                             )
@@ -67,4 +69,4 @@ const CAttendance = () => {
     )
 }
 
-export default CAttendance
+export default AMealChart

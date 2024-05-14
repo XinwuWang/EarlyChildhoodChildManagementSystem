@@ -345,7 +345,9 @@ router.delete('/delete_note/:teacherId/:noteId', (req, res) => {
 
 // Meal chart
 router.get('/meal_chart', (req, res) => {
-    const sql = 'SELECT * FROM meal_chart';
+    const sql = `SELECT meal_chart.*, teacher_info.name AS supervisor_name 
+    FROM meal_chart
+    INNER JOIN teacher_info ON meal_chart.supervisor = teacher_info.id`;
     con.query(sql, (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
         return res.json({ Status: true, Result: result })
@@ -839,6 +841,81 @@ router.delete('/delete_accident_form/:id', (req, res) => {
         return res.json({ Status: true, Result: result })
     })
 })
+
+
+
+// Attendance
+router.get('/attendance', (req, res) => {
+    const sql = `SELECT attendance.*, admin.name AS creator_name
+    FROM attendance
+    INNER JOIN admin ON attendance.person_who_created = admin.id`;
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+router.get('/attendance/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `SELECT * FROM attendance WHERE id = ?`;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result })
+    });
+})
+
+
+router.get('/attendance_detail/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT 
+    ar.*, 
+    child.name AS child_name, 
+    parent.name AS parent_name,
+    COALESCE(teacher.name, admin.name, parent.name) AS person_who_signed
+    FROM attendance_record ar
+    LEFT JOIN child_info child ON ar.child = child.id
+    LEFT JOIN child_info parent ON ar.parent_signature = parent.id
+    LEFT JOIN teacher_info teacher ON ar.teacher_signature = teacher.id
+    LEFT JOIN admin admin ON ar.admin_signature = admin.id
+    WHERE ar.attendance_date = ?;
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result });
+    });
+})
+
+
+
+router.post('/add_child_to_attendance', (req, res) => {
+    const sql = `INSERT INTO attendance_record (child, attendance_date, time_in, time_out, teacher_signature) 
+    VALUES (?, ?, ?, ?, ?)`;
+    const values = [
+        req.body.child_id,
+        req.body.attendance_date,
+        req.body.time_in,
+        req.body.time_out,
+        req.body.teacher_signature
+    ]
+
+    console.log(values)
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+});
 
 
 // Logout route

@@ -34,6 +34,9 @@ import CreateAttendanceForm from './Components/Admin/CreateAttendanceForm'
 import AAttendanceDetail from './Components/Admin/AAttendanceDetail'
 import EditAttendanceForm from './Components/Admin/EditAttendanceForm'
 import AddChildToAttendance from './Components/Admin/AddChildToAttendance'
+import ALearningStory from './Components/Admin/ALearningStory'
+import AMealChart from './Components/Admin/AMealChart'
+import AMealDetail from './Components/Admin/AMealDetail'
 
 
 
@@ -75,6 +78,9 @@ import TAttendance from './Components/Teacher/TAttendance'
 import TEditMeal from './Components/Teacher/TEditMeal'
 import AddChildToMeal from './Components/Teacher/AddChildToMeal'
 import TEditSleep from './Components/Teacher/TEditSleep'
+import TAttendanceDetail from './Components/Teacher/TAttendanceDetail'
+import TAddChildToAtten from './Components/Teacher/TAddChildToAtten'
+import TLearningStory from './Components/Teacher/TLearningStory'
 
 
 
@@ -101,6 +107,8 @@ import CSunblockChart from './Components/Child/CSunblockChart'
 import CAttendance from './Components/Child/CAttendance'
 import CAccidentDetail from './Components/Child/CAccidentDetail'
 import CMealDetail from './Components/Child/CMealDetail'
+import CAddAttendance from './Components/Child/CAddAttendance'
+import CLearningStory from './Components/Child/CLearningStory'
 
 
 
@@ -150,6 +158,9 @@ function App() {
           <Route path='/dashboard/edit_attendance/:id' element={<EditAttendanceForm />}></Route>
           <Route path='/dashboard/attendance_detail/:id' element={<AAttendanceDetail />}></Route>
           <Route path='/dashboard/attendance/:id/add_child_to_attendance' element={<AddChildToAttendance />}></Route>
+          <Route path='/dashboard/learning_story' element={<ALearningStory />}></Route>
+          <Route path='/dashboard/meal_chart' element={<AMealChart />}></Route>
+          <Route path='/dashboard/meal_detail/:id' element={<AMealDetail />}></Route>
         </Route>
 
         {/* Teacher portal */}
@@ -191,10 +202,13 @@ function App() {
           <Route path='/teacher_dashboard/edit_sunblock_record/:id' element={<TEditSunblock />}></Route>
           <Route path='/teacher_dashboard/add_sunblock_record' element={<TAddSunblock />}></Route>
           <Route path='/teacher_dashboard/attendance' element={<TAttendance />}></Route>
+          <Route path='/teacher_dashboard/attendance_detail/:id' element={<TAttendanceDetail />}></Route>
+          <Route path='/teacher_dashboard/attendance/:id/add_child_to_attendance' element={<TAddChildToAtten />}></Route>
           <Route path='/teacher_dashboard/add_meal' element={<TAddMeal />}></Route>
           <Route path='/teacher_dashboard/meal_detail/:id' element={<TMealDetail />}></Route>
           <Route path='/teacher_dashboard/edit_meal/:id' element={<TEditMeal />}></Route>
           <Route path='/teacher_dashboard/meal_chart/:id/add_childMeal' element={<AddChildToMeal />}></Route>
+          <Route path='/teacher_dashboard/learning_stories' element={<TLearningStory />}></Route>
         </Route>
 
 
@@ -223,6 +237,8 @@ function App() {
           <Route path='/child_dashboard/accident_detail/:id' element={<CAccidentDetail />}></Route>
           <Route path='/child_dashboard/sunblock_chart/:id' element={<CSunblockChart />}></Route>
           <Route path='/child_dashboard/attendance/:id' element={<CAttendance />}></Route>
+          <Route path='/child_dashboard/add_attendance' element={<CAddAttendance />}></Route>
+          <Route path='/child_dashboard/learning_story/:id' element={<CLearningStory />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

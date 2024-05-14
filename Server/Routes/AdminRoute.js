@@ -686,6 +686,37 @@ router.delete('/delete_attendance_record/:id', (req, res) => {
 })
 
 
+
+// Meal chart
+router.get('/meal_chart', (req, res) => {
+    const sql = `SELECT meal_chart.*, teacher_info.name AS supervisor_name 
+    FROM meal_chart
+    INNER JOIN teacher_info ON meal_chart.supervisor = teacher_info.id`;
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+router.get('/meal_chart/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `SELECT meal_chart.*, teacher_info.name AS supervisor_name 
+    FROM meal_chart
+    INNER JOIN teacher_info ON meal_chart.supervisor = teacher_info.id 
+    WHERE meal_chart.id = ?`;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result })
+    });
+})
+
+
+
+// Log out
 router.get('/logout', (req, res) => {
     res.clearCookie('token');
     return res.json({ Status: true });

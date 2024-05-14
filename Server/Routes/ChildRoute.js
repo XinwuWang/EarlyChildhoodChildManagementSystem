@@ -282,6 +282,69 @@ router.get('/meal_detail/:id/:childId', (req, res) => {
 })
 
 
+// Attendance
+router.get('/attendance', (req, res) => {
+    const sql = `SELECT attendance.*, admin.name AS creator_name
+    FROM attendance
+    INNER JOIN admin ON attendance.person_who_created = admin.id`;
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+router.get('/attendance/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT 
+    ar.*, 
+    child.name AS child_name, 
+    parent.name AS parent_name,
+    attendance.form_date as date_of_attendance,
+    COALESCE(teacher.name, admin.name, parent.name) AS person_who_signed
+    FROM attendance_record ar
+    LEFT JOIN child_info child ON ar.child = child.id
+    LEFT JOIN child_info parent ON ar.parent_signature = parent.id
+    LEFT JOIN teacher_info teacher ON ar.teacher_signature = teacher.id
+    LEFT JOIN admin admin ON ar.admin_signature = admin.id
+    LEFT JOIN attendance ON ar.attendance_date = attendance.id
+    WHERE ar.child = ?;
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result });
+    });
+})
+
+
+router.post('/add_attendance', (req, res) => {
+    const sql = `INSERT INTO attendance_record (child, attendance_date, time_in, time_out, parent_signature) 
+    VALUES (?, ?, ?, ?, ?)`;
+    const values = [
+        req.body.child_id,
+        req.body.attendance_date,
+        req.body.time_in,
+        req.body.time_out,
+        req.body.parent_signature,
+    ]
+
+
+    console.log(values)
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+});
+
+
+
 
 // Change the password
 router.put('/change_password/:id', (req, res) => {
