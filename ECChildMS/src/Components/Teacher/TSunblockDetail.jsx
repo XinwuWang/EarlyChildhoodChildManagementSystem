@@ -2,35 +2,26 @@ import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const TMealDetail = () => {
-    // const teacherId = localStorage.getItem('teacherId');
-    // const teacherName = localStorage.getItem('teacherName');
+
+const TSunblockDetail = () => {
     const { id } = useParams()
-    const [meal, setMeal] = useState({
-        date: '',
-        morning_tea: '',
-        lunch: '',
-        afternoon_tea: '',
-        supervisor: ''
+    const [sunblock, setSunblock] = useState({
+        apply_date: '',
     });
-    const [mealDetail, setMealDetail] = useState([])
+    const [sunblockDetail, setSunblockDetail] = useState([])
 
 
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/teacher/meal_chart/${id}`)
+        axios.get(`http://localhost:3000/teacher/sunblock_chart/${id}`)
             .then(result => {
                 if (result.data.Status && result.data.Result.length > 0) {
-                    setMeal({
-                        ...meal,
-                        date: result.data.Result[0].meal_date,
-                        morning_tea: result.data.Result[0].morning_tea,
-                        lunch: result.data.Result[0].lunch,
-                        afternoon_tea: result.data.Result[0].afternoon_tea,
-                        supervisor: result.data.Result[0].supervisor_name
+                    console.log(result.data.Result[0])
+                    setSunblock({
+                        ...sunblock,
+                        apply_date: result.data.Result[0].apply_date,
                     })
-                    console.log(meal)
                 } else {
                     throw new Error(result.data.Error || 'Information data not found');
                 }
@@ -44,11 +35,11 @@ const TMealDetail = () => {
     }, [id]);
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/teacher/meal_detail/${id}`)
+        axios.get(`http://localhost:3000/teacher/sunblock_chart_detail/${id}`)
             .then(result => {
                 if (result.data.Status) {
                     console.log(result)
-                    setMealDetail(result.data.Result)
+                    setSunblockDetail(result.data.Result)
                 } else {
                     alert(result.data.Error)
                 }
@@ -61,10 +52,10 @@ const TMealDetail = () => {
 
     const handleDelete = (id) => {
         if (window.confirm("ALERT! Are you sure you want to delete this record?")) {
-            axios.delete(`http://localhost:3000/teacher/delete_childMeal/${id}`)
+            axios.delete(`http://localhost:3000/teacher/delete_sunblock_record/${id}`)
                 .then(result => {
                     if (result.data.Status) {
-                        setMeal(mealDetail.filter(e => e.id !== id));
+                        setSunblock(sunblockDetail.filter(e => e.id !== id));
                         window.location.reload()
                     } else {
                         alert(result.data.Error)
@@ -83,18 +74,12 @@ const TMealDetail = () => {
         <div>
             <div className="container">
                 <div className="d-flex justify-content-between align-items-center mt-auto p-3 m-3">
-                    <div className='d-flex'>
-                        <h2 className="display fw-normal p-3 m-5">{meal.date}</h2>
-                        <div className="p-3">
-                            <p>Supervisor: {meal.supervisor}</p>
-                            <p>Morning Tea: {meal.morning_tea}</p>
-                            <p>Lunch: {meal.lunch}</p>
-                            <p>Afternoon tea: {meal.afternoon_tea}</p>
-                        </div>
+                    <div className='p-3'>
+                        <h2>{sunblock.apply_date}</h2>
                     </div>
                     <div>
-                        <Link to={`/teacher_dashboard/meal_chart/${id}/add_childMeal`} className='btn btn-lg p-2' title="Add a child to the chart"><i className="bi bi-person-fill-add text-dark"></i></Link>
-                        <Link to={'/teacher_dashboard/meal_chart'} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
+                        <Link to={`/teacher_dashboard/sunblock_chart/${id}/apply_sunblock_to_child`} className='btn btn-lg p-2' title="Add a child to the chart"><i className="bi bi-person-fill-add text-dark"></i></Link>
+                        <Link to={'/teacher_dashboard/sunblock_chart'} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
                     </div>
                 </div>
             </div >
@@ -103,23 +88,25 @@ const TMealDetail = () => {
                     <thead>
                         <tr>
                             <th scope="col">Child Name</th>
-                            <th scope="col">Morning Tea</th>
-                            <th scope="col">Lunch</th>
-                            <th scope="col">Afternoon Tea</th>
-                            <th scope='col'>Note</th>
+                            <th scope="col">Time One</th>
+                            <th scope="col">Time Two</th>
+                            <th scope="col">Time Three</th>
+                            <th scope="col">Note</th>
+                            <th scope="col">Supervisor</th>
                             <th scope='col'></th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            mealDetail.map(e => (
+                            sunblockDetail.map(e => (
 
                                 <tr className="" key={e.id}>
                                     <td>{e.child_name}</td>
-                                    <td>{e.mt_portion}</td>
-                                    <td>{e.lunch_portion}</td>
-                                    <td>{e.at_portion}</td>
+                                    <td>{e.apply_time_one}</td>
+                                    <td>{e.apply_time_two}</td>
+                                    <td>{e.apply_time_three}</td>
                                     <td>{e.note}</td>
+                                    <td>{e.supervisor_name}</td>
                                     <td><button type='button' className="btn btn-black p-0" title='Delete' onClick={() => handleDelete(e.id)}>
                                         <i className="bi bi-trash" />
                                     </button></td>
@@ -128,14 +115,9 @@ const TMealDetail = () => {
                             ))}
                     </tbody>
                 </table>
-                <div className='p-3'>
-                    <p className="fw-light">*Amount: L-Large, M-Medium, S-Small, R-Refuse to eat</p>
-                </div>
             </div>
         </div>
     );
 }
 
-
-
-export default TMealDetail
+export default TSunblockDetail

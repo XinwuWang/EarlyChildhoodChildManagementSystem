@@ -245,18 +245,7 @@ USE earlychildhoodchildms;
 -- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
 -- );
 
--- CREATE TABLE sunblock_chart (
--- id INT AUTO_INCREMENT PRIMARY KEY,
--- apply_date VARCHAR(50),
--- child INT,
--- apply_time_one VARCHAR(50),
--- apply_time_two VARCHAR(50),
--- apply_time_three VARCHAR(50),
--- note VARCHAR(255),
--- supervisor INT,
--- FOREIGN KEY (child) REFERENCES child_info(id),
--- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
--- );
+
 
 
 -- CREATE TABLE attendance (
@@ -282,18 +271,39 @@ USE earlychildhoodchildms;
 -- FOREIGN KEY (admin_signature) REFERENCES admin(id)	
 -- );
 
-CREATE TABLE learning_story (
+-- CREATE TABLE learning_story (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- child INT,
+-- title VARCHAR(255),
+-- content TEXT,
+-- image_one VARCHAR(255),
+-- image_two VARCHAR(255),
+-- image_three VARCHAR(255),
+-- person_who_wrote INT,
+-- update_date VARCHAR(50),
+-- FOREIGN KEY (child) REFERENCES child_info(id),
+-- FOREIGN KEY (person_who_wrote) REFERENCES teacher_info(id)
+-- );
+
+CREATE TABLE sunblock (
 id INT AUTO_INCREMENT PRIMARY KEY,
+apply_date VARCHAR(50),
+person_who_created INT,
+FOREIGN KEY (person_who_created) REFERENCES teacher_info(id)
+);
+
+CREATE TABLE sunblock_chart (
+id INT AUTO_INCREMENT PRIMARY KEY,
+apply_date INT,
 child INT,
-title VARCHAR(255),
-content TEXT,
-image_one VARCHAR(255),
-image_two VARCHAR(255),
-image_three VARCHAR(255),
-person_who_wrote INT,
-update_date VARCHAR(50),
+apply_time_one VARCHAR(50),
+apply_time_two VARCHAR(50),
+apply_time_three VARCHAR(50),
+note VARCHAR(255),
+supervisor INT,
 FOREIGN KEY (child) REFERENCES child_info(id),
-FOREIGN KEY (person_who_wrote) REFERENCES teacher_info(id)
+FOREIGN KEY (supervisor) REFERENCES teacher_info (id),
+FOREIGN KEY (apply_date) REFERENCES sunblock(id)
 );
 
 

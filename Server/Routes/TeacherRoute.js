@@ -357,7 +357,10 @@ router.get('/meal_chart', (req, res) => {
 
 router.get('/meal_chart/:id', (req, res) => {
     const id = req.params.id;
-    const sql = 'SELECT * FROM meal_chart WHERE id = ?';
+    const sql = `SELECT meal_chart.*, teacher_info.name AS supervisor_name
+    FROM meal_chart 
+    INNER JOIN teacher_info ON meal_chart.supervisor = teacher_info.id
+    WHERE meal_chart.id = ?`;
     con.query(sql, [id], (err, result) => {
         if (err) {
             console.error('Error executing SQL query:', err);
@@ -443,17 +446,6 @@ router.put('/edit_meal/:id', (req, res) => {
     })
 });
 
-// router.delete('/delete_meal/:id', (req, res) => {
-//     const id = req.params.id;
-//     const sql = 'DELETE FROM meal_chart WHERE id = ?';
-
-//     con.query(sql, [id], (err, result) => {
-//         if (err) return res.json({ Status: false, Error: 'Query error' + err })
-//         return res.json({ Status: true, Result: result })
-//     })
-// })
-
-
 router.post('/add_childMeal', (req, res) => {
     const sql = `INSERT INTO meal_detail (child, meal_day, mt_portion, lunch_portion, at_portion, note) 
     VALUES (?, ?, ?, ?, ?, ?)`;
@@ -481,9 +473,10 @@ router.post('/add_childMeal', (req, res) => {
 // Sleep chart 
 router.get('/sleep_record', (req, res) => {
     const sql = `
-    SELECT sleep_chart.*, child_info.name AS child_name
+    SELECT sleep_chart.*, child_info.name AS child_name, teacher_info.name AS supervisor_name
     FROM sleep_chart
     INNER JOIN child_info ON sleep_chart.child = child_info.id
+    INNER JOIN teacher_info ON sleep_chart.supervisor = teacher_info.id
     `;
     con.query(sql, (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
@@ -576,9 +569,10 @@ router.delete('/delete_sleep_record/:id', (req, res) => {
 // Bottle chart
 router.get('/bottle_chart', (req, res) => {
     const sql = `
-    SELECT bottle_chart.*, child_info.name AS child_name
+    SELECT bottle_chart.*, child_info.name AS child_name, teacher_info.name AS supervisor_name
     FROM bottle_chart
     INNER JOIN child_info ON bottle_chart.child = child_info.id
+    INNER JOIN teacher_info ON bottle_chart.supervisor = teacher_info.id
     `;
     con.query(sql, (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
@@ -591,9 +585,10 @@ router.get('/bottle_chart', (req, res) => {
 router.get('/bottle_chart/:id', (req, res) => {
     const id = req.params.id;
     const sql = `
-    SELECT bottle_chart.*, child_info.name AS child_name
+    SELECT bottle_chart.*, child_info.name AS child_name, teacher_info.name AS supervisor_name
     FROM bottle_chart
     INNER JOIN child_info ON bottle_chart.child = child_info.id
+    INNER JOIN teacher_info ON bottle_chart.supervisor = teacher_info.id
     WHERE bottle_chart.id = ?;
     `;
     con.query(sql, [id], (err, result) => {
@@ -668,11 +663,22 @@ router.delete('/delete_bottle_record/:id', (req, res) => {
 
 
 // Sunblock chart
+// router.get('/sunblock_chart', (req, res) => {
+//     const sql = `
+//     SELECT sunblock_chart.*, child_info.name AS child_name
+//     FROM sunblock_chart
+//     INNER JOIN child_info ON sunblock_chart.child = child_info.id
+//     `;
+//     con.query(sql, (err, result) => {
+//         if (err) return res.json({ Status: false, Error: 'Query error' })
+//         return res.json({ Status: true, Result: result })
+//     })
+// })
 router.get('/sunblock_chart', (req, res) => {
     const sql = `
-    SELECT sunblock_chart.*, child_info.name AS child_name
-    FROM sunblock_chart
-    INNER JOIN child_info ON sunblock_chart.child = child_info.id
+    SELECT sunblock.*, teacher_info.name AS creator_name
+    FROM sunblock
+    INNER JOIN teacher_info ON sunblock.person_who_created = teacher_info.id
     `;
     con.query(sql, (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
@@ -683,12 +689,7 @@ router.get('/sunblock_chart', (req, res) => {
 
 router.get('/sunblock_chart/:id', (req, res) => {
     const id = req.params.id;
-    const sql = `
-    SELECT sunblock_chart.*, child_info.name AS child_name
-    FROM sunblock_chart
-    INNER JOIN child_info ON sunblock_chart.child = child_info.id
-    WHERE sunblock_chart.id = ?;
-    `;
+    const sql = `SELECT * FROM sunblock WHERE id = ?`;
     con.query(sql, [id], (err, result) => {
         if (err) {
             console.error('Error executing SQL query:', err);
@@ -698,18 +699,12 @@ router.get('/sunblock_chart/:id', (req, res) => {
     });
 })
 
-
-router.post('/add_sunblock_record', (req, res) => {
-    const sql = `INSERT INTO sunblock_chart (apply_date, child, apply_time_one, apply_time_two, apply_time_three, note, supervisor) 
-    VALUES (?, ?, ?, ?, ?, ?, ?)`;
+router.post('/add_sunblock_chart', (req, res) => {
+    const sql = `INSERT INTO sunblock (apply_date, person_who_created) 
+    VALUES (?, ?)`;
     const values = [
         req.body.apply_date,
-        req.body.child_id,
-        req.body.apply_time_one,
-        req.body.apply_time_two,
-        req.body.apply_time_three,
-        req.body.note,
-        req.body.supervisor
+        req.body.person_who_created
     ]
     con.query(sql, values, (err, result) => {
         if (err) {
@@ -720,6 +715,93 @@ router.post('/add_sunblock_record', (req, res) => {
 
     });
 });
+
+
+router.put('/edit_sunblock_chart/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `UPDATE sunblock 
+                    SET 
+                    apply_date = ?
+                    WHERE id = ?`;
+
+    const values = [
+        req.body.apply_date
+    ]
+    con.query(sql, [...values, id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+});
+
+
+router.get('/sunblock_chart_detail/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT 
+    sunblock_chart.*, 
+    child_info.name AS child_name,
+    sunblock.apply_date AS sunblock_date,
+    teacher_info.name AS supervisor_name
+    FROM sunblock_chart
+    INNER JOIN child_info ON sunblock_chart.child = child_info.id
+    INNER JOIN teacher_info ON sunblock_chart.supervisor = teacher_info.id 
+    INNER JOIN sunblock ON sunblock_chart.apply_date = sunblock.id
+    WHERE sunblock_chart.id = ?;
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result });
+    });
+})
+
+
+
+
+
+
+
+// router.get('/sunblock_chart/:id', (req, res) => {
+//     const id = req.params.id;
+//     const sql = `
+//     SELECT sunblock_chart.*, child_info.name AS child_name
+//     FROM sunblock_chart
+//     INNER JOIN child_info ON sunblock_chart.child = child_info.id
+//     WHERE sunblock_chart.id = ?;
+//     `;
+//     con.query(sql, [id], (err, result) => {
+//         if (err) {
+//             console.error('Error executing SQL query:', err);
+//             return res.status(500).json({ error: 'Internal server error' });
+//         }
+//         return res.json({ Status: true, Result: result })
+//     });
+// })
+
+
+// router.post('/add_sunblock_record', (req, res) => {
+//     const sql = `INSERT INTO sunblock_chart (apply_date, child, apply_time_one, apply_time_two, apply_time_three, note, supervisor) 
+//     VALUES (?, ?, ?, ?, ?, ?, ?)`;
+//     const values = [
+//         req.body.apply_date,
+//         req.body.child_id,
+//         req.body.apply_time_one,
+//         req.body.apply_time_two,
+//         req.body.apply_time_three,
+//         req.body.note,
+//         req.body.supervisor
+//     ]
+//     con.query(sql, values, (err, result) => {
+//         if (err) {
+//             console.error('Error executing SQL query:', err);
+//             return res.json({ Status: false, Error: err })
+//         }
+//         return res.json({ Status: true })
+
+//     });
+// });
 
 
 router.put('/edit_accident_form/:id', (req, res) => {

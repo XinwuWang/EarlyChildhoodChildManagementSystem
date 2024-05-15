@@ -3,15 +3,13 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 
-const TBottleChart = () => {
+const ABottleChart = () => {
     const [bottleChart, setBottleChart] = useState([])
-
     useEffect(() => {
-        axios.get('http://localhost:3000/teacher/bottle_chart')
+        axios.get('http://localhost:3000/auth/bottle_chart')
             .then(result => {
                 if (result.data.Status) {
                     setBottleChart(result.data.Result)
-                    console.log(result.data.Result)
                 } else {
                     alert(result.data.Error)
                 }
@@ -19,20 +17,6 @@ const TBottleChart = () => {
             .catch(err => console.log(err))
     }, [])
 
-    const handleDelete = (id) => {
-        if (window.confirm("ALERT! Are you sure you want to delete this record?")) {
-            axios.delete(`http://localhost:3000/teacher/delete_bottle_record/${id}`)
-                .then(result => {
-                    if (result.data.Status) {
-                        setBottleChart(bottleChart.filter(e => e.id !== id));
-                        window.location.reload()
-                    } else {
-                        alert(result.data.Error)
-                    }
-                })
-                .catch(err => console.log(err))
-        }
-    }
 
     return (
         <div>
@@ -40,8 +24,7 @@ const TBottleChart = () => {
                 <div className="d-flex justify-content-between align-items-center mt-auto p-3 m-3">
                     <h1 className="display-4 fw-normal">Formula Feeding Chart</h1>
                     <div>
-                        <Link to={'/teacher_dashboard/add_bottle_record'} className='btn btn-lg p-2' title="Add a sleep record"><i className="bi bi-clipboard2-plus-fill text-dark"></i></Link>
-                        <Link to={'/teacher_dashboard/document'} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
+                        <Link to={'/dashboard/document'} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
                     </div>
                 </div>
             </div >
@@ -58,7 +41,6 @@ const TBottleChart = () => {
                             <th scope="col">Time Three</th>
                             <th scope="col">Note</th>
                             <th scope="col">Supervisor</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,14 +56,6 @@ const TBottleChart = () => {
                                     <td>{e.time_three}</td>
                                     <td>{e.note}</td>
                                     <td>{e.supervisor_name}</td>
-                                    <td>
-                                        <Link to={`/teacher_dashboard/edit_bottle_record/${e.id}`} className='btn btn-black p-0 me-3' title='Edit'>
-                                            <i className="bi bi-pencil-square"></i>
-                                        </Link>
-                                        <button type='button' className="btn btn-black p-0" title='Delete' onClick={() => handleDelete(e.id)}>
-                                            <i className="bi bi-trash" />
-                                        </button>
-                                    </td>
                                 </tr>
                             )
                             )
@@ -94,4 +68,4 @@ const TBottleChart = () => {
     )
 }
 
-export default TBottleChart
+export default ABottleChart

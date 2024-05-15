@@ -715,6 +715,55 @@ router.get('/meal_chart/:id', (req, res) => {
 })
 
 
+router.get('/meal_detail/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+        SELECT meal_detail.*, child_info.name AS child_name
+        FROM meal_detail
+        INNER JOIN child_info ON meal_detail.child = child_info.id
+        WHERE meal_detail.meal_day = ?;
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result });
+    });
+})
+
+
+
+// Sleep record
+router.get('/sleep_record', (req, res) => {
+    const sql = `
+    SELECT sleep_chart.*, child_info.name AS child_name, teacher_info.name AS supervisor_name
+    FROM sleep_chart
+    INNER JOIN child_info ON sleep_chart.child = child_info.id
+    INNER JOIN teacher_info ON sleep_chart.supervisor = teacher_info.id
+    `;
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+// Bottle chart
+router.get('/bottle_chart', (req, res) => {
+    const sql = `
+    SELECT bottle_chart.*, child_info.name AS child_name, teacher_info.name AS supervisor_name
+    FROM bottle_chart
+    INNER JOIN child_info ON bottle_chart.child = child_info.id
+    INNER JOIN teacher_info ON bottle_chart.supervisor = teacher_info.id
+    `;
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
 
 // Log out
 router.get('/logout', (req, res) => {
