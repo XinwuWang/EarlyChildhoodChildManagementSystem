@@ -76,11 +76,9 @@ import TEditAccidentForm from './Components/Teacher/TEditAccidentForm'
 import TSunblockChart from './Components/Teacher/TSunblockChart'
 import TCreateSunblockForm from './Components/Teacher/TCreateSunblockForm'
 import TSunblockDetail from './Components/Teacher/TSunblockDetail'
-
-import TAddSunblock from './Components/Teacher/TAddSunblock'
-// import TEditSunblock from './Components/Teacher/TEditSunblock'
+import TEditSunblockDetail from './Components/Teacher/TEditSunblockDetail'
 import TEditSunblockChart from './Components/Teacher/TEditSunblockChart'
-
+import TApplySunblock from './Components/Teacher/TApplySunblock'
 import TAttendance from './Components/Teacher/TAttendance'
 import TEditMeal from './Components/Teacher/TEditMeal'
 import AddChildToMeal from './Components/Teacher/AddChildToMeal'
@@ -211,8 +209,8 @@ function App() {
           <Route path='/teacher_dashboard/add_sunblock_chart' element={<TCreateSunblockForm />}></Route>
           <Route path='/teacher_dashboard/edit_sunblock_chart/:id' element={<TEditSunblockChart />}></Route>
           <Route path='/teacher_dashboard/sunblock_chart_detail/:id' element={<TSunblockDetail />}></Route>
-          {/* <Route path='/teacher_dashboard/edit_sunblock_record/:id' element={<TEditSunblock />}></Route> */}
-          {/* <Route path='/teacher_dashboard/add_sunblock_record' element={<TAddSunblock />}></Route> */}
+          <Route path='/teacher_dashboard/sunblock_chart/:id/apply_sunblock_to_child' element={<TApplySunblock />}></Route >
+          <Route path='/teacher_dashboard/edit_sunblock_detail/:id' element={<TEditSunblockDetail />}></Route>
           <Route path='/teacher_dashboard/attendance' element={<TAttendance />}></Route>
           <Route path='/teacher_dashboard/attendance_detail/:id' element={<TAttendanceDetail />}></Route>
           <Route path='/teacher_dashboard/attendance/:id/add_child_to_attendance' element={<TAddChildToAtten />}></Route>

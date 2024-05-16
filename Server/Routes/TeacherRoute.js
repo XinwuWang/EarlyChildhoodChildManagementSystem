@@ -746,7 +746,7 @@ router.get('/sunblock_chart_detail/:id', (req, res) => {
     INNER JOIN child_info ON sunblock_chart.child = child_info.id
     INNER JOIN teacher_info ON sunblock_chart.supervisor = teacher_info.id 
     INNER JOIN sunblock ON sunblock_chart.apply_date = sunblock.id
-    WHERE sunblock_chart.id = ?;
+    WHERE sunblock_chart.apply_date = ?;
     `;
     con.query(sql, [id], (err, result) => {
         if (err) {
@@ -758,77 +758,49 @@ router.get('/sunblock_chart_detail/:id', (req, res) => {
 })
 
 
+router.post('/apply_sunblock_to_child', (req, res) => {
+    const sql = `INSERT INTO sunblock_chart 
+    (apply_date, child, apply_time_one, apply_time_two, apply_time_three, note, supervisor) 
+    VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    const values = [
+        req.body.apply_date,
+        req.body.child_id,
+        req.body.time_one,
+        req.body.time_two,
+        req.body.time_three,
+        req.body.note,
+        req.body.supervisor
+    ]
+
+    console.log(values)
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+});
 
 
-
-
-
-// router.get('/sunblock_chart/:id', (req, res) => {
-//     const id = req.params.id;
-//     const sql = `
-//     SELECT sunblock_chart.*, child_info.name AS child_name
-//     FROM sunblock_chart
-//     INNER JOIN child_info ON sunblock_chart.child = child_info.id
-//     WHERE sunblock_chart.id = ?;
-//     `;
-//     con.query(sql, [id], (err, result) => {
-//         if (err) {
-//             console.error('Error executing SQL query:', err);
-//             return res.status(500).json({ error: 'Internal server error' });
-//         }
-//         return res.json({ Status: true, Result: result })
-//     });
-// })
-
-
-// router.post('/add_sunblock_record', (req, res) => {
-//     const sql = `INSERT INTO sunblock_chart (apply_date, child, apply_time_one, apply_time_two, apply_time_three, note, supervisor) 
-//     VALUES (?, ?, ?, ?, ?, ?, ?)`;
-//     const values = [
-//         req.body.apply_date,
-//         req.body.child_id,
-//         req.body.apply_time_one,
-//         req.body.apply_time_two,
-//         req.body.apply_time_three,
-//         req.body.note,
-//         req.body.supervisor
-//     ]
-//     con.query(sql, values, (err, result) => {
-//         if (err) {
-//             console.error('Error executing SQL query:', err);
-//             return res.json({ Status: false, Error: err })
-//         }
-//         return res.json({ Status: true })
-
-//     });
-// });
-
-
-router.put('/edit_accident_form/:id', (req, res) => {
+router.put('/edit_sunblock_detail/:id', (req, res) => {
     const id = req.params.id;
-    const sql = `UPDATE accident_form 
+    const sql = `UPDATE sunblock_chart 
                     SET 
-                    accident_date = ?, 
-                    accident_time = ?, 
-                    location_of_accident = ?,
-                    description_of_accident = ?,
-                    injury_assessment = ?,
-                    medical_treatment = ?,
-                    staff_response = ?,
-                    additional_notes = ?,
+                    apply_time_one = ?,
+                    apply_time_two = ?,
+                    apply_time_three = ?,
+                    note = ?,
                     supervisor = ?
                     WHERE id = ?`;
 
 
     const values = [
-        req.body.accident_date,
-        req.body.accident_time,
-        req.body.location_of_accident,
-        req.body.description_of_accident,
-        req.body.injury_assessment,
-        req.body.medical_treatment,
-        req.body.staff_response,
-        req.body.additional_notes,
+        req.body.apply_time_one,
+        req.body.apply_time_two,
+        req.body.apply_time_three,
+        req.body.note,
         req.body.supervisor
     ]
     con.query(sql, [...values, id], (err, result) => {
@@ -836,6 +808,7 @@ router.put('/edit_accident_form/:id', (req, res) => {
         return res.json({ Status: true, Result: result })
     })
 });
+
 
 
 
@@ -910,6 +883,41 @@ router.post('/add_accident_form', (req, res) => {
         return res.json({ Status: true })
 
     });
+});
+
+
+
+router.put('/edit_accident_form/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `UPDATE accident_form 
+                    SET 
+                    accident_date = ?, 
+                    accident_time = ?, 
+                    location_of_accident = ?,
+                    description_of_accident = ?,
+                    injury_assessment = ?,
+                    medical_treatment = ?,
+                    staff_response = ?,
+                    additional_notes = ?,
+                    supervisor = ?
+                    WHERE id = ?`;
+
+
+    const values = [
+        req.body.accident_date,
+        req.body.accident_time,
+        req.body.location_of_accident,
+        req.body.description_of_accident,
+        req.body.injury_assessment,
+        req.body.medical_treatment,
+        req.body.staff_response,
+        req.body.additional_notes,
+        req.body.supervisor
+    ]
+    con.query(sql, [...values, id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
 });
 
 

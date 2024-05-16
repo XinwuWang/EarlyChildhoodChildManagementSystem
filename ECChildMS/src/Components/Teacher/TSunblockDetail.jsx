@@ -38,7 +38,6 @@ const TSunblockDetail = () => {
         axios.get(`http://localhost:3000/teacher/sunblock_chart_detail/${id}`)
             .then(result => {
                 if (result.data.Status) {
-                    console.log(result)
                     setSunblockDetail(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -107,9 +106,14 @@ const TSunblockDetail = () => {
                                     <td>{e.apply_time_three}</td>
                                     <td>{e.note}</td>
                                     <td>{e.supervisor_name}</td>
-                                    <td><button type='button' className="btn btn-black p-0" title='Delete' onClick={() => handleDelete(e.id)}>
-                                        <i className="bi bi-trash" />
-                                    </button></td>
+                                    <td>
+                                        <Link to={`/teacher_dashboard/edit_sunblock_detail/${e.id}`} className='btn btn-black p-0 me-3' title='Edit'>
+                                            <i className="bi bi-pen-fill"></i>
+                                        </Link>
+                                        <button type='button' className="btn btn-black p-0" title='Delete' onClick={() => handleDelete(e.id)}>
+                                            <i className="bi bi-trash" />
+                                        </button>
+                                    </td>
                                 </tr>
 
                             ))}
