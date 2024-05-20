@@ -471,87 +471,88 @@ router.post('/add_childMeal', (req, res) => {
 
 
 // Sleep chart 
-router.get('/sleep_record', (req, res) => {
-    const sql = `
-    SELECT sleep_chart.*, child_info.name AS child_name, teacher_info.name AS supervisor_name
-    FROM sleep_chart
-    INNER JOIN child_info ON sleep_chart.child = child_info.id
-    INNER JOIN teacher_info ON sleep_chart.supervisor = teacher_info.id
-    `;
-    con.query(sql, (err, result) => {
-        if (err) return res.json({ Status: false, Error: 'Query error' })
-        return res.json({ Status: true, Result: result })
-    })
-})
+
+// router.get('/sleep_record', (req, res) => {
+//     const sql = `
+//     SELECT sleep_chart.*, child_info.name AS child_name, teacher_info.name AS supervisor_name
+//     FROM sleep_chart
+//     INNER JOIN child_info ON sleep_chart.child = child_info.id
+//     INNER JOIN teacher_info ON sleep_chart.supervisor = teacher_info.id
+//     `;
+//     con.query(sql, (err, result) => {
+//         if (err) return res.json({ Status: false, Error: 'Query error' })
+//         return res.json({ Status: true, Result: result })
+//     })
+// })
 
 
-router.get('/sleep_record/:id', (req, res) => {
-    const id = req.params.id;
-    const sql = `
-    SELECT sleep_chart.*, child_info.name AS child_name
-    FROM sleep_chart
-    INNER JOIN child_info ON sleep_chart.child = child_info.id
-    WHERE sleep_chart.id = ?;
-    `;
-    con.query(sql, [id], (err, result) => {
-        if (err) {
-            console.error('Error executing SQL query:', err);
-            return res.status(500).json({ error: 'Internal server error' });
-        }
-        return res.json({ Status: true, Result: result })
-    });
-})
+// router.get('/sleep_record/:id', (req, res) => {
+//     const id = req.params.id;
+//     const sql = `
+//     SELECT sleep_chart.*, child_info.name AS child_name
+//     FROM sleep_chart
+//     INNER JOIN child_info ON sleep_chart.child = child_info.id
+//     WHERE sleep_chart.id = ?;
+//     `;
+//     con.query(sql, [id], (err, result) => {
+//         if (err) {
+//             console.error('Error executing SQL query:', err);
+//             return res.status(500).json({ error: 'Internal server error' });
+//         }
+//         return res.json({ Status: true, Result: result })
+//     });
+// })
 
 
-router.post('/add_sleep_record', (req, res) => {
-    const sql = `INSERT INTO sleep_chart (sleep_date, child, time_to_bed, time_of_sleep, time_of_wakeup, time_out_of_bed, note, supervisor) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-    const values = [
-        req.body.sleep_date,
-        req.body.child_id,
-        req.body.time_to_bed,
-        req.body.time_of_sleep,
-        req.body.time_of_wakeup,
-        req.body.time_out_of_bed,
-        req.body.note,
-        req.body.supervisor
-    ]
-    con.query(sql, values, (err, result) => {
-        if (err) {
-            console.error('Error executing SQL query:', err);
-            return res.json({ Status: false, Error: err })
-        }
-        return res.json({ Status: true })
+// router.post('/add_sleep_record', (req, res) => {
+//     const sql = `INSERT INTO sleep_chart (sleep_date, child, time_to_bed, time_of_sleep, time_of_wakeup, time_out_of_bed, note, supervisor) 
+//     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+//     const values = [
+//         req.body.sleep_date,
+//         req.body.child_id,
+//         req.body.time_to_bed,
+//         req.body.time_of_sleep,
+//         req.body.time_of_wakeup,
+//         req.body.time_out_of_bed,
+//         req.body.note,
+//         req.body.supervisor
+//     ]
+//     con.query(sql, values, (err, result) => {
+//         if (err) {
+//             console.error('Error executing SQL query:', err);
+//             return res.json({ Status: false, Error: err })
+//         }
+//         return res.json({ Status: true })
 
-    });
-});
+//     });
+// });
 
 
-router.put('/edit_sleep_record/:id', (req, res) => {
-    const id = req.params.id;
-    const sql = `UPDATE sleep_chart 
-                    SET 
-                    sleep_date = ?, 
-                    time_to_bed = ?, 
-                    time_of_sleep = ?, 
-                    time_of_wakeup = ?, 
-                    time_out_of_bed = ?,
-                    note = ?
-                    WHERE id = ?`;
+// router.put('/edit_sleep_record/:id', (req, res) => {
+//     const id = req.params.id;
+//     const sql = `UPDATE sleep_chart 
+//                     SET 
+//                     sleep_date = ?, 
+//                     time_to_bed = ?, 
+//                     time_of_sleep = ?, 
+//                     time_of_wakeup = ?, 
+//                     time_out_of_bed = ?,
+//                     note = ?
+//                     WHERE id = ?`;
 
-    const values = [
-        req.body.sleep_date,
-        req.body.time_to_bed,
-        req.body.time_of_sleep,
-        req.body.time_of_wakeup,
-        req.body.time_out_of_bed,
-        req.body.note
-    ]
-    con.query(sql, [...values, id], (err, result) => {
-        if (err) return res.json({ Status: false, Error: 'Query error' + err })
-        return res.json({ Status: true, Result: result })
-    })
-});
+//     const values = [
+//         req.body.sleep_date,
+//         req.body.time_to_bed,
+//         req.body.time_of_sleep,
+//         req.body.time_of_wakeup,
+//         req.body.time_out_of_bed,
+//         req.body.note
+//     ]
+//     con.query(sql, [...values, id], (err, result) => {
+//         if (err) return res.json({ Status: false, Error: 'Query error' + err })
+//         return res.json({ Status: true, Result: result })
+//     })
+// });
 
 
 
@@ -663,17 +664,6 @@ router.delete('/delete_bottle_record/:id', (req, res) => {
 
 
 // Sunblock chart
-// router.get('/sunblock_chart', (req, res) => {
-//     const sql = `
-//     SELECT sunblock_chart.*, child_info.name AS child_name
-//     FROM sunblock_chart
-//     INNER JOIN child_info ON sunblock_chart.child = child_info.id
-//     `;
-//     con.query(sql, (err, result) => {
-//         if (err) return res.json({ Status: false, Error: 'Query error' })
-//         return res.json({ Status: true, Result: result })
-//     })
-// })
 router.get('/sunblock_chart', (req, res) => {
     const sql = `
     SELECT sunblock.*, teacher_info.name AS creator_name

@@ -1,3 +1,5 @@
+-- CREATE DATABASE IF NOT EXISTS earlychildhoodchildms;
+
 USE earlychildhoodchildms;
 
 -- CREATE TABLE admin (
@@ -142,7 +144,7 @@ USE earlychildhoodchildms;
 -- update_time VARCHAR(50),
 -- admin_id INT,
 -- teacher_id INT,
--- FOREIGN KEY (admin_id) REFERENCES admin(id),
+-- FOREIGN KEY (admin_id) REFERENCES admin(id) ON UPDATE CASCADE,
 -- FOREIGN KEY (teacher_id) REFERENCES teacher_info (id)
 -- );
 
@@ -214,19 +216,7 @@ USE earlychildhoodchildms;
 -- );
 
 
--- CREATE TABLE sleep_chart (
--- id INT AUTO_INCREMENT PRIMARY KEY,
--- sleep_date VARCHAR(50),
--- child INT,
--- time_to_bed VARCHAR(50),
--- time_of_sleep VARCHAR(50),
--- time_of_wakeup VARCHAR(50),
--- time_out_of_bed VARCHAR(50),
--- note VARCHAR(255),
--- supervisor INT,
--- FOREIGN KEY (child) REFERENCES child_info(id),
--- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
--- );
+
 
 
 -- CREATE TABLE accident_form (
@@ -285,25 +275,48 @@ USE earlychildhoodchildms;
 -- FOREIGN KEY (person_who_wrote) REFERENCES teacher_info(id)
 -- );
 
-CREATE TABLE sunblock (
-id INT AUTO_INCREMENT PRIMARY KEY,
-apply_date VARCHAR(50),
-person_who_created INT,
-FOREIGN KEY (person_who_created) REFERENCES teacher_info(id)
-);
+-- CREATE TABLE sunblock (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- apply_date VARCHAR(50),
+-- person_who_created INT,
+-- FOREIGN KEY (person_who_created) REFERENCES teacher_info(id)
+-- );
 
-CREATE TABLE sunblock_chart (
-id INT AUTO_INCREMENT PRIMARY KEY,
-apply_date INT,
-child INT,
-apply_time_one VARCHAR(50),
-apply_time_two VARCHAR(50),
-apply_time_three VARCHAR(50),
-note VARCHAR(255),
-supervisor INT,
-FOREIGN KEY (child) REFERENCES child_info(id),
-FOREIGN KEY (supervisor) REFERENCES teacher_info (id),
-FOREIGN KEY (apply_date) REFERENCES sunblock(id)
-);
+-- CREATE TABLE sunblock_chart (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- apply_date INT,
+-- child INT,
+-- apply_time_one VARCHAR(50),
+-- apply_time_two VARCHAR(50),
+-- apply_time_three VARCHAR(50),
+-- note VARCHAR(255),
+-- supervisor INT,
+-- FOREIGN KEY (child) REFERENCES child_info(id),
+-- FOREIGN KEY (supervisor) REFERENCES teacher_info (id),
+-- FOREIGN KEY (apply_date) REFERENCES sunblock(id)
+-- );
+
+
+-- CREATE TABLE sleep_chart (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- sleep_date VARCHAR(50),
+-- person_who_created INT,
+-- FOREIGN KEY (person_who_created) REFERENCES teacher_info(id)
+-- );
+
+-- CREATE TABLE sleep_detail (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- sleep_date INT,
+-- child INT,
+-- time_to_bed VARCHAR(50),
+-- time_of_sleep VARCHAR(50),
+-- time_of_wakeup VARCHAR(50),
+-- time_out_of_bed VARCHAR(50),
+-- note VARCHAR(255),
+-- supervisor INT,
+-- FOREIGN KEY (sleep_date) REFERENCES sleep_chart(id),
+-- FOREIGN KEY (child) REFERENCES child_info(id),
+-- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
+-- );
 
 

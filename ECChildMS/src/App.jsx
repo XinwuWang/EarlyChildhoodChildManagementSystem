@@ -64,8 +64,9 @@ import TDocument from './Components/Teacher/TDocument'
 import TMealChart from './Components/Teacher/TMealChart'
 import TMealDetail from './Components/Teacher/TMealDetail'
 import TAddMeal from './Components/Teacher/TAddMeal'
-import TSleepRecord from './Components/Teacher/TSleepRecord'
-import TAddSleepRecord from './Components/Teacher/TAddSleepRecord'
+// import TSleepRecord from './Components/Teacher/TSleepRecord'
+// import TAddSleepRecord from './Components/Teacher/TAddSleepRecord'
+// import TEditSleep from './Components/Teacher/TEditSleep'
 import TBottleChart from './Components/Teacher/TBottleChart'
 import TAddBottleChart from './Components/Teacher/TAddBottleChart'
 import TEditBottle from './Components/Teacher/TEditBottle'
@@ -82,7 +83,7 @@ import TApplySunblock from './Components/Teacher/TApplySunblock'
 import TAttendance from './Components/Teacher/TAttendance'
 import TEditMeal from './Components/Teacher/TEditMeal'
 import AddChildToMeal from './Components/Teacher/AddChildToMeal'
-import TEditSleep from './Components/Teacher/TEditSleep'
+
 import TAttendanceDetail from './Components/Teacher/TAttendanceDetail'
 import TAddChildToAtten from './Components/Teacher/TAddChildToAtten'
 import TLearningStory from './Components/Teacher/TLearningStory'
@@ -195,9 +196,9 @@ function App() {
           <Route path='/teacher_dashboard/add_note' element={<TAddNote />}></Route>
           <Route path='/teacher_dashboard/document' element={<TDocument />}></Route>
           <Route path='/teacher_dashboard/meal_chart' element={<TMealChart />}></Route>
-          <Route path='/teacher_dashboard/sleep_record' element={<TSleepRecord />}></Route>
+          {/* <Route path='/teacher_dashboard/sleep_record' element={<TSleepRecord />}></Route>
           <Route path='/teacher_dashboard/add_sleep_record' element={<TAddSleepRecord />}></Route>
-          <Route path='/teacher_dashboard/edit_sleep_record/:id' element={<TEditSleep />}></Route>
+          <Route path='/teacher_dashboard/edit_sleep_record/:id' element={<TEditSleep />}></Route> */}
           <Route path='/teacher_dashboard/bottle_chart' element={<TBottleChart />}></Route>
           <Route path='/teacher_dashboard/add_bottle_record' element={<TAddBottleChart />}></Route>
           <Route path='/teacher_dashboard/edit_bottle_record/:id' element={<TEditBottle />}></Route>
