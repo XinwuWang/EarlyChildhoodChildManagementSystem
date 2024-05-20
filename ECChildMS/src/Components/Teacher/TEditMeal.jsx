@@ -124,7 +124,7 @@ const TEditMeal = () => {
                             cols="50"
                             autoComplete='off'
                             onChange={(e) => setMeal({ ...meal, lunch: e.target.value })}
-                            required />
+                        />
                     </div>
                     <div className='col-12'>
                         <label htmlFor='afternoon_tea' className='form-label'>
@@ -141,7 +141,7 @@ const TEditMeal = () => {
                             cols="50"
                             autoComplete='off'
                             onChange={(e) => setMeal({ ...meal, afternoon_tea: e.target.value })}
-                            required />
+                        />
                     </div>
                     <div className='col-12'>
                         <label htmlFor='supervisor' className='form-label'>

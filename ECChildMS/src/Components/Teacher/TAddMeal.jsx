@@ -91,7 +91,7 @@ const TAddMeal = () => {
                             rows="4"
                             cols="50"
                             onChange={(e) => setMeal({ ...meal, lunch: e.target.value })}
-                            required />
+                        />
                     </div>
                     <div className='col-12'>
                         <label htmlFor='afternoon_tea' className='form-label'>
@@ -107,7 +107,7 @@ const TAddMeal = () => {
                             rows="4"
                             cols="50"
                             onChange={(e) => setMeal({ ...meal, afternoon_tea: e.target.value })}
-                            required />
+                        />
                     </div>
                     <div className='col-12'>
                         <label htmlFor='supervisor' className='form-label'>
