@@ -18,20 +18,7 @@ const TSleepRecord = () => {
             .catch(err => console.log(err))
     }, [])
 
-    const handleDelete = (id) => {
-        if (window.confirm("ALERT! Are you sure you want to delete this record?")) {
-            axios.delete(`http://localhost:3000/teacher/delete_sleep_record/${id}`)
-                .then(result => {
-                    if (result.data.Status) {
-                        setSleepRecord(sleepRecord.filter(e => e.id !== id));
-                        window.location.reload()
-                    } else {
-                        alert(result.data.Error)
-                    }
-                })
-                .catch(err => console.log(err))
-        }
-    }
+
 
     return (
         <div>
@@ -39,7 +26,7 @@ const TSleepRecord = () => {
                 <div className="d-flex justify-content-between align-items-center mt-auto p-3 m-3">
                     <h1 className="display-4 fw-normal">Sleep Record</h1>
                     <div>
-                        <Link to={'/teacher_dashboard/add_sleep_record'} className='btn btn-lg p-2' title="Add a sleep record"><i className="bi bi-clipboard2-plus-fill text-dark"></i></Link>
+                        <Link to={'/teacher_dashboard/create_sleep_chart'} className='btn btn-lg p-2' title="Create a sleep chart"><i className="bi bi-clipboard2-plus-fill text-dark"></i></Link>
                         <Link to={'/teacher_dashboard/document'} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
                     </div>
                 </div>
@@ -51,12 +38,6 @@ const TSleepRecord = () => {
                         <tr>
                             <th></th>
                             <th scope="col">Date</th>
-                            <th scope="col">Child Name</th>
-                            <th scope="col">Time to Bed</th>
-                            <th scope="col">Time of Sleep</th>
-                            <th scope="col">Time of Wake</th>
-                            <th scope="col">Time Out of Bed</th>
-                            <th scope="col">Note</th>
                             <th scope="col">Supervisor</th>
                             <th></th>
                         </tr>
@@ -67,21 +48,15 @@ const TSleepRecord = () => {
                                 <tr key={e.id} className="">
                                     <td></td>
 
-                                    <td>{e.sleep_date}</td>
-                                    <td>{e.child_name}</td>
-                                    <td>{e.time_to_bed}</td>
-                                    <td>{e.time_of_sleep}</td>
-                                    <td>{e.time_of_wakeup}</td>
-                                    <td>{e.time_out_of_bed}</td>
-                                    <td>{e.note}</td>
+                                    <td><Link
+                                        to={`/teacher_dashboard/sleep_detail/${e.id}`
+                                        }
+                                    >{e.sleep_date}</Link></td>
                                     <td>{e.supervisor_name}</td>
                                     <td>
-                                        <Link to={`/teacher_dashboard/edit_sleep_record/${e.id}`} className='btn btn-black p-0 me-3' title='Edit'>
+                                        <Link to={`/teacher_dashboard/edit_sleep_chart/${e.id}`} className='btn btn-black p-0 me-3' title='Edit'>
                                             <i className="bi bi-pencil-square"></i>
                                         </Link>
-                                        <button type='button' className="btn btn-black p-0" title='Delete' onClick={() => handleDelete(e.id)}>
-                                            <i className="bi bi-trash" />
-                                        </button>
                                     </td>
                                 </tr>
                             )
