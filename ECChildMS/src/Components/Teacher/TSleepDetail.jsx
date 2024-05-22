@@ -5,6 +5,7 @@ import axios from 'axios'
 
 const TSleepDetail = () => {
     const { id } = useParams()
+    console.log(id)
     const [sleepChart, setSleepChart] = useState({
         sleep_date: '',
     });
@@ -38,6 +39,7 @@ const TSleepDetail = () => {
         axios.get(`http://localhost:3000/teacher/sleep_detail/${id}`)
             .then(result => {
                 if (result.data.Status) {
+                    console.log(result.data.Result)
                     setSleepDetail(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -52,7 +54,7 @@ const TSleepDetail = () => {
             axios.delete(`http://localhost:3000/teacher/delete_sleep_record/${id}`)
                 .then(result => {
                     if (result.data.Status) {
-                        setSleepChart(sleepDetail.filter(e => e.id !== id));
+                        setSleepDetail(sleepDetail.filter(e => e.id !== id));
                         window.location.reload()
                     } else {
                         alert(result.data.Error)

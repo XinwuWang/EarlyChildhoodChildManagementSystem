@@ -69,7 +69,6 @@ import TSleepDetail from './Components/Teacher/TSleepDetail'
 import TCreateSleepChart from './Components/Teacher/TCreateSleepChart'
 import TPutChildToSleep from './Components/Teacher/TPutChildToSleep'
 import TEditSleepDetail from './Components/Teacher/TEditSleepDetail'
-// import TAddSleepRecord from './Components/Teacher/TAddSleepRecord'
 import TEditSleepChart from './Components/Teacher/TEditSleepChart'
 import TBottleChart from './Components/Teacher/TBottleChart'
 import TAddBottleChart from './Components/Teacher/TAddBottleChart'
@@ -206,7 +205,6 @@ function App() {
           <Route path='/teacher_dashboard/sleep_detail/:id' element={<TSleepDetail />}></Route>
           <Route path='/teacher_dashboard/sleep_record/:id/put_child_to_sleep' element={<TPutChildToSleep />}></Route>
           <Route path='/teacher_dashboard/edit_sleep_detail/:id' element={<TEditSleepDetail />}></Route>
-          {/* <Route path='/teacher_dashboard/add_sleep_record' element={<TAddSleepRecord />}></Route>*/}
           <Route path='/teacher_dashboard/edit_sleep_chart/:id' element={<TEditSleepChart />}></Route>
           <Route path='/teacher_dashboard/bottle_chart' element={<TBottleChart />}></Route>
           <Route path='/teacher_dashboard/add_bottle_record' element={<TAddBottleChart />}></Route>

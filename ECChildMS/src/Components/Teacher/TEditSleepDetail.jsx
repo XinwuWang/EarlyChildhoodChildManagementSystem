@@ -6,7 +6,9 @@ import axios from 'axios'
 const TEditSleepDetail = () => {
     const teacherId = localStorage.getItem('teacherId');
     const { id } = useParams()
+    console.log(id)
     const [sleepChart, setSleepChart] = useState({
+        date_of_sleep: '',
         sleep_date: '',
         child_name: '',
         time_to_bed: '',
@@ -22,11 +24,12 @@ const TEditSleepDetail = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/teacher/sleep_record_detail/${id}`)
+        axios.get(`http://localhost:3000/teacher/sleep/${id}`)
             .then(result => {
                 if (result.data.Status && result.data.Result.length > 0) {
                     setSleepChart({
                         ...sleepChart,
+                        date_of_sleep: result.data.Result[0].date_of_sleep,
                         sleep_date: result.data.Result[0].sleep_date,
                         child_name: result.data.Result[0].child_name,
                         time_to_bed: result.data.Result[0].time_to_bed,
@@ -52,8 +55,6 @@ const TEditSleepDetail = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
-
         const Data = {
             time_to_bed: sleepChart.time_to_bed,
             time_of_sleep: sleepChart.time_of_sleep,
@@ -63,11 +64,11 @@ const TEditSleepDetail = () => {
             supervisor: sleepChart.supervisor
         }
 
-
         axios.put(`http://localhost:3000/teacher/edit_sleep_detail/${id}`, Data)
             .then(result => {
                 if (result.data.Status) {
-                    navigate('/teacher_dashboard/sleep_detail/' + id)
+                    console.log(sleepChart.date_of_sleep)
+                    navigate('/teacher_dashboard/sleep_detail/' + sleepChart.sleep_date)
                     setTimeout(() => {
                         alert('Sleep detail updated successfully');
                     }, 300);
@@ -195,7 +196,7 @@ const TEditSleepDetail = () => {
 
                     <div className='col-12 mt-4 p-2'>
                         <button className='btn btn-success w-100 mb-2' type='submit'>Save</button>
-                        <Link to={`/teacher_dashboard/sleep_detail/${id}`} className="btn btn-light w-100">Cancel</Link>
+                        <Link to={`/teacher_dashboard/sleep_detail/${sleepChart.sleep_date}`} className="btn btn-light w-100">Cancel</Link>
                     </div>
                 </form>
             </div>
