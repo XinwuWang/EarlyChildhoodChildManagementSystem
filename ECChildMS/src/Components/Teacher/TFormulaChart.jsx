@@ -27,7 +27,7 @@ const TFormulaChart = () => {
                 <div className="d-flex justify-content-between align-items-center mt-auto p-3 m-3">
                     <h6 className="display-4 fw-normal">Formula Feeding Chart</h6>
                     <div>
-                        <Link to={'/teacher_dashboard/add_formula_chart'} className='btn btn-lg p-2' title="Add a sunblock chart"><i className="bi bi-clipboard2-plus-fill text-dark"></i></Link>
+                        <Link to={'/teacher_dashboard/create_formula_chart'} className='btn btn-lg p-2' title="Add a sunblock chart"><i className="bi bi-clipboard2-plus-fill text-dark"></i></Link>
                         <Link to={'/teacher_dashboard/document'} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
                     </div>
                 </div>
@@ -51,8 +51,8 @@ const TFormulaChart = () => {
                                     <td><Link
                                         to={`/teacher_dashboard/formula_detail/${e.id}`
                                         }
-                                    >{e.apply_date}</Link></td>
-                                    <td>{e.creator_name}</td>
+                                    >{e.feeding_date}</Link></td>
+                                    <td>{e.supervisor_name}</td>
                                     <td>
                                         <Link to={`/teacher_dashboard/edit_formula_chart/${e.id}`} className='btn btn-black p-0 me-3' title='Edit'>
                                             <i className="bi bi-pencil-square"></i>

@@ -304,25 +304,26 @@ USE earlychildhoodchildms;
 -- );
 
 
-CREATE TABLE bottle_chart (
-id INT AUTO_INCREMENT PRIMARY KEY,
-person_who_created INT,
-FOREIGN KEY (person_who_created) REFERENCES teacher_info(id)
-);
+-- CREATE TABLE formula_chart (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- feeding_date VARCHAR(50),
+-- person_who_created INT,
+-- FOREIGN KEY (person_who_created) REFERENCES teacher_info(id)
+-- );
 
 
-CREATE TABLE bottle_detail (
-id INT AUTO_INCREMENT PRIMARY KEY,
-bottle_date INT,
-child INT,
-time_one VARCHAR(50),
-time_two VARCHAR(50),
-time_three VARCHAR(50),
-note VARCHAR(255),
-supervisor INT,
-FOREIGN KEY (child) REFERENCES child_info(id),
-FOREIGN KEY (bottle_date) REFERENCES bottle_chart(id),
-FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
-);
+-- CREATE TABLE formula_detail (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- bottle_date INT,
+-- child INT,
+-- time_one VARCHAR(50),
+-- time_two VARCHAR(50),
+-- time_three VARCHAR(50),
+-- note VARCHAR(255),
+-- supervisor INT,
+-- FOREIGN KEY (child) REFERENCES child_info(id),
+-- FOREIGN KEY (bottle_date) REFERENCES formula_chart(id),
+-- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
+-- );
 
 

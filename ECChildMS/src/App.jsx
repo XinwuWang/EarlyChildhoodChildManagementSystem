@@ -71,7 +71,7 @@ import TPutChildToSleep from './Components/Teacher/TPutChildToSleep'
 import TEditSleepDetail from './Components/Teacher/TEditSleepDetail'
 import TEditSleepChart from './Components/Teacher/TEditSleepChart'
 import TFormulaChart from './Components/Teacher/TFormulaChart'
-// import TAddBottleChart from './Components/Teacher/TAddBottleChart'
+import TCreateFormulaChart from './Components/Teacher/TCreateFormulaChart'
 // import TEditBottle from './Components/Teacher/TEditBottle'
 import TAccidentReport from './Components/Teacher/TAccidentReport'
 import TAccidentDetail from './Components/Teacher/TAccidentDetail'
@@ -207,7 +207,7 @@ function App() {
           <Route path='/teacher_dashboard/edit_sleep_detail/:id' element={<TEditSleepDetail />}></Route>
           <Route path='/teacher_dashboard/edit_sleep_chart/:id' element={<TEditSleepChart />}></Route>
           <Route path='/teacher_dashboard/formula_chart' element={<TFormulaChart />}></Route>
-          {/* <Route path='/teacher_dashboard/add_bottle_record' element={<TAddBottleChart />}></Route> */}
+          <Route path='/teacher_dashboard/create_formula_chart' element={<TCreateFormulaChart />}></Route>
           {/* <Route path='/teacher_dashboard/edit_bottle_record/:id' element={<TEditBottle />}></Route> */}
           <Route path='/teacher_dashboard/accident_form' element={<TAccidentReport />}></Route>
           <Route path='/teacher_dashboard/accident_form/:id' element={<TAccidentDetail />}></Route>

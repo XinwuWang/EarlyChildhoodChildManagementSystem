@@ -649,9 +649,9 @@ router.delete('/delete_sleep_record/:id', (req, res) => {
 // Bottle chart
 router.get('/formula_chart', (req, res) => {
     const sql = `
-    SELECT bottle_chart.*, teacher_info.name AS supervisor_name
-    FROM bottle_chart
-    INNER JOIN teacher_info ON bottle_chart.person_who_created = teacher_info.id
+    SELECT formula_chart.*, teacher_info.name AS supervisor_name
+    FROM formula_chart
+    INNER JOIN teacher_info ON formula_chart.person_who_created = teacher_info.id
     `;
     con.query(sql, (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
@@ -659,6 +659,23 @@ router.get('/formula_chart', (req, res) => {
     })
 })
 
+
+router.post('/create_formula_chart', (req, res) => {
+    const sql = `INSERT INTO formula_chart (feeding_date, person_who_created) 
+    VALUES (?, ?)`;
+    const values = [
+        req.body.feeding_date,
+        req.body.person_who_created
+    ]
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+});
 
 
 // router.get('/bottle_chart', (req, res) => {
