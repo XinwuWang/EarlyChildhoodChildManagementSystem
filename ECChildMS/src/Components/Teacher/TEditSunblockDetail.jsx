@@ -7,8 +7,10 @@ const TEditSunblockDetail = () => {
     const teacherId = localStorage.getItem('teacherId');
     // const teacherName = localStorage.getItem('teacherName');
     const { id } = useParams()
+    console.log(id)
     const [sunblockChart, setSunblockChart] = useState({
         apply_date: '',
+        // sunblock_date: '',
         child_name: '',
         apply_time_one: '',
         apply_time_two: '',
@@ -22,12 +24,13 @@ const TEditSunblockDetail = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/teacher/sunblock_chart_detail/${id}`)
+        axios.get(`http://localhost:3000/teacher/sunblock/${id}`)
             .then(result => {
                 if (result.data.Status && result.data.Result.length > 0) {
                     setSunblockChart({
                         ...sunblockChart,
-                        apply_date: result.data.Result[0].sunblock_date,
+                        apply_date: result.data.Result[0].apply_date,
+                        // sunblock_date: result.data.Result[0].sunblock_date,
                         child_name: result.data.Result[0].child_name,
                         apply_time_one: result.data.Result[0].apply_time_one,
                         apply_time_two: result.data.Result[0].apply_time_two,
@@ -65,7 +68,7 @@ const TEditSunblockDetail = () => {
         axios.put(`http://localhost:3000/teacher/edit_sunblock_detail/${id}`, Data)
             .then(result => {
                 if (result.data.Status) {
-                    navigate('/teacher_dashboard/sunblock_chart_detail/' + id)
+                    navigate('/teacher_dashboard/sunblock_chart_detail/' + sunblockChart.apply_date)
                     setTimeout(() => {
                         alert('Sunblock record updated successfully');
                     }, 300);
@@ -180,7 +183,7 @@ const TEditSunblockDetail = () => {
 
                     <div className='col-12 mt-4 p-2'>
                         <button className='btn btn-success w-100 mb-2' type='submit'>Save</button>
-                        <Link to={`/teacher_dashboard/sunblock_chart_detail/${id}`} className="btn btn-light w-100">Cancel</Link>
+                        <Link to={`/teacher_dashboard/sunblock_chart_detail/${sunblockChart.apply_date}`} className="btn btn-light w-100">Cancel</Link>
                     </div>
                 </form>
             </div>

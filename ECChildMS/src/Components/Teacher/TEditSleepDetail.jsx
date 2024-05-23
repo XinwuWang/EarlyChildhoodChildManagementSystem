@@ -67,7 +67,6 @@ const TEditSleepDetail = () => {
         axios.put(`http://localhost:3000/teacher/edit_sleep_detail/${id}`, Data)
             .then(result => {
                 if (result.data.Status) {
-                    console.log(sleepChart.date_of_sleep)
                     navigate('/teacher_dashboard/sleep_detail/' + sleepChart.sleep_date)
                     setTimeout(() => {
                         alert('Sleep detail updated successfully');
