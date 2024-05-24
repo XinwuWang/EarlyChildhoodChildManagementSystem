@@ -44,11 +44,11 @@ const TeachingResource = () => {
 
                 {
 
-                    resource.map(e => (
+                    resource.map((e, index) => (
                         <div className="accordion-item" key={e.id}>
                             <h2 className="accordion-header">
                                 <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={`#panelsStayOpen-collapse-${e.id}`} aria-expanded="false" aria-controls={`panelsStayOpen-collapse-${e.id}`}>
-                                    {e.id}. &apos;{e.title}&apos;
+                                    <strong>{index + 1}. &apos;{e.title}&apos;</strong>
                                 </button>
                             </h2>
                             <div id={`panelsStayOpen-collapse-${e.id}`} className="accordion-collapse collapse">

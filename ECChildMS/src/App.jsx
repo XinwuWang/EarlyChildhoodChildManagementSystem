@@ -63,6 +63,7 @@ import ChildProfile from './Components/Teacher/ChildProfile'
 import TDocument from './Components/Teacher/TDocument'
 import TMealChart from './Components/Teacher/TMealChart'
 import TMealDetail from './Components/Teacher/TMealDetail'
+import TEditMealDetail from './Components/Teacher/TEditMealDetail'
 import TAddMeal from './Components/Teacher/TAddMeal'
 import TSleepRecord from './Components/Teacher/TSleepRecord'
 import TSleepDetail from './Components/Teacher/TSleepDetail'
@@ -72,7 +73,11 @@ import TEditSleepDetail from './Components/Teacher/TEditSleepDetail'
 import TEditSleepChart from './Components/Teacher/TEditSleepChart'
 import TFormulaChart from './Components/Teacher/TFormulaChart'
 import TCreateFormulaChart from './Components/Teacher/TCreateFormulaChart'
-// import TEditBottle from './Components/Teacher/TEditBottle'
+import TEditFormulaChart from './Components/Teacher/TEditFormulaChart'
+import TFormulaDetail from './Components/Teacher/TFormulaDetail'
+import TFormulaFeedChild from './Components/Teacher/TFormulaFeedChild'
+import TEditFormulaDetail from './Components/Teacher/TEditFormulaDetail'
+
 import TAccidentReport from './Components/Teacher/TAccidentReport'
 import TAccidentDetail from './Components/Teacher/TAccidentDetail'
 import TAddAccidentForm from './Components/Teacher/TAddAccidentForm'
@@ -86,9 +91,9 @@ import TApplySunblock from './Components/Teacher/TApplySunblock'
 import TAttendance from './Components/Teacher/TAttendance'
 import TEditMeal from './Components/Teacher/TEditMeal'
 import AddChildToMeal from './Components/Teacher/AddChildToMeal'
-
 import TAttendanceDetail from './Components/Teacher/TAttendanceDetail'
-import TAddChildToAtten from './Components/Teacher/TAddChildToAtten'
+import TSignIn from './Components/Teacher/TSignIn'
+import TSignOut from './Components/Teacher/TSignOut'
 import TLearningStory from './Components/Teacher/TLearningStory'
 
 
@@ -200,6 +205,7 @@ function App() {
           <Route path='/teacher_dashboard/add_note' element={<TAddNote />}></Route>
           <Route path='/teacher_dashboard/document' element={<TDocument />}></Route>
           <Route path='/teacher_dashboard/meal_chart' element={<TMealChart />}></Route>
+          <Route path='/teacher_dashboard/edit_meal_detail/:id' element={<TEditMealDetail />}></Route>
           <Route path='/teacher_dashboard/sleep_record' element={<TSleepRecord />}></Route>
           <Route path='/teacher_dashboard/create_sleep_chart' element={<TCreateSleepChart />}></Route>
           <Route path='/teacher_dashboard/sleep_detail/:id' element={<TSleepDetail />}></Route>
@@ -207,8 +213,11 @@ function App() {
           <Route path='/teacher_dashboard/edit_sleep_detail/:id' element={<TEditSleepDetail />}></Route>
           <Route path='/teacher_dashboard/edit_sleep_chart/:id' element={<TEditSleepChart />}></Route>
           <Route path='/teacher_dashboard/formula_chart' element={<TFormulaChart />}></Route>
+          <Route path='/teacher_dashboard/formula_detail/:id' element={<TFormulaDetail />}></Route>
           <Route path='/teacher_dashboard/create_formula_chart' element={<TCreateFormulaChart />}></Route>
-          {/* <Route path='/teacher_dashboard/edit_bottle_record/:id' element={<TEditBottle />}></Route> */}
+          <Route path='/teacher_dashboard/edit_formula_chart/:id' element={<TEditFormulaChart />}></Route>
+          <Route path='/teacher_dashboard/formula_chart/:id/feed_a_child' element={<TFormulaFeedChild />}></Route>
+          <Route path='/teacher_dashboard/edit_formula_detail/:id' element={<TEditFormulaDetail />}></Route>
           <Route path='/teacher_dashboard/accident_form' element={<TAccidentReport />}></Route>
           <Route path='/teacher_dashboard/accident_form/:id' element={<TAccidentDetail />}></Route>
           <Route path='/teacher_dashboard/add_accident_form' element={<TAddAccidentForm />}></Route>
@@ -221,7 +230,8 @@ function App() {
           <Route path='/teacher_dashboard/edit_sunblock_detail/:id' element={<TEditSunblockDetail />}></Route>
           <Route path='/teacher_dashboard/attendance' element={<TAttendance />}></Route>
           <Route path='/teacher_dashboard/attendance_detail/:id' element={<TAttendanceDetail />}></Route>
-          <Route path='/teacher_dashboard/attendance/:id/add_child_to_attendance' element={<TAddChildToAtten />}></Route>
+          <Route path='/teacher_dashboard/attendance/:id/sign_in' element={<TSignIn />}></Route>
+          <Route path='/teacher_dashboard/attendance/:id/sign_out' element={<TSignOut />}></Route>
           <Route path='/teacher_dashboard/add_meal' element={<TAddMeal />}></Route>
           <Route path='/teacher_dashboard/meal_detail/:id' element={<TMealDetail />}></Route>
           <Route path='/teacher_dashboard/edit_meal/:id' element={<TEditMeal />}></Route>

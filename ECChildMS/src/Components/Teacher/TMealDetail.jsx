@@ -120,9 +120,14 @@ const TMealDetail = () => {
                                     <td>{e.lunch_portion}</td>
                                     <td>{e.at_portion}</td>
                                     <td>{e.note}</td>
-                                    <td><button type='button' className="btn btn-black p-0" title='Delete' onClick={() => handleDelete(e.id)}>
-                                        <i className="bi bi-trash" />
-                                    </button></td>
+                                    <td>
+                                        <Link to={`/teacher_dashboard/edit_meal_detail/${e.id}`} className='btn btn-black p-0 me-3' title='Edit'>
+                                            <i className="bi bi-pen-fill"></i>
+                                        </Link>
+                                        <button type='button' className="btn btn-black p-0" title='Delete' onClick={() => handleDelete(e.id)}>
+                                            <i className="bi bi-trash" />
+                                        </button>
+                                    </td>
                                 </tr>
 
                             ))}

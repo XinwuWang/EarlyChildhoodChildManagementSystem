@@ -41,7 +41,7 @@ const ChildLogin = () => {
                 <div className='text-danger'>
                     {error && error}
                 </div>
-                <h2>Login</h2>
+                <h2>Login as Child</h2>
                 <form onSubmit={handleSubmit}>
                     <div className='mb-3'>
                         <label htmlFor='email'><strong>Email:</strong></label>

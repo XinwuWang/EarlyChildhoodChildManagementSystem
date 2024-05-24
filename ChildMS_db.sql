@@ -314,7 +314,7 @@ USE earlychildhoodchildms;
 
 -- CREATE TABLE formula_detail (
 -- id INT AUTO_INCREMENT PRIMARY KEY,
--- bottle_date INT,
+-- feeding_date INT,
 -- child INT,
 -- time_one VARCHAR(50),
 -- time_two VARCHAR(50),
@@ -322,8 +322,32 @@ USE earlychildhoodchildms;
 -- note VARCHAR(255),
 -- supervisor INT,
 -- FOREIGN KEY (child) REFERENCES child_info(id),
--- FOREIGN KEY (bottle_date) REFERENCES formula_chart(id),
+-- FOREIGN KEY (feeding_date) REFERENCES formula_chart(id),
 -- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
 -- );
 
+
+CREATE TABLE learning_story_month (
+id INT AUTO_INCREMENT PRIMARY KEY,
+created_month VARCHAR(50),
+created_by INT,
+FOREIGN KEY (created_by) REFERENCES teacher_info(id)
+);
+
+
+CREATE TABLE learning_story (
+id INT AUTO_INCREMENT PRIMARY KEY,
+child INT,
+title VARCHAR(255),
+content TEXT,
+image_one VARCHAR(255),
+image_two VARCHAR(255),
+image_three VARCHAR(255),
+person_who_wrote INT,
+update_date VARCHAR(50),
+created_month INT,
+FOREIGN KEY (child) REFERENCES child_info(id),
+FOREIGN KEY (person_who_wrote) REFERENCES teacher_info(id),
+FOREIGN KEY (created_month) REFERENCES learning_story_month(id)
+);
 

@@ -74,7 +74,7 @@ const TSunblockDetail = () => {
             <div className="container">
                 <div className="d-flex justify-content-between align-items-center mt-auto p-3 m-3">
                     <div className='p-3'>
-                        <h2>{sunblock.apply_date}</h2>
+                        <h2>Sunblock Application Chart - {sunblock.apply_date}</h2>
                     </div>
                     <div>
                         <Link to={`/teacher_dashboard/sunblock_chart/${id}/apply_sunblock_to_child`} className='btn btn-lg p-2' title="Add a child to the chart"><i className="bi bi-person-fill-add text-dark"></i></Link>

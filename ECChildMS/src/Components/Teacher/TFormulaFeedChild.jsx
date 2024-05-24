@@ -2,17 +2,17 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate, Link, useParams } from 'react-router-dom'
 
-const TPutChildToSleep = () => {
+const TFormulaFeedChild = () => {
     const { id } = useParams()
     const teacherId = localStorage.getItem('teacherId');
     const teacherName = localStorage.getItem('teacherName');
-    const [sleepChart, setSleepChart] = useState({
-        sleep_date: id,
+    const [formulaChart, setFormulaChart] = useState({
+        feeding_date: id,
         child_id: '',
         time_to_bed: '',
-        time_of_sleep: '',
-        time_of_wakeup: '',
-        time_out_of_bed: '',
+        time_one: '',
+        time_two: '',
+        time_three: '',
         note: '',
         supervisor: teacherId
     });
@@ -37,23 +37,22 @@ const TPutChildToSleep = () => {
         e.preventDefault()
 
         const Data = {
-            sleep_date: sleepChart.sleep_date,
-            child_id: sleepChart.child_id,
-            time_to_bed: sleepChart.time_to_bed,
-            time_of_sleep: sleepChart.time_of_sleep,
-            time_of_wakeup: sleepChart.time_of_wakeup,
-            time_out_of_bed: sleepChart.time_out_of_bed,
-            note: sleepChart.note,
-            supervisor: sleepChart.supervisor
+            feeding_date: formulaChart.feeding_date,
+            child_id: formulaChart.child_id,
+            time_one: formulaChart.time_one,
+            time_two: formulaChart.time_two,
+            time_three: formulaChart.time_three,
+            note: formulaChart.note,
+            supervisor: formulaChart.supervisor
         }
 
 
 
 
-        axios.post('http://localhost:3000/teacher/put_child_to_sleep', Data)
+        axios.post('http://localhost:3000/teacher/feed_a_child', Data)
             .then(result => {
                 if (result.data.Status) {
-                    navigate('/teacher_dashboard/sleep_detail/' + id)
+                    navigate('/teacher_dashboard/formula_detail/' + id)
                 } else {
                     alert(result.data.Error || 'Error adding information')
                 }
@@ -63,8 +62,6 @@ const TPutChildToSleep = () => {
                 alert('An error occurred while processing your request');
             });
     }
-
-
 
     return (
         <div className='d-flex justify-content-center align-items-center mt-3'>
@@ -78,7 +75,7 @@ const TPutChildToSleep = () => {
                         </label>
                         <select name='child' id='child' className='form-select'
                             onChange={(e) => {
-                                setSleepChart({ ...sleepChart, child_id: e.target.value });
+                                setFormulaChart({ ...formulaChart, child_id: e.target.value });
                             }}>
                             {
                                 child.map(c => {
@@ -87,43 +84,33 @@ const TPutChildToSleep = () => {
                         </select>
                     </div>
                     <div>
-                        <label htmlFor='time_to_bed' className='form-label'><strong>Time to Bed</strong></label>
+                        <label htmlFor='time_one' className='form-label'><strong>Time One</strong></label>
                         <input
                             type='time'
-                            name='time_to_bed'
-                            id='time_to_bed'
+                            name='time_one'
+                            id='time_one'
                             className='form-control rounded-0'
-                            onChange={(e) => setSleepChart({ ...sleepChart, time_to_bed: e.target.value })}
+                            onChange={(e) => setFormulaChart({ ...formulaChart, time_one: e.target.value })}
                             required />
                     </div>
                     <div>
-                        <label htmlFor='time_of_sleep' className='form-label'><strong>Time of Sleep</strong></label>
+                        <label htmlFor='time_two' className='form-label'><strong>Time Two</strong></label>
                         <input
                             type='time'
-                            name='time_of_sleep'
-                            id='time_of_sleep'
+                            name='time_two'
+                            id='time_two'
                             className='form-control rounded-0'
-                            onChange={(e) => setSleepChart({ ...sleepChart, time_of_sleep: e.target.value })}
+                            onChange={(e) => setFormulaChart({ ...formulaChart, time_two: e.target.value })}
                         />
                     </div>
                     <div>
-                        <label htmlFor='time_of_wakeup' className='form-label'><strong>Time of Wakeup</strong></label>
+                        <label htmlFor='time_three' className='form-label'><strong>Time Three</strong></label>
                         <input
                             type='time'
-                            name='time_of_wakeup'
-                            id='time_of_wakeup'
+                            name='time_three'
+                            id='time_three'
                             className='form-control rounded-0'
-                            onChange={(e) => setSleepChart({ ...sleepChart, time_of_wakeup: e.target.value })}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor='time_out_of_bed' className='form-label'><strong>Time Out of Bed</strong></label>
-                        <input
-                            type='time'
-                            name='time_out_of_bed'
-                            id='time_out_of_bed'
-                            className='form-control rounded-0'
-                            onChange={(e) => setSleepChart({ ...sleepChart, time_out_of_bed: e.target.value })}
+                            onChange={(e) => setFormulaChart({ ...formulaChart, time_three: e.target.value })}
                         />
                     </div>
                     <div>
@@ -133,7 +120,7 @@ const TPutChildToSleep = () => {
                             name='note'
                             id='note'
                             className='form-control rounded-0'
-                            onChange={(e) => setSleepChart({ ...sleepChart, note: e.target.value })}
+                            onChange={(e) => setFormulaChart({ ...formulaChart, note: e.target.value })}
                         />
                     </div>
                     <div>
@@ -148,7 +135,7 @@ const TPutChildToSleep = () => {
                     </div>
                     <div className='col-12 mt-4 p-2'>
                         <button className='btn btn-success w-100 mb-2' type='submit'>Save</button>
-                        <Link to={'/teacher_dashboard/sleep_detail/' + id} className="btn btn-light w-100">Cancel</Link>
+                        <Link to={'/teacher_dashboard/formula_detail/' + id} className="btn btn-light w-100">Cancel</Link>
                     </div>
                 </form>
             </div>
@@ -156,4 +143,4 @@ const TPutChildToSleep = () => {
     )
 }
 
-export default TPutChildToSleep
+export default TFormulaFeedChild
