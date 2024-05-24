@@ -1311,6 +1311,304 @@ router.post('/sign_out', (req, res) => {
 });
 
 
+
+
+
+// Learning story
+router.get('/learning_story', (req, res) => {
+    const sql = `
+    SELECT learning_story.*, teacher_info.name AS creator_name
+    FROM learning_story
+    INNER JOIN teacher_info ON learning_story.created_by = teacher_info.id
+    ORDER BY created_month DESC`;
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+router.post('/start_new_month', (req, res) => {
+    const { created_month, created_by } = req.body;
+
+    const checkSql = `SELECT COUNT(*) AS count FROM learning_story WHERE created_month = ?`;
+    con.query(checkSql, [created_month], (err, results) => {
+        if (err) {
+            console.error('Error executing SQL query:', err.message);
+            return res.json({ Status: false, Error: 'Error checking existing month' });
+        }
+
+        if (results[0].count > 0) {
+            return res.json({ Status: false, Error: 'Month already exists' });
+        } else {
+            const insertSql = `INSERT INTO learning_story (created_month, created_by) VALUES (?, ?)`;
+            const values = [created_month, created_by];
+
+            con.query(insertSql, values, (err, result) => {
+                if (err) {
+                    console.error('Error executing SQL query:', err.message);
+                    return res.json({ Status: false, Error: err.message });
+                }
+                return res.json({ Status: true });
+            });
+        }
+    });
+});
+
+
+router.get('/learning_story/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `SELECT * FROM learning_story WHERE id = ?`;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json({ Status: true, Result: result })
+    });
+})
+
+
+router.put('/edit_ls/:id', (req, res) => {
+    const id = req.params.id;
+    const { created_month } = req.body;
+
+    const fetchCurrentMonthSql = `SELECT created_month FROM learning_story WHERE id = ?`;
+    con.query(fetchCurrentMonthSql, [id], (err, results) => {
+        if (err) {
+            console.error('Error executing SQL query:', err.message);
+            return res.json({ Status: false, Error: 'Query error: ' + err.message });
+        }
+
+        if (results.length === 0) {
+            return res.json({ Status: false, Error: 'Learning story not found' });
+        }
+        const currentMonth = results[0].created_month;
+        if (currentMonth === created_month) {
+            return res.json({ Status: false, Error: 'Selected month is the same as the current one' });
+        }
+
+        const checkMonthSql = `SELECT COUNT(*) AS count FROM learning_story WHERE created_month = ?`;
+        con.query(checkMonthSql, [created_month], (err, results) => {
+            if (err) {
+                console.error('Error executing SQL query:', err.message);
+                return res.json({ Status: false, Error: 'Query error: ' + err.message });
+            }
+            if (results[0].count > 0) {
+                return res.json({ Status: false, Error: 'Selected month already exists' });
+            }
+
+            const updateSql = `UPDATE learning_story SET created_month = ? WHERE id = ?`;
+            con.query(updateSql, [created_month, id], (err, result) => {
+                if (err) {
+                    console.error('Error executing SQL query:', err.message);
+                    return res.json({ Status: false, Error: 'Query error: ' + err.message });
+                }
+                return res.json({ Status: true, Result: result });
+            });
+        });
+    });
+});
+
+
+router.post('/write_a_learning_story', (req, res) => {
+    const sql = `INSERT INTO learning_story_detail 
+    (child, title, content, person_who_wrote, update_date, created_month) 
+    VALUES (?, ?, ?, ?, ?, ?)`;
+    const values = [
+        req.body.child_id,
+        req.body.title,
+        req.body.content,
+        req.body.person_who_wrote,
+        req.body.update_date,
+        req.body.created_month
+    ]
+
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+});
+
+
+
+// router.get('/formula_chart', (req, res) => {
+//     const sql = `
+//     SELECT formula_chart.*, teacher_info.name AS supervisor_name
+//     FROM formula_chart
+//     INNER JOIN teacher_info ON formula_chart.person_who_created = teacher_info.id
+//     ORDER BY feeding_date DESC`;
+//     con.query(sql, (err, result) => {
+//         if (err) return res.json({ Status: false, Error: 'Query error' })
+//         return res.json({ Status: true, Result: result })
+//     })
+// })
+
+
+// router.post('/create_formula_chart', (req, res) => {
+//     const sql = `INSERT INTO formula_chart (feeding_date, person_who_created) 
+//     VALUES (?, ?)`;
+//     const values = [
+//         req.body.feeding_date,
+//         req.body.person_who_created
+//     ]
+//     con.query(sql, values, (err, result) => {
+//         if (err) {
+//             console.error('Error executing SQL query:', err);
+//             return res.json({ Status: false, Error: err })
+//         }
+//         return res.json({ Status: true })
+
+//     });
+// });
+
+
+// router.get('/formula_chart/:id', (req, res) => {
+//     const id = req.params.id;
+//     const sql = `SELECT * FROM formula_chart WHERE id = ?`;
+//     con.query(sql, [id], (err, result) => {
+//         if (err) {
+//             console.error('Error executing SQL query:', err);
+//             return res.status(500).json({ error: 'Internal server error' });
+//         }
+//         return res.json({ Status: true, Result: result })
+//     });
+// })
+
+
+// router.put('/edit_formula_chart/:id', (req, res) => {
+//     const id = req.params.id;
+//     const sql = `UPDATE formula_chart 
+//                     SET 
+//                     feeding_date = ?
+//                     WHERE id = ?`;
+
+//     const values = [
+//         req.body.feeding_date
+//     ]
+//     con.query(sql, [...values, id], (err, result) => {
+//         if (err) return res.json({ Status: false, Error: 'Query error' + err })
+//         return res.json({ Status: true, Result: result })
+//     })
+// });
+
+
+// router.get('/formula_detail/:id', (req, res) => {
+//     const id = req.params.id;
+//     const sql = `
+//     SELECT 
+//     formula_detail.*, 
+//     child_info.name AS child_name,
+//     formula_chart.feeding_date AS formula_date,
+//     teacher_info.name AS supervisor_name
+//     FROM formula_detail
+//     INNER JOIN child_info ON formula_detail.child = child_info.id
+//     INNER JOIN teacher_info ON formula_detail.supervisor = teacher_info.id 
+//     INNER JOIN formula_chart ON formula_detail.feeding_date = formula_chart.id
+//     WHERE formula_detail.feeding_date = ?;
+//     `;
+//     con.query(sql, [id], (err, result) => {
+//         if (err) {
+//             console.error('Error executing SQL query:', err);
+//             return res.status(500).json({ error: 'Internal server error' });
+//         }
+//         console.log(result)
+//         return res.json({ Status: true, Result: result });
+//     });
+// })
+
+
+// router.post('/feed_a_child', (req, res) => {
+//     const sql = `INSERT INTO formula_detail 
+//     (feeding_date, child, time_one, time_two, time_three, note, supervisor) 
+//     VALUES (?, ?, ?, ?, ?, ?, ?)`;
+//     const values = [
+//         req.body.feeding_date,
+//         req.body.child_id,
+//         req.body.time_one,
+//         req.body.time_two,
+//         req.body.time_three,
+//         req.body.note,
+//         req.body.supervisor
+//     ]
+//     con.query(sql, values, (err, result) => {
+//         if (err) {
+//             console.error('Error executing SQL query:', err);
+//             return res.json({ Status: false, Error: err })
+//         }
+//         return res.json({ Status: true })
+
+//     });
+// });
+
+
+// router.get('/formula/:id', (req, res) => {
+//     const id = req.params.id;
+//     const sql = `
+//     SELECT 
+//     formula_detail.*, 
+//     child_info.name AS child_name,
+//     formula_chart.feeding_date AS formula_date,
+//     teacher_info.name AS supervisor_name
+//     FROM formula_detail
+//     INNER JOIN child_info ON formula_detail.child = child_info.id
+//     INNER JOIN teacher_info ON formula_detail.supervisor = teacher_info.id 
+//     INNER JOIN formula_chart ON formula_detail.feeding_date = formula_chart.id
+//     WHERE formula_detail.id = ?;
+//     `;
+//     con.query(sql, [id], (err, result) => {
+//         if (err) {
+//             console.error('Error executing SQL query:', err);
+//             return res.status(500).json({ error: 'Internal server error' });
+//         }
+//         return res.json({ Status: true, Result: result });
+//     });
+// })
+
+
+// router.put('/edit_formula_detail/:id', (req, res) => {
+//     const id = req.params.id;
+//     const sql = `UPDATE formula_detail 
+//                     SET 
+//                     time_one = ?,
+//                     time_two = ?,
+//                     time_three = ?,
+//                     note = ?,
+//                     supervisor = ?
+//                     WHERE id = ?`;
+
+
+//     const values = [
+//         req.body.time_one,
+//         req.body.time_two,
+//         req.body.time_three,
+//         req.body.note,
+//         req.body.supervisor
+//     ]
+//     con.query(sql, [...values, id], (err, result) => {
+//         if (err) return res.json({ Status: false, Error: 'Query error' + err })
+//         return res.json({ Status: true, Result: result })
+//     })
+// });
+
+
+
+// router.delete('/delete_formula_record/:id', (req, res) => {
+//     const id = req.params.id;
+//     const sql = 'DELETE FROM formula_detail WHERE id = ?';
+
+//     con.query(sql, [id], (err, result) => {
+//         if (err) return res.json({ Status: false, Error: 'Query error' + err })
+//         return res.json({ Status: true, Result: result })
+//     })
+// })
+
+
+
 // Logout
 router.get('/logout', (req, res) => {
     res.clearCookie('token');

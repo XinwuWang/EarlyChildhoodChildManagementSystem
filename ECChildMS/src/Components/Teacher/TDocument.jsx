@@ -100,7 +100,7 @@ const TDocument = () => {
                                 <h4 className="card-text">Learning Stories</h4>
                                 <div className="d-flex justify-content-end align-items-center">
                                     <div className="btn-group">
-                                        <Link to={'/teacher_dashboard/learning_stories'} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
+                                        <Link to={'/teacher_dashboard/learning_story'} className="btn btn-sm btn-link btn-outline-light text-dark">View »</Link>
                                     </div>
                                 </div>
                             </div>

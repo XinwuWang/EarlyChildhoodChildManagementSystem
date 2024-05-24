@@ -95,6 +95,10 @@ import TAttendanceDetail from './Components/Teacher/TAttendanceDetail'
 import TSignIn from './Components/Teacher/TSignIn'
 import TSignOut from './Components/Teacher/TSignOut'
 import TLearningStory from './Components/Teacher/TLearningStory'
+import TLSStartNewMonth from './Components/Teacher/TLSStartNewMonth'
+import TEditLS from './Components/Teacher/TEditLS'
+import TLSDetail from './Components/Teacher/TLSDetail'
+import TWriteLS from './Components/Teacher/TWriteLS'
 
 
 
@@ -236,7 +240,11 @@ function App() {
           <Route path='/teacher_dashboard/meal_detail/:id' element={<TMealDetail />}></Route>
           <Route path='/teacher_dashboard/edit_meal/:id' element={<TEditMeal />}></Route>
           <Route path='/teacher_dashboard/meal_chart/:id/add_childMeal' element={<AddChildToMeal />}></Route>
-          <Route path='/teacher_dashboard/learning_stories' element={<TLearningStory />}></Route>
+          <Route path='/teacher_dashboard/learning_story' element={<TLearningStory />}></Route>
+          <Route path='/teacher_dashboard/start_new_month' element={<TLSStartNewMonth />}></Route>
+          <Route path='/teacher_dashboard/edit_ls/:id' element={<TEditLS />}></Route>
+          <Route path='/teacher_dashboard/learning_story_detail/:id' element={<TLSDetail />}></Route>
+          <Route path='/teacher_dashboard/learning_story/:id/write_a_learning_story' element={<TWriteLS />}></Route>
         </Route>
 
 
