@@ -1436,6 +1436,95 @@ router.post('/write_a_learning_story', (req, res) => {
 
 
 
+router.get('/learning_story_detail/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT 
+    learning_story_detail.*, 
+    child_info.name AS child_name,
+    teacher_info.name AS creator_name
+    FROM learning_story_detail
+    INNER JOIN child_info ON learning_story_detail.child = child_info.id
+    INNER JOIN teacher_info ON learning_story_detail.person_who_wrote = teacher_info.id 
+    WHERE learning_story_detail.created_month = ?
+    ORDER BY update_date DESC;
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        console.log(result)
+        return res.json({ Status: true, Result: result });
+    });
+})
+
+
+router.get('/child_ls/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+    const sql = `
+    SELECT 
+        learning_story_detail.*, 
+        child_info.name AS child_name,
+        teacher_info.name AS creator_name
+    FROM learning_story_detail
+    INNER JOIN child_info ON learning_story_detail.child = child_info.id
+    INNER JOIN teacher_info ON learning_story_detail.person_who_wrote = teacher_info.id 
+    WHERE learning_story_detail.id = ?;
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        console.log(result)
+        return res.json({ Status: true, Result: result });
+    });
+})
+
+
+router.put('/edit_ls_detail/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+
+    const sql = `UPDATE learning_story_detail 
+                    SET 
+                    title = ?,
+                    content = ?,
+                    person_who_wrote = ?,
+                    update_date = ?
+                    WHERE id = ?`;
+
+    const values = [
+        req.body.title,
+        req.body.content,
+        req.body.person_who_wrote,
+        req.body.update_date,
+    ];
+
+    con.query(sql, [...values, id], (err, result) => {
+        if (err) {
+            console.error('Query error:', err);
+            return res.json({ Status: false, Error: 'Query error: ' + err });
+        }
+        return res.json({ Status: true, Result: result });
+    });
+});
+
+
+router.delete('/delete_learning_story/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'DELETE FROM learning_story_detail WHERE id = ?';
+
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+
 // router.get('/formula_chart', (req, res) => {
 //     const sql = `
 //     SELECT formula_chart.*, teacher_info.name AS supervisor_name

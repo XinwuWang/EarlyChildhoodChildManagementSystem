@@ -99,7 +99,8 @@ import TLSStartNewMonth from './Components/Teacher/TLSStartNewMonth'
 import TEditLS from './Components/Teacher/TEditLS'
 import TLSDetail from './Components/Teacher/TLSDetail'
 import TWriteLS from './Components/Teacher/TWriteLS'
-
+import TChildLS from './Components/Teacher/TChildLS'
+import TEditLSDetail from './Components/Teacher/TEditLSDetail'
 
 
 
@@ -245,6 +246,8 @@ function App() {
           <Route path='/teacher_dashboard/edit_ls/:id' element={<TEditLS />}></Route>
           <Route path='/teacher_dashboard/learning_story_detail/:id' element={<TLSDetail />}></Route>
           <Route path='/teacher_dashboard/learning_story/:id/write_a_learning_story' element={<TWriteLS />}></Route>
+          <Route path='/teacher_dashboard/child_ls/:id' element={<TChildLS />}></Route>
+          <Route path='/teacher_dashboard/edit_ls_detail/:id' element={<TEditLSDetail />}></Route >
         </Route>
 
 

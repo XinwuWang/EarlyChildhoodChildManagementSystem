@@ -49,20 +49,20 @@ const TLSDetail = () => {
     }, [id])
 
 
-    const handleDelete = (id) => {
-        if (window.confirm("ALERT! Are you sure you want to delete this record?")) {
-            axios.delete(`http://localhost:3000/teacher/delete_learning_story/${id}`)
-                .then(result => {
-                    if (result.data.Status) {
-                        setlsDetail(lsDetail.filter(e => e.id !== id));
-                        window.location.reload()
-                    } else {
-                        alert(result.data.Error)
-                    }
-                })
-                .catch(err => console.log(err))
-        }
-    }
+    // const handleDelete = (id) => {
+    //     if (window.confirm("ALERT! Are you sure you want to delete this record?")) {
+    //         axios.delete(`http://localhost:3000/teacher/delete_learning_story/${id}`)
+    //             .then(result => {
+    //                 if (result.data.Status) {
+    //                     setlsDetail(lsDetail.filter(e => e.id !== id));
+    //                     window.location.reload()
+    //                 } else {
+    //                     alert(result.data.Error)
+    //                 }
+    //             })
+    //             .catch(err => console.log(err))
+    //     }
+    // }
 
     // Render loading state while fetching data
     if (loading) {
@@ -77,7 +77,7 @@ const TLSDetail = () => {
                         <h2>Learning Stories - {learningStory.created_month}</h2>
                     </div>
                     <div>
-                        <Link to={`/teacher_dashboard/learning_story/${id}/write_a_learning_story`} className='btn btn-lg p-2' title="Write a learning story"><i className="bi bi-plus-circle-fill text-dark"></i></Link>
+                        <Link to={`/teacher_dashboard/learning_story/${id}/write_a_learning_story`} className='btn btn-lg p-2' title="Write a learning story"><i className="bi bi-journal-plus text-dark"></i></Link>
                         <Link to={'/teacher_dashboard/learning_story'} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
                     </div>
                 </div>
@@ -89,17 +89,18 @@ const TLSDetail = () => {
                             <div className="col-md-6" key={e.id}>
                                 {/* <div className="col-md-6"> */}
 
-                                <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative p-2">
                                     <div className="col p-4 d-flex flex-column position-static">
-                                        <h3 className="mb-0">e.title</h3>
-                                        <div className="mb-1 text-body-secondary">e.update_date</div>
-                                        <p className="card-text mb-auto">e.content.</p>
+                                        <strong className="d-inline-block mb-2 text-primary-emphasis">For {e.child_name}</strong>
+                                        <h3 className="mb-3">{e.title}</h3>
+                                        <div className="mb-3 text-body-secondary">{e.update_date}</div>
+                                        <p className="card-text mb-4">Created by {e.creator_name}</p>
                                         <Link to={"/teacher_dashboard/child_ls/" + e.id} className="icon-link-dark gap-1 icon-link-hover stretched-link text-dark">
-                                            View more »
+                                            <small>View more »</small>
                                         </Link>
-                                        <button type='button' className="btn btn-black p-0" title='Delete' onClick={() => handleDelete(e.id)}>
+                                        {/* <button type='button' className="btn btn-black p-0" title='Delete' onClick={() => handleDelete(e.id)}>
                                             <i className="bi bi-trash" />
-                                        </button>
+                                        </button> */}
                                     </div>
                                 </div>
                             </div>
