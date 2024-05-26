@@ -8,7 +8,10 @@ import PrivateRoute from './Components/PrivateRoute'
 import Dashboard from './Components/Admin/Dashboard'
 import Home from './Components/Admin/Home'
 import Teachers from './Components/Admin/Teachers'
-import Message from './Components/Admin/Message'
+import AMessage from './Components/Admin/AMessage'
+import AMessageChild from './Components/Admin/AMessageChild'
+import AMessageTeacher from './Components/Admin/AMessageTeacher'
+import AMessageDetail from './Components/Admin/AMessageDetail'
 import Profile from './Components/Admin/Profile'
 import TeachingResource from './Components/Admin/TeachingResource'
 import Announcement from './Components/Admin/Announcement'
@@ -132,6 +135,10 @@ import CAccidentDetail from './Components/Child/CAccidentDetail'
 import CMealDetail from './Components/Child/CMealDetail'
 import CAddAttendance from './Components/Child/CAddAttendance'
 import CLearningStory from './Components/Child/CLearningStory'
+import CMessageAdmin from './Components/Child/CMessageAdmin'
+import CMessageTeacher from './Components/Child/CMessageTeacher'
+import CMessageDetail from './Components/Child/CMessageDetail'
+
 
 
 
@@ -158,7 +165,10 @@ function App() {
           <Route path='' element={<Home />}></Route>
           <Route path='/dashboard/manageteachers' element={<Teachers />}></Route>
           <Route path='/dashboard/managechildren' element={<ChildrenInfo />}></Route>
-          <Route path='/dashboard/sendmessage' element={<Message />}></Route>
+          <Route path='/dashboard/message/:id' element={<AMessage />}></Route>
+          <Route path='/dashboard/message_a_child' element={<AMessageChild />}></Route>
+          <Route path='/dashboard/message_a_teacher' element={<AMessageTeacher />}></Route>
+          <Route path='/dashboard/message_detail/:id' element={<AMessageDetail />}></Route>
           <Route path='/dashboard/profile/:id' element={<Profile />}></Route>
           <Route path='/dashboard/teaching_resource' element={<TeachingResource />}></Route>
           <Route path='/dashboard/announcement' element={<Announcement />}></Route>
@@ -269,7 +279,10 @@ function App() {
           <Route path='' element={<CHome />}></Route>
           <Route path='/child_dashboard/teachers' element={<ViewTeachers />}></Route>
           <Route path='/child_dashboard/teacher/:id' element={<CTeacherProfile />}></Route>
-          <Route path='/child_dashboard/sendmessage' element={<ChildMessage />}></Route>
+          <Route path='/child_dashboard/message/:id' element={<ChildMessage />}></Route>
+          <Route path='/child_dashboard/message_admin' element={<CMessageAdmin />}></Route>
+          <Route path='/child_dashboard/message_a_teacher' element={<CMessageTeacher />}></Route>
+          <Route path='/child_dashboard/message_detail/:id' element={<CMessageDetail />}></Route>
           <Route path='/child_dashboard/profile/:id' element={<CProfile />}></Route>
           <Route path='/child_dashboard/edit_profile/:id' element={<CEditProfile />}></Route>
           <Route path='/child_dashboard/documents' element={<CDocuments />}></Route>

@@ -109,6 +109,13 @@ const TDocument = () => {
 
                 </div>
             </div>
+            <div className="container pt-5 mb-3">
+                <div className="row">
+                    <div className="col text-center">
+                        <Link to='/teacher_dashboard' className='btn btn-success'>Home</Link>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

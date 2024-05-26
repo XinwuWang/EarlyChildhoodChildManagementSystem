@@ -73,11 +73,11 @@ const Dashboard = () => {
                                 </Link>
                             </li>
                             <li className="w-100">
-                                <Link to='/dashboard/sendmessage'
+                                <Link to={`/dashboard/message/${adminId}`}
                                     className="nav-link px-0 align-middle text-white"
                                 >
                                     <i className="fs-4 bi-envelope-at ms-2"></i>
-                                    <span className="ms-2 d-none d-sm-inline">Send Message</span>
+                                    <span className="ms-2 d-none d-sm-inline">Message</span>
                                 </Link>
                             </li>
                             <li className="w-100">

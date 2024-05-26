@@ -3,13 +3,12 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 
-const ChildMessage = () => {
+const AMessage = () => {
     const [message, setMessage] = useState([])
-    const childId = localStorage.getItem('childId')
-
+    const adminId = localStorage.getItem('adminId')
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/child/message/${childId}`)
+        axios.get(`http://localhost:3000/auth/message/${adminId}`)
             .then(result => {
                 if (result.data.Status) {
                     setMessage(result.data.Result)
@@ -27,9 +26,9 @@ const ChildMessage = () => {
                 <div className="d-flex justify-content-between align-items-center mt-auto p-3 m-3">
                     <h1 className="display-4 fw-normal">Message</h1>
                     <div>
-                        <Link to={'/child_dashboard/message_a_teacher'} className='btn btn-lg p-2' title="Message a teacher"><i className="bi bi-person-standing text-dark"></i></Link>
-                        <Link to={'/child_dashboard/message_admin'} className='btn btn-lg p-2' title="Message admin"><i className="bi bi-person-workspace text-dark"></i></Link>
-                        <Link to={'/child_dashboard'} className='btn btn-lg p-2' title="Return to dashboard"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
+                        <Link to={'/dashboard/message_a_teacher'} className='btn btn-lg p-2' title="Message a teacher"><i className="bi bi-person-standing text-dark"></i></Link>
+                        <Link to={'/dashboard/message_a_child'} className='btn btn-lg p-2' title="Message a child"><i className="bi bi-person-arms-up text-dark"></i></Link>
+                        <Link to={'/dashboard'} className='btn btn-lg p-2' title="Return to dashboard"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
                     </div>
                 </div>
             </div >
@@ -57,7 +56,7 @@ const ChildMessage = () => {
                                     <td>{e.sender_name}</td>
                                     <td>{e.title}</td>
                                     <td>
-                                        <Link to={`/child_dashboard/message_detail/${e.id}`} className='text-black' title='Edit'>
+                                        <Link to={`/dashboard/message_detail/${e.id}`} className='text-black' title='Edit'>
                                             <small>View more »</small>
                                         </Link>
 
@@ -73,4 +72,4 @@ const ChildMessage = () => {
     )
 }
 
-export default ChildMessage
+export default AMessage

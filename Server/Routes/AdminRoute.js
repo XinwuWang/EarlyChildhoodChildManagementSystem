@@ -765,6 +765,99 @@ router.get('/bottle_chart', (req, res) => {
 
 
 
+
+
+// Messaging function
+router.get('/message/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT message.*, 
+    COALESCE(teacher_info.name, admin.name, child_info.name) AS sender_name
+    FROM message
+    LEFT JOIN teacher_info ON message.teacher_sender = teacher_info.id
+    LEFT JOIN admin ON message.admin_sender = admin.id
+    LEFT JOIN child_info ON message.child_sender = child_info.id
+    WHERE message.admin_receiver = ?
+    ORDER BY message.sent_date DESC, message.sent_time DESC;`;
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+router.post('/message_a_child', (req, res) => {
+    const sql = `INSERT INTO message (admin_sender, title, content, sent_date, sent_time, child_receiver ) 
+    VALUES (?, ?, ?, ?, ?, ?)`;
+    const values = [
+        req.body.admin_sender,
+        req.body.title,
+        req.body.content,
+        req.body.sent_date,
+        req.body.sent_time,
+        req.body.child_receiver
+    ]
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+});
+
+
+router.post('/message_a_teacher', (req, res) => {
+    const sql = `INSERT INTO message (admin_sender, title, content, sent_date, sent_time, teacher_receiver) 
+    VALUES (?, ?, ?, ?, ?, ?)`;
+    const values = [
+        req.body.admin_sender,
+        req.body.title,
+        req.body.content,
+        req.body.sent_date,
+        req.body.sent_time,
+        req.body.teacher_receiver
+    ]
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.json({ Status: false, Error: err })
+        }
+        return res.json({ Status: true })
+
+    });
+});
+
+
+router.get('/message_detail/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT message.*, 
+    COALESCE(teacher_info.name, admin.name, child_info.name) AS sender_name
+    FROM message
+    LEFT JOIN teacher_info ON message.teacher_sender = teacher_info.id
+    LEFT JOIN admin ON message.admin_sender = admin.id
+    LEFT JOIN child_info ON message.child_sender = child_info.id
+    WHERE message.id = ?`;
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+
+router.delete('/delete_message/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'DELETE FROM message WHERE id = ?';
+
+    con.query(sql, [id], (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' + err })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
 // Log out
 router.get('/logout', (req, res) => {
     res.clearCookie('token');

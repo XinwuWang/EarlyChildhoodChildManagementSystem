@@ -33,9 +33,9 @@ const CHome = () => {
             <div className="row align-items-md-stretch m-1">
                 <div className="col-md-6">
                     <div className="h-100 p-5 text-bg-dark rounded-3">
-                        <h2>Send Message</h2>
-                        <p>Shortcut to send an email to the admin or a teacher</p>
-                        <Link to='/child_dashboard/sendmessage' className='btn btn-outline-light'>More</Link>
+                        <h2>Message</h2>
+                        <p>Send a message to a teacher or admin</p>
+                        <Link to={`/child_dashboard/message/${childId}`} className='btn btn-outline-light'>More</Link>
                     </div>
                 </div>
                 <div className="col-md-6">

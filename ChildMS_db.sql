@@ -349,22 +349,22 @@ USE earlychildhoodchildms;
 -- );
 
 
-CREATE TABLE message (
-id INT AUTO_INCREMENT PRIMARY KEY,
-teacher_sender INT,
-child_sender INT,
-admin_sender INT,
-title VARCHAR(255),
-content TEXT,
-sent_date VARCHAR(50),
-sent_time VARCHAR(50),
-teacher_receiver INT,
-child_receiver INT,
-admin_receiver INT,
-FOREIGN KEY (teacher_sender) REFERENCES teacher_info (id),
-FOREIGN KEY (child_sender) REFERENCES child_info (id),
-FOREIGN KEY (admin_sender) REFERENCES admin (id),
-FOREIGN KEY (teacher_receiver) REFERENCES teacher_info (id),
-FOREIGN KEY (child_receiver) REFERENCES child_info (id),
-FOREIGN KEY (admin_receiver) REFERENCES admin (id)
-);
+-- CREATE TABLE message (
+-- id INT AUTO_INCREMENT PRIMARY KEY,
+-- teacher_sender INT,
+-- child_sender INT,
+-- admin_sender INT,
+-- title VARCHAR(255),
+-- content TEXT,
+-- sent_date VARCHAR(50),
+-- sent_time VARCHAR(50),
+-- teacher_receiver INT,
+-- child_receiver INT,
+-- admin_receiver INT,
+-- FOREIGN KEY (teacher_sender) REFERENCES teacher_info (id),
+-- FOREIGN KEY (child_sender) REFERENCES child_info (id),
+-- FOREIGN KEY (admin_sender) REFERENCES admin (id),
+-- FOREIGN KEY (teacher_receiver) REFERENCES teacher_info (id),
+-- FOREIGN KEY (child_receiver) REFERENCES child_info (id),
+-- FOREIGN KEY (admin_receiver) REFERENCES admin (id)
+-- );

@@ -5,6 +5,7 @@ import axios from 'axios'
 
 const CDashboard = () => {
     const navigate = useNavigate()
+    const childId = localStorage.getItem('childId')
     axios.defaults.withCredentials = true
 
     const handleLogout = () => {
@@ -19,7 +20,6 @@ const CDashboard = () => {
             })
     }
 
-    const childId = localStorage.getItem('childId');
 
 
     return (
@@ -81,11 +81,11 @@ const CDashboard = () => {
                                 </Link>
                             </li>
                             <li className="w-100">
-                                <Link to='/child_dashboard/sendmessage'
+                                <Link to={`/child_dashboard/message/${childId}`}
                                     className="nav-link px-0 align-middle text-white"
                                 >
                                     <i className="fs-4 bi-envelope-at ms-2"></i>
-                                    <span className="ms-2 d-none d-sm-inline">Send Message</span>
+                                    <span className="ms-2 d-none d-sm-inline">Message</span>
                                 </Link>
                             </li>
                             <li className="w-100">
