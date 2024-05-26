@@ -77,7 +77,11 @@ import TEditFormulaChart from './Components/Teacher/TEditFormulaChart'
 import TFormulaDetail from './Components/Teacher/TFormulaDetail'
 import TFormulaFeedChild from './Components/Teacher/TFormulaFeedChild'
 import TEditFormulaDetail from './Components/Teacher/TEditFormulaDetail'
-
+import TMessage from './Components/Teacher/TMessage'
+import TMessageDetail from './Components/Teacher/TMessageDetail'
+import TMessageTeacher from './Components/Teacher/TMessageTeacher'
+import TMessageChild from './Components/Teacher/TMessageChild'
+import TMessageAdmin from './Components/Teacher/TMessageAdmin'
 import TAccidentReport from './Components/Teacher/TAccidentReport'
 import TAccidentDetail from './Components/Teacher/TAccidentDetail'
 import TAddAccidentForm from './Components/Teacher/TAddAccidentForm'
@@ -128,6 +132,7 @@ import CAccidentDetail from './Components/Child/CAccidentDetail'
 import CMealDetail from './Components/Child/CMealDetail'
 import CAddAttendance from './Components/Child/CAddAttendance'
 import CLearningStory from './Components/Child/CLearningStory'
+
 
 
 
@@ -195,7 +200,11 @@ function App() {
           <Route path='' element={<THome />}></Route>
           <Route path='/teacher_dashboard/children' element={<ViewChildren />}></Route>
           <Route path='/teacher_dashboard/children/:id' element={<ChildProfile />}></Route>
-          <Route path='/teacher_dashboard/message' element={<Message />}></Route>
+          <Route path='/teacher_dashboard/message/:id' element={<TMessage />}></Route>
+          <Route path='/teacher_dashboard/message_detail/:id' element={<TMessageDetail />}></Route>
+          <Route path='/teacher_dashboard/message_a_teacher' element={<TMessageTeacher />}></Route>
+          <Route path='/teacher_dashboard/message_a_child' element={<TMessageChild />}></Route>
+          <Route path='/teacher_dashboard/message_admin' element={<TMessageAdmin />}></Route>
           <Route path='/teacher_dashboard/teacher_profile/:id' element={<TProfile />}></Route>
           <Route path='/teacher_dashboard/teaching_resource' element={<TeachingTips />}></Route>
           <Route path='/teacher_dashboard/centre_information' element={<CentreInfo />}></Route>
@@ -280,7 +289,7 @@ function App() {
           <Route path='/child_dashboard/learning_story/:id' element={<CLearningStory />}></Route>
         </Route>
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter >
   )
 }
 

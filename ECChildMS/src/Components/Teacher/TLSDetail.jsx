@@ -49,20 +49,7 @@ const TLSDetail = () => {
     }, [id])
 
 
-    // const handleDelete = (id) => {
-    //     if (window.confirm("ALERT! Are you sure you want to delete this record?")) {
-    //         axios.delete(`http://localhost:3000/teacher/delete_learning_story/${id}`)
-    //             .then(result => {
-    //                 if (result.data.Status) {
-    //                     setlsDetail(lsDetail.filter(e => e.id !== id));
-    //                     window.location.reload()
-    //                 } else {
-    //                     alert(result.data.Error)
-    //                 }
-    //             })
-    //             .catch(err => console.log(err))
-    //     }
-    // }
+
 
     // Render loading state while fetching data
     if (loading) {
@@ -87,7 +74,6 @@ const TLSDetail = () => {
                     {
                         lsDetail.map(e => (
                             <div className="col-md-6" key={e.id}>
-                                {/* <div className="col-md-6"> */}
 
                                 <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative p-2">
                                     <div className="col p-4 d-flex flex-column position-static">
@@ -98,53 +84,13 @@ const TLSDetail = () => {
                                         <Link to={"/teacher_dashboard/child_ls/" + e.id} className="icon-link-dark gap-1 icon-link-hover stretched-link text-dark">
                                             <small>View more »</small>
                                         </Link>
-                                        {/* <button type='button' className="btn btn-black p-0" title='Delete' onClick={() => handleDelete(e.id)}>
-                                            <i className="bi bi-trash" />
-                                        </button> */}
                                     </div>
                                 </div>
                             </div>
                         ))}
                 </div>
             </div>
-            {/* <div>
-                <table className="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Child Name</th>
-                            <th scope="col">Time One</th>
-                            <th scope="col">Time Two</th>
-                            <th scope="col">Time Three</th>
-                            <th scope="col">Note</th>
-                            <th scope="col">Supervisor</th>
-                            <th scope='col'></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            lsDetail.map(e => (
 
-                                <tr className="" key={e.id}>
-                                    <td>{e.child_name}</td>
-                                    <td>{e.time_one}</td>
-                                    <td>{e.time_two}</td>
-                                    <td>{e.time_three}</td>
-                                    <td>{e.note}</td>
-                                    <td>{e.supervisor_name}</td>
-                                    <td>
-                                        <Link to={`/teacher_dashboard/edit_ls_detail/${e.id}`} className='btn btn-black p-0 me-3' title='Edit'>
-                                            <i className="bi bi-pen-fill"></i>
-                                        </Link>
-                                        <button type='button' className="btn btn-black p-0" title='Delete' onClick={() => handleDelete(e.id)}>
-                                            <i className="bi bi-trash" />
-                                        </button>
-                                    </td>
-                                </tr>
-
-                            ))}
-                    </tbody>
-                </table>
-            </div> */}
         </div>
     );
 }

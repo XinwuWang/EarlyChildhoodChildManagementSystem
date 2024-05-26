@@ -23,9 +23,9 @@ const THome = () => {
                 </div>
                 <div className="col-md-6">
                     <div className="h-100 p-5 bg-body-tertiary border rounded-3">
-                        <h2>Send Message</h2>
-                        <p>Shortcut to send an email to a child or the admin</p>
-                        <Link to='/teacher_dashboard/message' className='btn btn-outline-dark'>More</Link>
+                        <h2>Message</h2>
+                        <p>Send a message to another teacher, child, or admin</p>
+                        <Link to={'/teacher_dashboard/message/' + teacherId} className='btn btn-outline-dark'>More</Link>
                     </div>
                 </div>
             </div>

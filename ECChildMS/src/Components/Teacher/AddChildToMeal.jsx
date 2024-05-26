@@ -80,7 +80,9 @@ const AddChildToMeal = () => {
                         <select name='child' id='child' className='form-select'
                             onChange={(e) => {
                                 setMeal({ ...meal, child_id: parseInt(e.target.value, 10) });
-                            }}>
+                            }}
+                            required>
+                            <option value='' disabled selected>Select a child</option>
                             {
                                 child.map(c => {
                                     return <option value={c.id} key={c.id}>{c.id} {c.name}</option>

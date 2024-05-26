@@ -79,7 +79,8 @@ const TPutChildToSleep = () => {
                         <select name='child' id='child' className='form-select'
                             onChange={(e) => {
                                 setSleepChart({ ...sleepChart, child_id: e.target.value });
-                            }}>
+                            }} required>
+                            <option value='' disabled selected>Select a child</option>
                             {
                                 child.map(c => {
                                     return <option value={c.id} key={c.id}>{c.id} {c.name}</option>
