@@ -49,8 +49,8 @@ const CHome = () => {
             <div className="row align-items-md-stretch m-1">
                 <div className="col-md-6">
                     <div className="h-100 p-5 text-bg-dark rounded-3">
-                        <h2>Teaching Resources</h2>
-                        <p>Useful teaching resources</p>
+                        <h2>Learning Resources</h2>
+                        <p>Useful resources for learning and growth</p>
                         <Link to='/child_dashboard/resource' className='btn btn-outline-light'>More</Link>
                     </div>
                 </div>
@@ -68,6 +68,13 @@ const CHome = () => {
                         <h2>Announcement</h2>
                         <p>Centre wide group news</p>
                         <Link to='/child_dashboard/announcement' className='btn btn-outline-light'>More</Link>
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="h-100 p-5 bg-body-tertiary border rounded-3">
+                        <h2>Change Password</h2>
+                        <p>Update your password</p>
+                        <Link to={`/child_dashboard/change_password/${childId}`} className='btn btn-outline-dark'>More</Link>
                     </div>
                 </div>
             </div>

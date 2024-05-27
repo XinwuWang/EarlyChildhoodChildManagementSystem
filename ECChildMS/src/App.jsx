@@ -133,11 +133,14 @@ import CSunblockChart from './Components/Child/CSunblockChart'
 import CAttendance from './Components/Child/CAttendance'
 import CAccidentDetail from './Components/Child/CAccidentDetail'
 import CMealDetail from './Components/Child/CMealDetail'
-import CAddAttendance from './Components/Child/CAddAttendance'
 import CLearningStory from './Components/Child/CLearningStory'
 import CMessageAdmin from './Components/Child/CMessageAdmin'
 import CMessageTeacher from './Components/Child/CMessageTeacher'
 import CMessageDetail from './Components/Child/CMessageDetail'
+import CLearningStoryDetail from './Components/Child/CLearningStoryDetail'
+import CSignIn from './Components/Child/CSignIn'
+import CSignOut from './Components/Child/CSignOut'
+
 
 
 
@@ -298,8 +301,10 @@ function App() {
           <Route path='/child_dashboard/accident_detail/:id' element={<CAccidentDetail />}></Route>
           <Route path='/child_dashboard/sunblock_chart/:id' element={<CSunblockChart />}></Route>
           <Route path='/child_dashboard/attendance/:id' element={<CAttendance />}></Route>
-          <Route path='/child_dashboard/add_attendance' element={<CAddAttendance />}></Route>
+          <Route path='/child_dashboard/attendance/:id/sign_in' element={<CSignIn />}></Route>
+          <Route path='/child_dashboard/attendance/:id/sign_out' element={<CSignOut />}></Route>
           <Route path='/child_dashboard/learning_story/:id' element={<CLearningStory />}></Route>
+          <Route path='/child_dashboard/ls_detail/:id' element={<CLearningStoryDetail />}></Route>
         </Route>
       </Routes>
     </BrowserRouter >

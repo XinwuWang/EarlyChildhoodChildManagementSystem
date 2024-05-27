@@ -72,6 +72,16 @@ const CDashboard = () => {
                                     <span className="ms-2 d-none d-sm-inline">Learning Resources</span>
                                 </Link>
                             </li>
+                            <li className='w-100'>
+                                <Link to='/child_dashboard/centreinfo'
+                                    className='nav-link px-0 align-middle text-white'
+                                >
+                                    <i className="fs-4 bi-info-circle ms-2"></i>
+                                    <span className="ms-2 d-none d-sm-inline">
+                                        Centre Information
+                                    </span>
+                                </Link>
+                            </li>
                             <li className="w-100">
                                 <Link to='/child_dashboard/announcement'
                                     className="nav-link px-0 align-middle text-white"

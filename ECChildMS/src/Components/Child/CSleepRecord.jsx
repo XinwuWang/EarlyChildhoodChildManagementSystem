@@ -55,7 +55,7 @@ const CSleepRecord = () => {
                                 <tr key={e.id} className="">
                                     <td></td>
 
-                                    <td>{e.sleep_date}</td>
+                                    <td>{e.date_of_sleep}</td>
                                     {/* <td>{e.child_name}</td> */}
                                     <td>{e.time_to_bed}</td>
                                     <td>{e.time_of_sleep}</td>

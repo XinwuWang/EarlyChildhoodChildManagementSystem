@@ -54,7 +54,7 @@ const CSunblockChart = () => {
                                 <tr key={e.id} className="">
                                     <td></td>
 
-                                    <td>{e.apply_date}</td>
+                                    <td>{e.date_of_application}</td>
                                     <td>{e.apply_time_one}</td>
                                     <td>{e.apply_time_two}</td>
                                     <td>{e.apply_time_three}</td>

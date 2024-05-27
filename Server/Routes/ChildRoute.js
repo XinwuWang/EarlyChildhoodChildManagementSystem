@@ -39,7 +39,7 @@ router.post('/child_login', (req, res) => {
 
 // View teachers
 router.get('/teachers', (req, res) => {
-    const sql = 'SELECT * FROM teacher_info';
+    const sql = 'SELECT * FROM teacher_info ORDER BY name ASC';
     con.query(sql, (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
         return res.json({ Status: true, Result: result })
@@ -141,7 +141,12 @@ router.get('/centreinfo', (req, res) => {
 
 // Announcement
 router.get('/announcement', (req, res) => {
-    const sql = 'SELECT announcement.*, COALESCE(admin.name, teacher_info.name) AS poster_name FROM announcement LEFT JOIN admin ON announcement.person_who_posts = admin.id LEFT JOIN teacher_info ON announcement.teacher_who_posts = teacher_info.id';
+    const sql = `SELECT announcement.*, 
+    COALESCE(admin.name, teacher_info.name) AS poster_name 
+    FROM announcement 
+    LEFT JOIN admin ON announcement.person_who_posts = admin.id 
+    LEFT JOIN teacher_info ON announcement.teacher_who_posts = teacher_info.id
+    ORDER BY post_date DESC, post_time DESC`;
     con.query(sql, (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
         return res.json({ Status: true, Result: result })
@@ -155,10 +160,12 @@ router.get('/announcement', (req, res) => {
 router.get('/sleep_record/:id', (req, res) => {
     const id = req.params.id;
     const sql = `
-    SELECT sleep_chart.*, teacher_info.name AS teacher_name
-    FROM sleep_chart
-    LEFT JOIN teacher_info ON sleep_chart.supervisor = teacher_info.id
+    SELECT sleep_detail.*, teacher_info.name AS teacher_name, sleep_chart.sleep_date AS date_of_sleep
+    FROM sleep_detail
+    LEFT JOIN teacher_info ON sleep_detail.supervisor = teacher_info.id
+    LEFT JOIN sleep_chart ON sleep_detail.sleep_date = sleep_chart.id
     WHERE child= ?
+    ORDER BY date_of_sleep DESC;
     `;
     con.query(sql, [id], (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
@@ -171,10 +178,12 @@ router.get('/sleep_record/:id', (req, res) => {
 router.get('/sunblock_chart/:id', (req, res) => {
     const id = req.params.id;
     const sql = `
-    SELECT sunblock_chart.*, teacher_info.name AS teacher_name
+    SELECT sunblock_chart.*, teacher_info.name AS teacher_name, sunblock.apply_date AS date_of_application
     FROM sunblock_chart
     LEFT JOIN teacher_info ON sunblock_chart.supervisor = teacher_info.id
+    LEFT JOIN sunblock ON sunblock_chart.apply_date = sunblock.id
     WHERE child = ?
+    ORDER BY date_of_application DESC;
     `;
     con.query(sql, [id], (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
@@ -184,14 +193,16 @@ router.get('/sunblock_chart/:id', (req, res) => {
 
 
 
-// Bottle chart
+// Formula feeding chart
 router.get('/bottle_chart/:id', (req, res) => {
     const id = req.params.id;
     const sql = `
-    SELECT bottle_chart.*, teacher_info.name AS teacher_name
-    FROM bottle_chart
-    LEFT JOIN teacher_info ON bottle_chart.supervisor = teacher_info.id
+    SELECT formula_detail.*, teacher_info.name AS teacher_name, formula_chart.feeding_date AS date_of_formula
+    FROM formula_detail
+    LEFT JOIN teacher_info ON formula_detail.supervisor = teacher_info.id
+    LEFT JOIN formula_chart ON formula_detail.feeding_date = formula_chart.id
     WHERE child = ?
+    ORDER BY date_of_formula DESC;
     `;
     con.query(sql, [id], (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
@@ -208,6 +219,7 @@ router.get('/accident_form/:childId', (req, res) => {
     FROM accident_form
     INNER JOIN teacher_info ON accident_form.supervisor = teacher_info.id
     WHERE child = ?
+    ORDER BY accident_date DESC;
     `;
     con.query(sql, [childId], (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
@@ -240,7 +252,8 @@ router.get('/accident_detail/:id', (req, res) => {
 router.get('/meal_chart', (req, res) => {
     const sql = `SELECT meal_chart.*, teacher_info.name As supervisor_name
     FROM meal_chart 
-    INNER JOIN teacher_info ON meal_chart.supervisor = teacher_info.id`;
+    INNER JOIN teacher_info ON meal_chart.supervisor = teacher_info.id
+    ORDER BY meal_chart.meal_date DESC`;
     con.query(sql, (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
         return res.json({ Status: true, Result: result })
@@ -283,16 +296,6 @@ router.get('/meal_detail/:id/:childId', (req, res) => {
 
 
 // Attendance
-router.get('/attendance', (req, res) => {
-    const sql = `SELECT attendance.*, admin.name AS creator_name
-    FROM attendance
-    INNER JOIN admin ON attendance.person_who_created = admin.id`;
-    con.query(sql, (err, result) => {
-        if (err) return res.json({ Status: false, Error: 'Query error' })
-        return res.json({ Status: true, Result: result })
-    })
-})
-
 router.get('/attendance/:id', (req, res) => {
     const id = req.params.id;
     const sql = `
@@ -308,7 +311,8 @@ router.get('/attendance/:id', (req, res) => {
     LEFT JOIN teacher_info teacher ON ar.teacher_signature = teacher.id
     LEFT JOIN admin admin ON ar.admin_signature = admin.id
     LEFT JOIN attendance ON ar.attendance_date = attendance.id
-    WHERE ar.child = ?;
+    WHERE ar.child = ?
+    ORDER BY date_of_attendance DESC;
     `;
     con.query(sql, [id], (err, result) => {
         if (err) {
@@ -320,28 +324,164 @@ router.get('/attendance/:id', (req, res) => {
 })
 
 
-router.post('/add_attendance', (req, res) => {
-    const sql = `INSERT INTO attendance_record (child, attendance_date, time_in, time_out, parent_signature) 
-    VALUES (?, ?, ?, ?, ?)`;
-    const values = [
-        req.body.child_id,
-        req.body.attendance_date,
-        req.body.time_in,
-        req.body.time_out,
-        req.body.parent_signature,
-    ]
+router.get('/attendance_date', (req, res) => {
+    const sql = `
+    SELECT *
+    FROM attendance
+    ORDER BY form_date DESC;
+    `;
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
 
 
-    console.log(values)
+router.post('/check_sign_in', (req, res) => {
+    const { child_id, attendance_date } = req.body;
+
+    if (!child_id || !attendance_date) {
+        return res.status(400).json({ Status: false, Error: 'Child and attendance date are required' });
+    }
+
+    const sql = `
+        SELECT id
+        FROM attendance_record
+        WHERE child = ? AND attendance_date = ? AND time_in IS NOT NULL
+    `;
+    const values = [child_id, attendance_date];
+
+    con.query(sql, values, (err, results) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ Status: false, Error: 'Database query error' });
+        }
+
+        if (results.length > 0) {
+            return res.status(200).json({ Status: true, Message: 'Child has already signed in' });
+        } else {
+            return res.status(200).json({ Status: false, Message: 'Child has not signed in yet' });
+        }
+    });
+});
+
+
+router.post('/sign_in', (req, res) => {
+    const { child_id, attendance_date, time_in, parent_signature } = req.body;
+
+    const sql = `
+        INSERT INTO attendance_record (child, attendance_date, time_in, parent_signature) 
+        VALUES (?, ?, ?, ?)
+    `;
+    const values = [child_id, attendance_date, time_in, parent_signature];
+
     con.query(sql, values, (err, result) => {
         if (err) {
             console.error('Error executing SQL query:', err);
-            return res.json({ Status: false, Error: err })
+            return res.status(500).json({ Status: false, Error: 'Database query error' });
         }
-        return res.json({ Status: true })
-
+        return res.status(200).json({ Status: true, Message: 'Sign-in time recorded successfully' });
     });
 });
+
+
+
+router.post('/check_sign_out', (req, res) => {
+    const { child_id, attendance_date } = req.body;
+
+    if (!child_id || !attendance_date) {
+        return res.status(400).json({ Status: false, Error: 'Child and attendance date are required' });
+    }
+
+    const sql = `
+        SELECT id
+        FROM attendance_record
+        WHERE child = ? AND attendance_date = ? AND time_out IS NOT NULL
+    `;
+    const values = [child_id, attendance_date];
+
+    con.query(sql, values, (err, results) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ Status: false, Error: 'Database query error' });
+        }
+
+        if (results.length > 0) {
+            return res.status(200).json({ Status: true, Message: 'Child has already signed out' });
+        } else {
+            return res.status(200).json({ Status: false, Message: 'Child has not signed out yet' });
+        }
+    });
+});
+
+
+router.post('/sign_out', (req, res) => {
+    const { child_id, attendance_date, time_out, parent_signature } = req.body;
+
+    const sql = `
+        UPDATE attendance_record 
+        SET time_out = ?, parent_signature = ?
+        WHERE child = ? AND attendance_date = ?
+    `;
+    const values = [time_out, parent_signature, child_id, attendance_date];
+
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ Status: false, Error: 'Database query error' });
+        }
+        return res.status(200).json({ Status: true, Message: 'Sign-out time recorded successfully' });
+    });
+});
+
+
+
+// Learning story
+router.get('/learning_story/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT 
+    learning_story_detail.*, 
+    child_info.name AS child_name,
+    teacher_info.name AS creator_name
+    FROM learning_story_detail
+    INNER JOIN child_info ON learning_story_detail.child = child_info.id
+    INNER JOIN teacher_info ON learning_story_detail.person_who_wrote = teacher_info.id 
+    WHERE learning_story_detail.child = ?
+    ORDER BY update_date DESC;
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        console.log(result)
+        return res.json({ Status: true, Result: result });
+    });
+})
+
+
+router.get('/ls_detail/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `
+    SELECT 
+    learning_story_detail.*, 
+    child_info.name AS child_name,
+    teacher_info.name AS creator_name
+    FROM learning_story_detail
+    INNER JOIN child_info ON learning_story_detail.child = child_info.id
+    INNER JOIN teacher_info ON learning_story_detail.person_who_wrote = teacher_info.id 
+    WHERE learning_story_detail.id = ?
+    `;
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        console.log(result)
+        return res.json({ Status: true, Result: result });
+    });
+})
 
 
 

@@ -29,7 +29,8 @@ const CAttendance = () => {
                 <div className="d-flex justify-content-between align-items-center mt-auto p-3 m-3">
                     <h5 className="display-4 fw-normal">Attendance Record for {childName}</h5>
                     <div>
-                        <Link to={`/child_dashboard/add_attendance`} className='btn btn-lg p-2' title="Sign in/Sign out"><i className="bi bi-plus-circle-fill text-dark"></i></Link>
+                        <Link to={`/child_dashboard/attendance/${id}/sign_in`} className='btn btn-lg p-2' title="Sign In"><i className="bi bi-person-fill-up text-dark"></i></Link>
+                        <Link to={`/child_dashboard/attendance/${id}/sign_out`} className='btn btn-lg p-2' title="Sign Out"><i className="bi bi-person-down text-dark"></i></Link>
                         <Link to={'/child_dashboard/documents'} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
                     </div>
                 </div>

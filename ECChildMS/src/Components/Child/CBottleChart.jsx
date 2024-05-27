@@ -52,7 +52,7 @@ const CBottleChart = () => {
                             bottleChart.map(e => (
                                 <tr key={e.id} className="">
                                     <td></td>
-                                    <td>{e.bottle_date}</td>
+                                    <td>{e.date_of_formula}</td>
                                     <td>{e.time_one}</td>
                                     <td>{e.time_two}</td>
                                     <td>{e.time_three}</td>
