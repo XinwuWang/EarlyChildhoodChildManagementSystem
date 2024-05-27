@@ -1,7 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
-
+import { Link } from 'react-router-dom'
 
 const Resource = () => {
     const [resource, setResource] = useState([])
@@ -9,7 +8,6 @@ const Resource = () => {
     useEffect(() => {
         axios.get('http://localhost:3000/child/resource')
             .then(result => {
-                // console.log(result.data)
                 if (result.data.Status) {
                     console.log(result.data.Result)
                     setResource(result.data.Result)
@@ -19,24 +17,6 @@ const Resource = () => {
             })
             .catch(err => console.log(err))
     }, [])
-
-    // const handleDelete = (id) => {
-    //     if (window.confirm("ALERT! Are you sure you want to delete this information?")) {
-    //         axios.delete('http://localhost:3000/auth/delete_resource/' + id)
-    //             .then(result => {
-    //                 if (result.data.Status) {
-    //                     setResource(resource.filter(e => e.id !== id))
-    //                     window.location.reload()
-    //                 } else {
-    //                     alert(result.data.Error)
-    //                 }
-    //             })
-    //             .catch(err => console.log(err))
-    //     }
-
-
-    // }
-
 
     return (
         <div>
@@ -59,10 +39,18 @@ const Resource = () => {
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     ))
 
                 }
+            </div>
+            <div className="container pt-5 mb-3">
+                <div className="row">
+                    <div className="col text-center">
+                        <Link to='/child_dashboard' className='btn btn-success'>Home</Link>
+                    </div>
+                </div>
             </div>
         </div>
     )

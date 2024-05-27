@@ -56,8 +56,8 @@ const CHome = () => {
                 </div>
                 <div className="col-md-6">
                     <div className="h-100 p-5 bg-body-tertiary border rounded-3">
-                        <h2>Centre Information</h2>
-                        <p>Necessary information of our centre</p>
+                        <h2>About Centre</h2>
+                        <p>Information of our centre</p>
                         <Link to='/child_dashboard/centreinfo' className='btn btn-outline-dark'>More</Link>
                     </div>
                 </div>

@@ -46,13 +46,13 @@ const ViewTeachers = () => {
             </div>
 
 
-            {/* <div className="container pt-5">
+            <div className="container pt-5 mb-3">
                 <div className="row">
                     <div className="col text-center">
-                        <Link to='/teacher_dashboard/add_child' className='btn btn-success'>Add Child</Link>
+                        <Link to='/child_dashboard' className='btn btn-success'>Home</Link>
                     </div>
                 </div>
-            </div> */}
+            </div>
             <div className='mt-3'></div>
         </div>
     )
