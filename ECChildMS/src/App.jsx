@@ -2,6 +2,7 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import StartPage from './Components/StartPage'
+
 // Admin components
 import AdminLogin from './Components/Admin/AdminLogin'
 import PrivateRoute from './Components/PrivateRoute'
@@ -118,7 +119,6 @@ import TChildLS from './Components/Teacher/TChildLS'
 import TEditLSDetail from './Components/Teacher/TEditLSDetail'
 
 
-
 // Child components
 import ChildLogin from './Components/Child/ChildLogin'
 import CDashboard from './Components/Child/CDashboard'
@@ -148,16 +148,6 @@ import CMessageDetail from './Components/Child/CMessageDetail'
 import CLearningStoryDetail from './Components/Child/CLearningStoryDetail'
 import CSignIn from './Components/Child/CSignIn'
 import CSignOut from './Components/Child/CSignOut'
-
-
-
-
-
-
-
-
-
-
 
 
 
