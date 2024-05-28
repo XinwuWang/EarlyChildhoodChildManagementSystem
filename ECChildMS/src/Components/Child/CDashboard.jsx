@@ -6,6 +6,7 @@ import axios from 'axios'
 const CDashboard = () => {
     const navigate = useNavigate()
     const childId = localStorage.getItem('childId')
+    const childName = localStorage.getItem('childName')
     axios.defaults.withCredentials = true
 
     const handleLogout = () => {
@@ -31,7 +32,7 @@ const CDashboard = () => {
                             className='d-flex align-items-center pb-3 mb-md-1 mt-md-3 me-md-auto text-white text-decoration-none'
                         >
                             <span className='fs-5 fw-bolder d-none d-sm-inline'>
-                                Kia Ora! Welcome!
+                                Kia Ora, {childName}!
                             </span>
                         </Link>
                         <ul className='nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start'
@@ -127,7 +128,7 @@ const CDashboard = () => {
                 </div>
                 <div className='col p-0 m-0'>
                     <div className='p-2 d-flex justify-content-center shadow'>
-                        <h4>Early Childhood Management System - Child</h4>
+                        <h4>Child Portal - {childName}</h4>
                     </div>
                     <Outlet />
                 </div>

@@ -1272,6 +1272,7 @@ router.post('/check_sign_out', (req, res) => {
     });
 });
 
+
 router.post('/sign_in', (req, res) => {
     const { child_id, attendance_date, time_in, teacher_signature } = req.body;
 

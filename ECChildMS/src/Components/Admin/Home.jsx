@@ -7,7 +7,7 @@ const Home = () => {
         <div>
             <div className="container my-5">
                 <div className="p-5 text-center bg-body-tertiary rounded-3">
-                    <h1 className="text-body-emphasis">Kia ora! Hello!</h1>
+                    <h1 className="text-body-emphasis">Hello!</h1>
                     <p className="lead">
                         Welcome to the admin portal of Early Childhood Child Management System
                     </p>

@@ -39,7 +39,6 @@ const TLearningStories = () => {
                         <tr>
                             <th></th>
                             <th scope="col">Month</th>
-                            {/* <th scope="col">Created by</th> */}
                             <th></th>
                         </tr>
                     </thead>
@@ -53,7 +52,6 @@ const TLearningStories = () => {
                                         to={`/teacher_dashboard/learning_story_detail/${e.id}`
                                         }
                                     >{e.created_month}</Link></td>
-                                    {/* <td>{e.creator_name}</td> */}
                                     <td>
                                         <Link to={`/teacher_dashboard/edit_ls/${e.id}`} className='btn btn-black p-0 me-3' title='Edit'>
                                             <i className="bi bi-pencil-square"></i>

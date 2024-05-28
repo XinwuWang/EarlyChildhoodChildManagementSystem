@@ -6,8 +6,6 @@ import axios from 'axios'
 const ASleepRecord = () => {
     const [sleepRecord, setSleepRecord] = useState([])
 
-
-
     useEffect(() => {
         axios.get('http://localhost:3000/auth/sleep_record')
             .then(result => {
@@ -40,12 +38,6 @@ const ASleepRecord = () => {
                         <tr>
                             <th></th>
                             <th scope="col">Date</th>
-                            <th scope="col">Child Name</th>
-                            <th scope="col">Time to Bed</th>
-                            <th scope="col">Time of Sleep</th>
-                            <th scope="col">Time of Wake</th>
-                            <th scope="col">Time Out of Bed</th>
-                            <th scope="col">Note</th>
                             <th scope="col">Supervisor</th>
                         </tr>
                     </thead>
@@ -55,14 +47,12 @@ const ASleepRecord = () => {
                                 <tr key={e.id} className="">
                                     <td></td>
 
-                                    <td>{e.sleep_date}</td>
-                                    <td>{e.child_name}</td>
-                                    <td>{e.time_to_bed}</td>
-                                    <td>{e.time_of_sleep}</td>
-                                    <td>{e.time_of_wakeup}</td>
-                                    <td>{e.time_out_of_bed}</td>
-                                    <td>{e.note}</td>
+                                    <td><Link
+                                        to={`/dashboard/sleep_detail/${e.id}`
+                                        }
+                                    >{e.sleep_date}</Link></td>
                                     <td>{e.supervisor_name}</td>
+
                                 </tr>
                             )
                             )

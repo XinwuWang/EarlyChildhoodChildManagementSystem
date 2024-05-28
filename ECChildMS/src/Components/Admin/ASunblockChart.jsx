@@ -2,17 +2,15 @@ import { Link } from "react-router-dom"
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
+const ASunblockChart = () => {
+    const [sunblock, setSunblock] = useState([])
 
-
-const ALearningStory = () => {
-    const [learningStory, setLearningStory] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/learning_story')
+        axios.get('http://localhost:3000/auth/sunblock_chart')
             .then(result => {
                 if (result.data.Status) {
-                    setLearningStory(result.data.Result)
-                    console.log(result.data.Result)
+                    setSunblock(result.data.Result)
                 } else {
                     alert(result.data.Error)
                 }
@@ -26,7 +24,7 @@ const ALearningStory = () => {
         <div>
             <div className="container">
                 <div className="d-flex justify-content-between align-items-center mt-auto p-3 m-3">
-                    <h1 className="display-4 fw-normal">Learning Story</h1>
+                    <h1 className="display-4 fw-normal">Sunblock Application Chart</h1>
                     <div>
                         <Link to={'/dashboard/document'} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
                     </div>
@@ -38,20 +36,20 @@ const ALearningStory = () => {
                     <thead>
                         <tr>
                             <th></th>
-                            <th scope="col">Month</th>
-                            <th></th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Created by</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            learningStory.map(e => (
+                            sunblock.map(e => (
                                 <tr key={e.id} className="">
                                     <td></td>
-                                    <td>{e.created_month}</td>
                                     <td><Link
-                                        to={`/dashboard/learning_story_detail/${e.id}`
-                                        } className="btn btn-black p-0 me-3"
-                                    ><small>View more »</small></Link></td>
+                                        to={`/dashboard/sunblock_chart_detail/${e.id}`
+                                        }
+                                    >{e.apply_date}</Link></td>
+                                    <td>{e.creator_name}</td>
                                 </tr>
                             )
                             )
@@ -60,8 +58,7 @@ const ALearningStory = () => {
                 </table>
             </div>
         </div >
-
     )
 }
 
-export default ALearningStory
+export default ASunblockChart

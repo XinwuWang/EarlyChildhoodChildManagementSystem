@@ -79,7 +79,8 @@ const AAttendanceDetail = () => {
                         <h2>{attendance.form_date}</h2>
                     </div>
                     <div>
-                        <Link to={`/dashboard/attendance/${id}/add_child_to_attendance`} className='btn btn-lg p-2' title="Add a child to the chart"><i className="bi bi-person-fill-add text-dark"></i></Link>
+                        <Link to={`/dashboard/attendance/${id}/sign_in`} className='btn btn-lg p-2' title="Sign In"><i className="bi bi-person-fill-up text-dark"></i></Link>
+                        <Link to={`/dashboard/attendance/${id}/sign_out`} className='btn btn-lg p-2' title="Sign Out"><i className="bi bi-person-down text-dark"></i></Link>
                         <Link to={'/dashboard/attendance'} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
                     </div>
                 </div>

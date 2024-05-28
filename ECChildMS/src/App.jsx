@@ -36,13 +36,21 @@ import AAttendanceForm from './Components/Admin/AAttendanceForm'
 import CreateAttendanceForm from './Components/Admin/CreateAttendanceForm'
 import AAttendanceDetail from './Components/Admin/AAttendanceDetail'
 import EditAttendanceForm from './Components/Admin/EditAttendanceForm'
-import AddChildToAttendance from './Components/Admin/AddChildToAttendance'
+import ASignIn from './Components/Admin/ASignIn'
+import ASignOut from './Components/Admin/ASignOut'
 import ALearningStory from './Components/Admin/ALearningStory'
+import ALSDetail from './Components/Admin/ALSDetail'
+import AChildLS from './Components/Admin/AChildLS'
 import AMealChart from './Components/Admin/AMealChart'
 import AMealDetail from './Components/Admin/AMealDetail'
 import ASleepRecord from './Components/Admin/ASleepRecord'
-import ABottleChart from './Components/Admin/ABottleChart'
-
+import ASleepDetail from './Components/Admin/ASleepDetail'
+import AFormulaChart from './Components/Admin/AFormulaChart'
+import AFormulaDetail from './Components/Admin/AFormulaDetail'
+import ASunblockChart from './Components/Admin/ASunblockChart'
+import ASunblockDetail from './Components/Admin/ASunblockDetail'
+import AAccidentReport from './Components/Admin/AAccidentReport'
+import AAccidentDetail from './Components/Admin/AAccidentDetail'
 
 
 // Teacher components
@@ -151,6 +159,8 @@ import CSignOut from './Components/Child/CSignOut'
 
 
 
+
+
 function App() {
 
   return (
@@ -195,12 +205,21 @@ function App() {
           <Route path='/dashboard/add_attendance' element={<CreateAttendanceForm />}></Route>
           <Route path='/dashboard/edit_attendance/:id' element={<EditAttendanceForm />}></Route>
           <Route path='/dashboard/attendance_detail/:id' element={<AAttendanceDetail />}></Route>
-          <Route path='/dashboard/attendance/:id/add_child_to_attendance' element={<AddChildToAttendance />}></Route>
+          <Route path='/dashboard/attendance/:id/sign_in' element={<ASignIn />}></Route>
+          <Route path='/dashboard/attendance/:id/sign_out' element={<ASignOut />}></Route>
           <Route path='/dashboard/learning_story' element={<ALearningStory />}></Route>
+          <Route path='/dashboard/learning_story_detail/:id' element={<ALSDetail />}></Route>
+          <Route path='/dashboard/child_ls/:id' element={<AChildLS />}></Route>
           <Route path='/dashboard/meal_chart' element={<AMealChart />}></Route>
           <Route path='/dashboard/meal_detail/:id' element={<AMealDetail />}></Route>
           <Route path='/dashboard/sleep_record' element={<ASleepRecord />}></Route>
-          <Route path='/dashboard/bottle_chart' element={<ABottleChart />}></Route>
+          <Route path='/dashboard/sleep_detail/:id' element={<ASleepDetail />}></Route>
+          <Route path='/dashboard/formula_chart' element={<AFormulaChart />}></Route>
+          <Route path='/dashboard/formula_detail/:id' element={<AFormulaDetail />}></Route>
+          <Route path='/dashboard/sunblock_chart' element={<ASunblockChart />}></Route>
+          <Route path='/dashboard/sunblock_chart_detail/:id' element={<ASunblockDetail />}></Route>
+          <Route path='/dashboard/accident_form' element={<AAccidentReport />}></Route>
+          <Route path='/dashboard/accident_form/:id' element={<AAccidentDetail />}></Route>
         </Route>
 
         {/* Teacher portal */}
