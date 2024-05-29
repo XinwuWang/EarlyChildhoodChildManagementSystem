@@ -120,7 +120,7 @@ router.put('/edit_profile/:id', (req, res) => {
 
 // Learning resources
 router.get('/resource', (req, res) => {
-    const sql = 'SELECT * FROM teaching_resource';
+    const sql = 'SELECT * FROM teaching_resource ORDER BY update_date DESC';
     con.query(sql, (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
         return res.json({ Status: true, Result: result })

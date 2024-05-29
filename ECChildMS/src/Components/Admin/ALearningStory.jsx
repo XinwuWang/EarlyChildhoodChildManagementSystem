@@ -50,7 +50,7 @@ const ALearningStory = () => {
                                     <td>{e.created_month}</td>
                                     <td><Link
                                         to={`/dashboard/learning_story_detail/${e.id}`
-                                        } className="btn btn-black p-0 me-3"
+                                        } className="btn p-0 me-3"
                                     ><small>View more »</small></Link></td>
                                 </tr>
                             )

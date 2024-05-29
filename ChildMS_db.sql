@@ -1,38 +1,22 @@
--- CREATE DATABASE IF NOT EXISTS earlychildhoodchildms;
+-- CREATE DATA BASE IF NOT EXISTS earlychildhoodchildms;
 
 USE earlychildhoodchildms;
+DROP TABLE IF EXISTS admin;
+-- BEGIN;
 
--- CREATE TABLE admin (
--- id INT PRIMARY KEY AUTO_INCREMENT,
--- email VARCHAR(50),
--- password VARCHAR(140)
--- );
-
--- CREATE TABLE category (
--- id INT AUTO_INCREMENT PRIMARY KEY,
--- name VARCHAR(30)
--- );
-
--- CREATE TABLE teacher (
--- id INT auto_increment PRIMARY KEY,
--- name VARCHAR(50),
--- email VARCHAR(50),
--- password VARCHAR(50),
--- phone VARCHAR(50),
--- teaching_No INT,
--- address VARCHAR(255),
--- categoryID INT,
--- image VARCHAR(100),
--- FOREIGN KEY (categoryID) REFERENCES category(id)
--- );
-
--- CREATE TABLE center_info (
--- id INT AUTO_INCREMENT PRIMARY KEY,
--- title VARCHAR(255),
--- information_one TEXT,
--- information_two TEXT,
--- information_three TEXT
--- );
+-- 1. Create tables
+CREATE TABLE admin (
+id INT PRIMARY KEY AUTO_INCREMENT,
+email VARCHAR(50),
+password VARCHAR(255),
+date_of_birth VARCHAR(50),
+address VARCHAR(255),
+phone VARCHAR(30),
+start_date VARCHAR(50),
+name VARCHAR(50),
+image VARCHAR(100),
+UNIQUE (email)
+);
 
 -- CREATE TABLE teacher_info (
 -- id INT auto_increment PRIMARY KEY,
@@ -41,10 +25,12 @@ USE earlychildhoodchildms;
 -- password VARCHAR(255),
 -- phone VARCHAR(50),
 -- teaching_No INT,
--- date_of_birth VARCHAR(100), 
+-- date_of_birth VARCHAR(50), 
 -- address VARCHAR(255),
 -- teaching_philosophy TEXT,
--- image VARCHAR(255)
+-- image VARCHAR(255),
+-- start_date VARCHAR(50),
+-- UNIQUE (email)
 -- );
 
 -- create table child_info (
@@ -61,68 +47,11 @@ USE earlychildhoodchildms;
 -- allergy TEXT,
 -- interests_and_hobbies TEXT,
 -- other_notes TEXT,
--- profile_img VARCHAR(255)
+-- profile_img VARCHAR(255),
+-- start_date VARCHAR(50),
+-- UNIQUE (email)
 -- );
 
--- ALTER TABLE admin
--- ADD (
--- date_of_birth VARCHAR(30),
--- address VARCHAR(255),
--- phone VARCHAR(30),
--- start_date VARCHAR(30)
--- );
-
-
--- UPDATE admin 
--- SET date_of_birth = '1987-3-12', 
---     address = '9B Hill Ave Auckland', 
---     phone = '0278391846', 
---     start_date = '2022-1-1'
--- WHERE id = 1;
-
--- ALTER TABLE child_info
--- MODIFY COLUMN date_of_birth DATE;
-
--- ALTER TABLE child_info
--- ADD COLUMN start_date DATE;
-
--- ALTER TABLE teacher_info
--- MODIFY COLUMN date_of_birth DATE;
-
--- ALTER TABLE teacher_info
--- ADD COLUMN start_date DATE;
-
--- ALTER TABLE admin
--- ADD COLUMN name VARCHAR(50);
-
--- UPDATE admin
--- SET name = 'Ray Smith'
--- WHERE id = 1;
-
--- ALTER TABLE admin
--- ADD COLUMN image VARCHAR(100);
-
--- UPDATE admin
--- SET image = 'ray_smith.png'
--- WHERE id = 1;
-
--- ALTER TABLE teacher_info
--- MODIFY COLUMN date_of_birth VARCHAR(50);
-
--- ALTER TABLE teacher_info
--- MODIFY COLUMN start_date VARCHAR(50);
-
--- ALTER TABLE admin
--- MODIFY COLUMN date_of_birth VARCHAR(50);
-
--- ALTER TABLE admin
--- MODIFY COLUMN start_date VARCHAR(50);
-
--- ALTER TABLE child_info
--- MODIFY COLUMN date_of_birth VARCHAR(50);
-
--- ALTER TABLE child_info
--- MODIFY COLUMN start_date VARCHAR(50);
 
 -- CREATE TABLE centre_info (
 -- id INT AUTO_INCREMENT PRIMARY KEY,
@@ -133,8 +62,9 @@ USE earlychildhoodchildms;
 -- admin_id INT,
 -- update_date VARCHAR(50),
 -- update_time VARCHAR(50),
--- FOREIGN KEY (admin_id) REFERENCES admin(id)
+-- FOREIGN KEY (admin_id) REFERENCES admin(id) ON DELETE SET NULL ON UPDATE CASCADE
 -- );
+
 
 -- CREATE TABLE note (
 -- id INT AUTO_INCREMENT PRIMARY KEY,
@@ -144,13 +74,10 @@ USE earlychildhoodchildms;
 -- update_time VARCHAR(50),
 -- admin_id INT,
 -- teacher_id INT,
--- FOREIGN KEY (admin_id) REFERENCES admin(id) ON UPDATE CASCADE,
--- FOREIGN KEY (teacher_id) REFERENCES teacher_info (id)
+-- FOREIGN KEY (admin_id) REFERENCES admin(id) ON DELETE CASCADE ON UPDATE CASCADE,
+-- FOREIGN KEY (teacher_id) REFERENCES teacher_info (id) ON DELETE CASCADE ON UPDATE CASCADE
 -- );
 
--- ALTER TABLE note 
--- RENAME COLUMN note_id 
--- TO id;
 
 -- CREATE TABLE teaching_resource (
 -- id INT AUTO_INCREMENT PRIMARY KEY,
@@ -158,15 +85,11 @@ USE earlychildhoodchildms;
 -- resource_description TEXT,
 -- link VARCHAR(255),
 -- person_who_adds INT,
--- update_date VARCHAR(50)
--- FOREIGN KEY (person_who_adds) REFERENCES teacher_info (id)
+-- update_date VARCHAR(50),
+-- FOREIGN KEY (person_who_adds) REFERENCES teacher_info (id) ON DELETE SET NULL ON UPDATE CASCADE
 -- );
 
--- INSERT INTO teaching_resource (title, resource_description, link, person_who_adds, update_date)
--- VALUES ('learn play', 'play through learn', 'www.ab.com', '1', '2024-03-22'),
--- ('toy', 'play playplay', 'www.scdss.com', '2', '2024-04-12'),
--- ('car', 'drive car', 'www.xxxx.com', '3', '2024-01-15'),
--- ('doll', 'play and learn', 'www.lskl.com', '5', '2024-02-02');
+
 
 -- CREATE TABLE announcement (
 -- id INT AUTO_INCREMENT PRIMARY KEY,
@@ -175,10 +98,11 @@ USE earlychildhoodchildms;
 -- post_date VARCHAR(50),
 -- post_time VARCHAR(50),
 -- person_who_posts INT,
--- teacher_who_posts INT;
--- FOREIGN KEY (person_who_posts) REFERENCES admin (id),
--- FOREIGN KEY (teacher_who_posts) REFERENCES teacher_info (id)
+-- teacher_who_posts INT,
+-- FOREIGN KEY (person_who_posts) REFERENCES admin (id) ON DELETE SET NULL ON UPDATE CASCADE,
+-- FOREIGN KEY (teacher_who_posts) REFERENCES teacher_info (id) ON DELETE SET NULL ON UPDATE CASCADE
 -- );
+
 
 -- CREATE TABLE meal_chart (
 -- id INT AUTO_INCREMENT PRIMARY KEY,
@@ -187,8 +111,9 @@ USE earlychildhoodchildms;
 -- lunch VARCHAR(255),
 -- afternoon_tea VARCHAR(255),
 -- supervisor INT,
--- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
+-- FOREIGN KEY (supervisor) REFERENCES teacher_info (id) ON DELETE SET NULL ON UPDATE CASCADE
 -- );
+
 
 -- CREATE TABLE meal_detail (
 -- id INT AUTO_INCREMENT PRIMARY KEY,
@@ -198,8 +123,8 @@ USE earlychildhoodchildms;
 -- lunch_portion VARCHAR(255),
 -- at_portion VARCHAR(255),
 -- note VARCHAR(255),
--- FOREIGN KEY (child) REFERENCES child_info (id),
--- FOREIGN KEY (meal_day) REFERENCES meal_chart (id)
+-- FOREIGN KEY (child) REFERENCES child_info (id) ON DELETE CASCADE ON UPDATE CASCADE,
+-- FOREIGN KEY (meal_day) REFERENCES meal_chart (id) ON UPDATE CASCADE
 -- );
 
 
@@ -215,19 +140,18 @@ USE earlychildhoodchildms;
 -- staff_response VARCHAR(255),
 -- additional_notes VARCHAR(255),
 -- supervisor INT,
--- FOREIGN KEY (child) REFERENCES child_info(id),
--- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
+-- FOREIGN KEY (child) REFERENCES child_info(id) ON DELETE CASCADE ON UPDATE CASCADE,
+-- FOREIGN KEY (supervisor) REFERENCES teacher_info (id) ON DELETE SET NULL ON UPDATE CASCADE
 -- );
-
-
 
 
 -- CREATE TABLE attendance (
 -- id INT AUTO_INCREMENT PRIMARY KEY,
 -- form_date VARCHAR(50),
 -- person_who_created INT,
--- FOREIGN KEY (person_who_created) REFERENCES admin(id)
+-- FOREIGN KEY (person_who_created) REFERENCES admin(id) ON DELETE SET NULL ON UPDATE CASCADE
 -- );
+
 
 -- CREATE TABLE attendance_record (
 -- id INT AUTO_INCREMENT PRIMARY KEY,
@@ -238,33 +162,21 @@ USE earlychildhoodchildms;
 -- parent_signature INT,
 -- teacher_signature INT,
 -- admin_signature INT,
--- FOREIGN KEY (child) REFERENCES child_info(id),
--- FOREIGN KEY (attendance_date) REFERENCES attendance(id),
--- FOREIGN KEY (parent_signature) REFERENCES child_info(id),
--- FOREIGN KEY (teacher_signature) REFERENCES teacher_info(id),
--- FOREIGN KEY (admin_signature) REFERENCES admin(id)	
+-- FOREIGN KEY (child) REFERENCES child_info(id) ON DELETE CASCADE ON UPDATE CASCADE,
+-- FOREIGN KEY (attendance_date) REFERENCES attendance(id) ON UPDATE CASCADE,
+-- FOREIGN KEY (parent_signature) REFERENCES child_info(id) ON DELETE CASCADE ON UPDATE CASCADE,
+-- FOREIGN KEY (teacher_signature) REFERENCES teacher_info(id) ON DELETE SET NULL ON UPDATE CASCADE,
+-- FOREIGN KEY (admin_signature) REFERENCES admin(id) ON DELETE SET NULL ON UPDATE CASCADE	
 -- );
 
--- CREATE TABLE learning_story (
--- id INT AUTO_INCREMENT PRIMARY KEY,
--- child INT,
--- title VARCHAR(255),
--- content TEXT,
--- image_one VARCHAR(255),
--- image_two VARCHAR(255),
--- image_three VARCHAR(255),
--- person_who_wrote INT,
--- update_date VARCHAR(50),
--- FOREIGN KEY (child) REFERENCES child_info(id),
--- FOREIGN KEY (person_who_wrote) REFERENCES teacher_info(id)
--- );
 
 -- CREATE TABLE sunblock (
 -- id INT AUTO_INCREMENT PRIMARY KEY,
 -- apply_date VARCHAR(50),
 -- person_who_created INT,
--- FOREIGN KEY (person_who_created) REFERENCES teacher_info(id)
+-- FOREIGN KEY (person_who_created) REFERENCES teacher_info(id) ON DELETE SET NULL ON UPDATE CASCADE
 -- );
+
 
 -- CREATE TABLE sunblock_chart (
 -- id INT AUTO_INCREMENT PRIMARY KEY,
@@ -275,9 +187,9 @@ USE earlychildhoodchildms;
 -- apply_time_three VARCHAR(50),
 -- note VARCHAR(255),
 -- supervisor INT,
--- FOREIGN KEY (child) REFERENCES child_info(id),
--- FOREIGN KEY (supervisor) REFERENCES teacher_info (id),
--- FOREIGN KEY (apply_date) REFERENCES sunblock(id)
+-- FOREIGN KEY (child) REFERENCES child_info(id) ON DELETE CASCADE ON UPDATE CASCADE,
+-- FOREIGN KEY (supervisor) REFERENCES teacher_info (id) ON DELETE SET NULL ON UPDATE CASCADE,
+-- FOREIGN KEY (apply_date) REFERENCES sunblock(id) ON UPDATE CASCADE
 -- );
 
 
@@ -285,7 +197,7 @@ USE earlychildhoodchildms;
 -- id INT AUTO_INCREMENT PRIMARY KEY,
 -- sleep_date VARCHAR(50),
 -- person_who_created INT,
--- FOREIGN KEY (person_who_created) REFERENCES teacher_info(id)
+-- FOREIGN KEY (person_who_created) REFERENCES teacher_info(id) ON DELETE SET NULL ON UPDATE CASCADE
 -- );
 
 -- CREATE TABLE sleep_detail (
@@ -298,9 +210,9 @@ USE earlychildhoodchildms;
 -- time_out_of_bed VARCHAR(50),
 -- note VARCHAR(255),
 -- supervisor INT,
--- FOREIGN KEY (sleep_date) REFERENCES sleep_chart(id),
--- FOREIGN KEY (child) REFERENCES child_info(id),
--- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
+-- FOREIGN KEY (sleep_date) REFERENCES sleep_chart(id) ON UPDATE CASCADE, 
+-- FOREIGN KEY (child) REFERENCES child_info(id) ON DELETE CASCADE ON UPDATE CASCADE,
+-- FOREIGN KEY (supervisor) REFERENCES teacher_info (id) ON DELETE SET NULL ON UPDATE CASCADE
 -- );
 
 
@@ -308,7 +220,7 @@ USE earlychildhoodchildms;
 -- id INT AUTO_INCREMENT PRIMARY KEY,
 -- feeding_date VARCHAR(50),
 -- person_who_created INT,
--- FOREIGN KEY (person_who_created) REFERENCES teacher_info(id)
+-- FOREIGN KEY (person_who_created) REFERENCES teacher_info(id) ON DELETE SET NULL ON UPDATE CASCADE
 -- );
 
 
@@ -321,9 +233,9 @@ USE earlychildhoodchildms;
 -- time_three VARCHAR(50),
 -- note VARCHAR(255),
 -- supervisor INT,
--- FOREIGN KEY (child) REFERENCES child_info(id),
--- FOREIGN KEY (feeding_date) REFERENCES formula_chart(id),
--- FOREIGN KEY (supervisor) REFERENCES teacher_info (id)
+-- FOREIGN KEY (child) REFERENCES child_info(id) ON DELETE CASCADE ON UPDATE CASCADE,
+-- FOREIGN KEY (feeding_date) REFERENCES formula_chart(id) ON UPDATE CASCADE,
+-- FOREIGN KEY (supervisor) REFERENCES teacher_info (id) ON DELETE SET NULL ON UPDATE CASCADE
 -- );
 
 
@@ -331,7 +243,7 @@ USE earlychildhoodchildms;
 -- id INT AUTO_INCREMENT PRIMARY KEY,
 -- created_month VARCHAR(50),
 -- created_by INT,
--- FOREIGN KEY (created_by) REFERENCES teacher_info(id)
+-- FOREIGN KEY (created_by) REFERENCES teacher_info(id) ON DELETE SET NULL ON UPDATE CASCADE
 -- );
 
 
@@ -343,9 +255,9 @@ USE earlychildhoodchildms;
 -- person_who_wrote INT,
 -- update_date VARCHAR(50),
 -- created_month INT,
--- FOREIGN KEY (child) REFERENCES child_info(id),
--- FOREIGN KEY (person_who_wrote) REFERENCES teacher_info(id),
--- FOREIGN KEY (created_month) REFERENCES learning_story(id)
+-- FOREIGN KEY (child) REFERENCES child_info(id) ON DELETE CASCADE ON UPDATE CASCADE,
+-- FOREIGN KEY (person_who_wrote) REFERENCES teacher_info(id) ON DELETE SET NULL ON UPDATE CASCADE,
+-- FOREIGN KEY (created_month) REFERENCES learning_story(id) ON UPDATE CASCADE
 -- );
 
 
@@ -361,10 +273,27 @@ USE earlychildhoodchildms;
 -- teacher_receiver INT,
 -- child_receiver INT,
 -- admin_receiver INT,
--- FOREIGN KEY (teacher_sender) REFERENCES teacher_info (id),
--- FOREIGN KEY (child_sender) REFERENCES child_info (id),
--- FOREIGN KEY (admin_sender) REFERENCES admin (id),
--- FOREIGN KEY (teacher_receiver) REFERENCES teacher_info (id),
--- FOREIGN KEY (child_receiver) REFERENCES child_info (id),
--- FOREIGN KEY (admin_receiver) REFERENCES admin (id)
+-- FOREIGN KEY (teacher_sender) REFERENCES teacher_info (id) ON DELETE SET NULL ON UPDATE CASCADE,
+-- FOREIGN KEY (child_sender) REFERENCES child_info (id) ON DELETE CASCADE ON UPDATE CASCADE,
+-- FOREIGN KEY (admin_sender) REFERENCES admin (id) ON DELETE SET NULL ON UPDATE CASCADE,
+-- FOREIGN KEY (teacher_receiver) REFERENCES teacher_info (id) ON DELETE SET NULL ON UPDATE CASCADE,
+-- FOREIGN KEY (child_receiver) REFERENCES child_info (id) ON DELETE CASCADE ON UPDATE CASCADE,
+-- FOREIGN KEY (admin_receiver) REFERENCES admin (id) ON DELETE SET NULL ON UPDATE CASCADE
 -- );
+
+
+-- 2. Populate database
+INSERT INTO admin (email, password, date_of_birth, address, phone, start_date, name, image)
+VALUES ('admin@gmail.com', '$10$xKfc3RuDvTZLLQ04onTip.K7UR8WsC8.Alqc8Pam1lb1OZOUrZdtO', '1985-06-01', '9B Hill Ave Auckland', '0278391234', '2023-06-01', 'Ray Smith', 'ray_smith.png');
+
+
+
+
+-- INSERT INTO teaching_resource (title, resource_description, link, person_who_adds, update_date)
+-- VALUES ('learn play', 'play through learn', 'www.ab.com', '1', '2024-03-22'),
+-- ('toy', 'play playplay', 'www.scdss.com', '2', '2024-04-12'),
+-- ('car', 'drive car', 'www.xxxx.com', '3', '2024-01-15'),
+-- ('doll', 'play and learn', 'www.lskl.com', '5', '2024-02-02');
+
+
+-- COMMIT;

@@ -565,7 +565,10 @@ router.delete('/delete_note/:adminId/:noteId', (req, res) => {
 
 // Teaching resource
 router.get('/teaching_resource', (req, res) => {
-    const sql = 'SELECT teaching_resource.*, teacher_info.name AS teacher_name FROM teaching_resource INNER JOIN teacher_info ON teaching_resource.person_who_adds = teacher_info.id';
+    const sql = `SELECT teaching_resource.*, teacher_info.name AS teacher_name 
+    FROM teaching_resource 
+    INNER JOIN teacher_info ON teaching_resource.person_who_adds = teacher_info.id
+    ORDER BY update_date DESC`;
     con.query(sql, (err, result) => {
         if (err) return res.json({ Status: false, Error: 'Query error' })
         return res.json({ Status: true, Result: result })
