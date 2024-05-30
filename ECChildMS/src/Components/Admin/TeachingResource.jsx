@@ -55,7 +55,7 @@ const TeachingResource = () => {
                                 <div>
                                     <div className="accordion-body m-3">
                                         <p>{e.resource_description}</p>
-                                        <p>Source: {e.link}</p>
+                                        <p><small>*Source: {e.link}</small></p>
                                     </div>
                                     <div className="row m-3">
                                         <div className="col-md-6 text-start">

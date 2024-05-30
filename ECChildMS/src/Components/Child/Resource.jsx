@@ -35,7 +35,7 @@ const Resource = () => {
                                 <div>
                                     <div className="accordion-body m-3">
                                         <p>{e.resource_description}</p>
-                                        <p>Source: {e.link}</p>
+                                        <p><small>*Source: {e.link}</small></p>
                                     </div>
                                 </div>
                             </div>
