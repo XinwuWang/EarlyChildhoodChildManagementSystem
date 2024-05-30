@@ -3,28 +3,8 @@ CREATE DATABASE earlychildhoodchildms;
 
 USE earlychildhoodchildms;
 
-DROP TABLE IF EXISTS admin;
-DROP TABLE IF EXISTS accident_form;
-DROP TABLE IF EXISTS announcement;
-DROP TABLE IF EXISTS attendance;
-DROP TABLE IF EXISTS attendance_record;
-DROP TABLE IF EXISTS centre_info;
-DROP TABLE IF EXISTS child_info;
-DROP TABLE IF EXISTS formula_chart;
-DROP TABLE IF EXISTS formula_detail;
-DROP TABLE IF EXISTS learning_story;
-DROP TABLE IF EXISTS learning_story_detail;
-DROP TABLE IF EXISTS meal_chart;
-DROP TABLE IF EXISTS meal_detail;
-DROP TABLE IF EXISTS message;
-DROP TABLE IF EXISTS note;
-DROP TABLE IF EXISTS sleep_chart;
-DROP TABLE IF EXISTS sleep_detail;
-DROP TABLE IF EXISTS sunblock;
-DROP TABLE IF EXISTS sunblock_chart;
-DROP TABLE IF EXISTS teacher_info;
-DROP TABLE IF EXISTS teaching_resource;
--- BEGIN;
+
+BEGIN;
 
 -- 1. Create tables
 CREATE TABLE admin (
@@ -828,4 +808,4 @@ VALUES
 ;
 
 
--- COMMIT;
+COMMIT;
