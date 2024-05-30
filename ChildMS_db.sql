@@ -756,68 +756,76 @@ VALUES
 ;
 
 
--- INSERT INTO learning_story (created_month, reated_by)
--- VALUES
--- ('', 1)
--- ;
--- CREATE TABLE learning_story (
--- id INT AUTO_INCREMENT PRIMARY KEY,
--- created_month VARCHAR(50),
--- created_by INT,
--- FOREIGN KEY (created_by) REFERENCES teacher_info(id) ON DELETE SET NULL ON UPDATE CASCADE
--- );
-
--- INSERT INTO learning_story_detail (child, title, content, person_who_wrote, update_date, created_month)
--- VALUES
--- (1, '', '', 1, '', 1)
--- ;
--- CREATE TABLE learning_story_detail (
--- id INT AUTO_INCREMENT PRIMARY KEY,
--- child INT,
--- title VARCHAR(255),
--- content TEXT,
--- person_who_wrote INT,
--- update_date VARCHAR(50),
--- created_month INT,
--- FOREIGN KEY (child) REFERENCES child_info(id) ON DELETE CASCADE ON UPDATE CASCADE,
--- FOREIGN KEY (person_who_wrote) REFERENCES teacher_info(id) ON DELETE SET NULL ON UPDATE CASCADE,
--- FOREIGN KEY (created_month) REFERENCES learning_story(id) ON UPDATE CASCADE
--- );
-
-
--- INSERT INTO message (teacher_sender, child_sender, admin_sender, title, content, sent_date, sent_time, teacher_receiver, child_receiver, admin_receiver)
--- VALUES 
--- (1, NULL, NULL, '', '', '', '', NULL, 1, NULL);
--- CREATE TABLE message (
--- id INT AUTO_INCREMENT PRIMARY KEY,
--- teacher_sender INT,
--- child_sender INT,
--- admin_sender INT,
--- title VARCHAR(255),
--- content TEXT,
--- sent_date VARCHAR(50),
--- sent_time VARCHAR(50),
--- teacher_receiver INT,
--- child_receiver INT,
--- admin_receiver INT,
--- FOREIGN KEY (teacher_sender) REFERENCES teacher_info (id) ON DELETE SET NULL ON UPDATE CASCADE,
--- FOREIGN KEY (child_sender) REFERENCES child_info (id) ON DELETE CASCADE ON UPDATE CASCADE,
--- FOREIGN KEY (admin_sender) REFERENCES admin (id) ON DELETE SET NULL ON UPDATE CASCADE,
--- FOREIGN KEY (teacher_receiver) REFERENCES teacher_info (id) ON DELETE SET NULL ON UPDATE CASCADE,
--- FOREIGN KEY (child_receiver) REFERENCES child_info (id) ON DELETE CASCADE ON UPDATE CASCADE,
--- FOREIGN KEY (admin_receiver) REFERENCES admin (id) ON DELETE SET NULL ON UPDATE CASCADE
--- );
+INSERT INTO learning_story (created_month, created_by)
+VALUES
+('2024-01', 1),
+('2024-02', 2),
+('2024-03', 3),
+('2024-04', 4),
+('2024-05', 5)
+;
 
 
 
+INSERT INTO learning_story_detail (child, title, content, person_who_wrote, update_date, created_month)
+VALUES
+(1, 'Building Blocks', 'Leo demonstrated remarkable patience and creativity today as he built a tall tower with the wooden blocks. He carefully selected each piece, ensuring they balanced perfectly on top of one another. When the tower finally stood tall, Leo’s face lit up with pride. He even encouraged his friends to join him, showing great teamwork and leadership skills. This activity not only helped Leo with his fine motor skills but also allowed him to practice problem-solving and spatial awareness. His enthusiasm and focus were truly inspiring.', 1, '2024-01-01', 1),
+(2, 'Painting Fun', 'Emma had a fantastic time during the painting session today. She eagerly mixed colors to create a vibrant rainbow, carefully applying each hue to the paper. Her attention to detail was evident as she made sure each color transitioned smoothly into the next. Emma’s excitement was contagious as she explained her choice of colors and what they represented. This activity helped her develop fine motor skills and an understanding of color theory. Additionally, it provided a wonderful opportunity for Emma to express her creativity and emotions through art.', 2, '2024-02-02', 2),
+(3, 'Garden Exploration', 'Oliver embarked on a garden exploration adventure today, showing a keen interest in the natural world. Armed with a magnifying glass, he inspected various plants, flowers, and insects. Oliver was particularly fascinated by a group of ants working together to carry food. He asked thoughtful questions about their behavior and habitat. This exploration not only satisfied his curiosity but also taught him about teamwork and the importance of nature. Oliver’s enthusiasm for learning and his inquisitive nature were truly commendable. This activity helped him develop observation skills and a deeper appreciation for the environment.', 3, '2024-03-03', 3),
+(4, 'Story Time', 'Ava was fully engaged during story time today, listening attentively as the teacher read aloud. She sat quietly, eyes wide with interest, and occasionally asked insightful questions about the characters and plot. Ava’s ability to comprehend and analyze the story showed her advanced cognitive skills. After the story, she eagerly participated in the discussion, sharing her thoughts and interpretations. This activity not only improved Ava’s listening and comprehension skills but also encouraged her to think critically and express her ideas confidently. Her active participation was a joy to witness.', 4, '2024-04-04', 4),
+(5, 'Sharing Toys', 'Noah showed exceptional kindness today by sharing his toys with his friends during playtime. He willingly offered his favorite dolls and cars, ensuring everyone had something to play with. Noah’s actions promoted a sense of community and cooperation among the children. His willingness to share and take turns highlighted her understanding of fairness and empathy. This activity not only fostered positive social interactions but also helped Noah develop important social skills such as communication and negotiation. His generosity and consideration for others were heartwarming.', 1, '2024-05-05', 5),
+(6, 'Music and Dance', 'Sophia had an incredible time during the music and dance session today. She moved energetically to the rhythm, displaying her creative dance moves with enthusiasm. Sophia’s coordination and sense of rhythm were impressive as she followed the beat of the music. She encouraged her friends to join in, creating a lively and joyful atmosphere. This activity allowed Sophia to express herself freely and boosted her confidence. It also helped her develop gross motor skills and an appreciation for music. Sophia’s joy and energy were truly infectious, making the session enjoyable for everyone.', 1, '2024-01-06', 1),
+(7, 'Puzzle Solving', 'James tackled a complex puzzle today with remarkable focus and determination. He carefully examined each piece, trying different combinations until they fit together perfectly. James’s problem-solving skills were evident as he used logic and patience to complete the puzzle. His perseverance paid off when he finally placed the last piece, and his face beamed with pride. This activity helped James develop cognitive skills, such as critical thinking and spatial awareness. It also provided a sense of accomplishment and boosted his confidence. James’s dedication to solving the puzzle was truly admirable.', 5, '2024-02-07', 2),
+(8, 'Nature Walk', 'Mia enjoyed a refreshing nature walk today, exploring the surroundings with curiosity and enthusiasm. She took delight in identifying different types of trees, flowers, and birds. Mia was particularly fascinated by a butterfly, observing its delicate wings and vibrant colors. She asked many questions about the plants and animals she encountered, showing a keen interest in learning about nature. This activity not only provided Mia with fresh air and exercise but also enriched her knowledge of the natural world. Her inquisitive nature and love for exploration were wonderful to see.', 3, '2024-03-08', 3),
+(9, 'Group Activity', 'Lucas participated in a group activity today, demonstrating excellent teamwork and collaboration skills. The children were tasked with building a structure using blocks, and Lucas took the lead in organizing the efforts. He communicated effectively with his peers, suggesting ideas and listening to theirs. Lucas’s ability to work well with others and his leadership qualities were evident throughout the activity. This experience helped him develop social skills and an understanding of cooperative play. Lucas’s positive attitude and ability to bring the group together were truly impressive.', 4, '2024-04-09', 4),
+(10, 'Art Creation', 'Amelia showcased her artistic talents today by creating a beautiful piece of art using various materials. She carefully selected colorful paper, glitter, and glue to bring her vision to life. Amelia’s attention to detail and creativity were evident as she crafted a vibrant scene. She explained her artwork enthusiastically, sharing the story behind each element. This activity allowed Amelia to express herself artistically and develop fine motor skills. It also provided an opportunity for her to share her creativity with others. Amelia’s passion for art and her imaginative mind were truly inspiring.', 3, '2024-05-10', 5),
+(11, 'Reading Practice', 'Ethan showed significant improvement in his reading skills today. He practiced reading aloud, carefully sounding out each word and improving his fluency. Ethan’s confidence grew as he read through a short story, and he beamed with pride when he finished. This activity helped Ethan develop important literacy skills, such as phonemic awareness and vocabulary. It also boosted his confidence and encouraged a love for reading. Ethan’s dedication to improving his reading skills and his enthusiasm for learning were commendable. His progress is a testament to his hard work and perseverance.', 1, '2024-01-11', 1),
+(12, 'Math Games', 'Chloe had a blast playing math games today. She engaged in various activities that involved counting, sorting, and recognizing numbers. Chloe’s excitement was palpable as she solved each problem and discovered new concepts. Her ability to grasp mathematical ideas quickly and accurately was impressive. This activity not only helped Chloe develop her numeracy skills but also fostered a love for math. She enjoyed the challenge and the sense of achievement that came with solving each game. Chloe’s enthusiasm and aptitude for math were truly delightful to witness.', 2, '2024-02-12', 2),
+(13, 'Science Experiment', 'Benjamin conducted a simple science experiment today, learning about chemical reactions. He mixed baking soda and vinegar, observing the fizzing reaction with wide-eyed wonder. Benjamin’s curiosity and excitement were evident as he repeated the experiment, asking questions about why it happened. This activity helped Benjamin develop scientific thinking and an understanding of cause and effect. It also provided a hands-on learning experience that sparked his interest in science. Benjamin’s enthusiasm for experimenting and his eagerness to learn more were truly commendable. His inquisitive nature is sure to lead to many more discoveries.', 5, '2024-03-13', 3),
+(14, 'Imaginative Play', 'Aarav engaged in imaginative play today, pretending to be a doctor. He set up a clinic with his toys and invited his friends to be his patients. Aarav carefully “examined” each patient, asking about their symptoms and providing “treatment.” His role-playing demonstrated creativity, empathy, and an understanding of social roles. This activity allowed Aarav to explore different scenarios and practice communication skills. It also fostered cooperation and teamwork as his friends joined in the play. Aarav’s ability to create and lead such an imaginative game was truly impressive.', 4, '2024-04-14', 4),
+(15, 'Building Blocks', 'Isabella demonstrated her engineering skills today by building a creative structure with blocks. She carefully planned and constructed a complex design, ensuring each piece was stable. Isabella’s attention to detail and problem-solving abilities were evident as she worked. She explained her design process to her friends, showcasing her understanding of balance and architecture. This activity helped Isabella develop fine motor skills and spatial awareness. It also encouraged her to think critically and creatively. Isabella’s dedication to her building project and her ability to share her knowledge with others were truly commendable.', 2, '2024-05-15', 5),
+(16, 'Drawing Shapes', 'Alexander practiced drawing various shapes today, learning their names and properties. He carefully traced circles, squares, triangles, and rectangles, ensuring each shape was accurate. Alexander ’s focus and precision were evident as he worked. He proudly displayed his drawings, explaining the differences between each shape. This activity helped Alexander develop fine motor skills and an understanding of geometric concepts. It also provided an opportunity for him to practice following instructions and pay attention to details. Alexander’s enthusiasm for learning and her ability to master new skills were truly impressive.', 4, '2024-01-16', 1),
+(17, 'Role Play', 'Sofia demonstrated her creativity and imagination today during role play.She pretended to be a firefighter, setting up a “fire station” and organizing her friends to “rescue” toys. Sofia’s leadership and organizational skills were evident as she directed the play. She explained the role of firefighters and the importance of safety, showing her knowledge and understanding. This activity allowed Sofia to practice social interactions and communication skills. It also provided a fun and engaging way for her to learn about different professions. Sofia’s enthusiasm and ability to lead imaginative play were truly commendable.', 5, '2024-02-17', 2),
+(18, 'Outdoor Play', 'Liam had a wonderful time playing outside today. He ran, jumped, and explored the playground with boundless energy. Liam’s coordination and physical abilities were evident as he climbed and swung on the equipment. He interacted well with his peers, taking turns and encouraging others. This activity provided Liam with the opportunity to develop gross motor skills and build social relationships. It also allowed him to enjoy fresh air and exercise. Liam’s joy and enthusiasm for outdoor play were infectious, making it a delightful experience for everyone involved.', 4, '2024-03-18', 3),
+(19, 'Cooking Activity', 'Maya participated in a cooking activity today, learning to mix ingredients and follow a simple recipe. She carefully measured flour, sugar, and other ingredients, mixing them together to create a dough. Maya’s attention to detail and ability to follow instructions were impressive. She was excited to see the final product and proudly shared it with her friends. This activity helped Maya develop fine motor skills, patience, and an understanding of basic cooking techniques. It also provided a fun and educational experience. Maya’s enthusiasm and focus during the activity were truly commendable.', 4, '2024-04-19', 4),
+(20, 'Music Time', 'Daniel enjoyed a lively music time today, playing instruments and singing along to songs. He showed great rhythm as he played the tambourine and joined in with the singing. Daniel’s enthusiasm and musical talent were evident as he led his friends in a sing-along. This activity helped Daniel develop a sense of rhythm, coordination, and an appreciation for music. It also provided an opportunity for him to express himself creatively and build social connections. Daniel’s joy and energy during music time were truly infectious, making it a fun and engaging experience for everyone.', 5, '2024-05-20', 5),
+(21, 'Planting Seeds', 'Emily had a hands-on learning experience today as she planted seeds in the garden. She carefully dug small holes, placed the seeds inside, and covered them with soil. Emily was fascinated by the process and eagerly asked questions about how plants grow. She watered the seeds and discussed the importance of sunlight and water for plant growth. This activity helped Emily develop an understanding of nature and the life cycle of plants. It also encouraged responsibility as she took on the role of caring for the seeds. Emily’s curiosity and dedication were truly inspiring.', 3, '2024-01-21', 1),
+(22, 'Clay Modeling', 'Liam displayed his creativity and fine motor skills today by modeling animals out of clay. He carefully shaped and molded the clay into various animals, including a dog, cat, and elephant. Liam’s attention to detail and ability to bring his ideas to life were impressive. He explained his creations to his friends, sharing stories about each animal. This activity allowed Liam to express himself artistically and develop his fine motor skills. It also provided an opportunity for him to practice patience and concentration. Liam’s talent and enthusiasm for clay modeling were truly commendable.', 2, '2024-02-22', 2),
+(23, 'Outdoor Exploration', 'Olivia had an exciting outdoor exploration adventure today. Her eagerly searched for insects and leaves, carefully examining each one she found. Olivia’s curiosity and observation skills were evident as she asked questions about the different types of bugs and plants. She used a magnifying glass to get a closer look, showing her interest in learning about nature. This activity helped Olivia develop a deeper appreciation for the environment and an understanding of the natural world. Her enthusiasm for exploration and her inquisitive nature were truly delightful to see.', 3, '2024-03-23', 3),
+(24, 'Dance Session', 'Lucas enjoyed a fun and energetic dance session today. He moved gracefully to the music, showing off his creative dance moves. Lucas’s coordination and rhythm were evident as she followed the beat and danced with his friends. This activity allowed Lucas to express himself through movement and build his confidence. It also helped him develop gross motor skills and an appreciation for music and dance. Lucas’s joy and enthusiasm during the dance session were infectious, creating a lively and enjoyable atmosphere for everyone involved.', 2, '2024-04-24', 4),
+(25, 'Puzzle Time', 'Ava tackled a challenging puzzle today with determination and focus. She carefully examined each piece, trying different combinations until they fit together perfectly. Ava’s problem-solving skills and patience were evident as she worked. When she finally completed the puzzle, her face lit up with pride and accomplishment. This activity helped Ava develop cognitive skills such as critical thinking and spatial awareness. It also provided a sense of achievement and boosted her confidence. Ava’s dedication to solving the puzzle and his ability to stay focused were truly admirable.', 5, '2024-05-25', 5),
+(26, 'Story Creation', 'Isabella showcased her imagination and storytelling skills today by creating her own story. She carefully crafted a tale about a brave knight and a magical dragon, complete with detailed illustrations. Isabella’s creativity and ability to weave a captivating narrative were impressive. She eagerly shared her story with her friends, reading it aloud and explaining the plot. This activity allowed Isabella to express herself creatively and develop her writing and communication skills. It also provided an opportunity for her to build confidence in her storytelling abilities. Grace’s talent and enthusiasm for story creation were truly commendable.', 2, '2024-01-26', 1),
+(27, 'Group Painting', 'Ethan participated in a group painting activity today, working collaboratively with his peers. The children shared ideas and materials, creating a large mural together. Ethan’s teamwork and communication skills were evident as he contributed to the project. He showed great creativity in his painting, using vibrant colors and imaginative designs. This activity helped Ethan develop social skills and an appreciation for collaborative work. It also allowed him to express himself artistically and build connections with his friends. Ethan’s positive attitude and ability to work well in a group were truly impressive.', 2, '2024-02-27', 2),
+(28, 'Number Counting', 'Mia practiced counting numbers today, showing significant progress. She eagerly counted objects, reciting numbers up to 20 with confidence. Mia’s enthusiasm for learning and her ability to recognize and count numbers were impressive. She enjoyed the challenge of counting higher and higher, and her face lit up with pride each time she reached a new milestone. This activity helped Mia develop important numeracy skills and build a strong foundation for future learning. Her dedication to improving her counting skills and her excitement for learning were truly commendable.', 3, '2024-03-28', 3),
+(29, 'Animal Sounds', 'Oliver learned about different animal sounds today, engaging in a fun and interactive activity. He listened to recordings of various animals and eagerly imitated the sounds they made. Oliver’s ability to recognize and reproduce the sounds was impressive. He enjoyed guessing which animal made each sound and sharing his knowledge with his friends. This activity helped Oliver develop auditory discrimination skills and an understanding of the animal kingdom. It also provided an opportunity for him to practice listening and communication skills. Oliver’s enthusiasm for learning about animals and his ability to engage in the activity were truly delightful.', 4, '2024-04-29', 4),
+(30, 'Craft Making', 'Sophia had a wonderful time making crafts today. She used paper, glue, and various decorations to create beautiful art pieces. Sophia’s creativity and attention to detail were evident as she carefully assembled each craft. She explained her designs and the stories behind them to her friends, showcasing her imagination and storytelling skills. This activity allowed Sophia to express herself artistically and develop fine motor skills. It also provided an opportunity for her to share her creations and build social connections. Sophia’s talent and enthusiasm for craft making were truly commendable.', 1, '2024-05-30', 5)
+;
 
 
 
--- INSERT INTO teaching_resource (title, resource_description, link, person_who_adds, update_date)
--- VALUES ('learn play', 'play through learn', 'www.ab.com', '1', '2024-03-22'),
--- ('toy', 'play playplay', 'www.scdss.com', '2', '2024-04-12'),
--- ('car', 'drive car', 'www.xxxx.com', '3', '2024-01-15'),
--- ('doll', 'play and learn', 'www.lskl.com', '5', '2024-02-02');
+INSERT INTO message (teacher_sender, child_sender, admin_sender, title, content, sent_date, sent_time, teacher_receiver, child_receiver, admin_receiver)
+VALUES 
+(1, NULL, NULL, 'Meeting Reminder', 'Don\'t forget the staff meeting tomorrow at 10 AM.', '2024-05-01', '09:00:00', 2, NULL, NULL),
+(2, NULL, NULL, 'Homework Reminder', 'Please submit your homework by end of this week.', '2024-05-02', '08:00:00', NULL, 15, NULL),
+(NULL, NULL, 1, 'Field Trip Permission', 'Please return the signed field trip permission slip.', '2024-05-03', '12:00:00', NULL, 5, NULL),
+(NULL, NULL, 1, 'Library Books Due', 'Please return the library books by Friday.', '2024-05-04', '13:30:00', NULL, 25, NULL),
+(3, NULL, NULL, 'Sports Day', 'Remember to wear your sports uniform for Sports Day.', '2024-05-05', '11:15:00', NULL, 35, NULL),
+(NULL, NULL, 1, 'Parent-Teacher Meeting', 'Please schedule your parent-teacher meeting.', '2024-05-06', '14:00:00', NULL, 9, NULL),
+(1, NULL, NULL, 'Science Project', 'Don\'t forget to submit your science project.', '2024-05-07', '10:00:00', NULL, 13, NULL),
+(NULL, NULL, 1, 'Holiday Notice', 'Our centre will be closed next Monday for a holiday.', '2024-05-08', '15:00:00', NULL, 17, NULL),
+(4, NULL, NULL, 'Shared Luch', 'Bring a plate of food to share tomorrow.', '2024-05-09', '16:00:00', NULL, 22, NULL),
+(1, NULL, NULL, 'Class Photos', 'Class photos will be taken this Wednesday.', '2024-05-10', '09:30:00', NULL, 2, NULL),
+(1, NULL, NULL, 'Art Competition', 'Submit your entries for the art competition by Friday.', '2024-05-11', '10:45:00', NULL, 25, NULL),
+(NULL,NULL, 1, 'Math Game', 'There will be a math game next Thursday.', '2024-05-12', '11:30:00', NULL, 30, NULL),
+(3, NULL, NULL, 'Music Class', 'Bring your musical instruments for music class.', '2024-05-13', '12:00:00', NULL, 16, NULL),
+(NULL, NULL, 1, 'Drama Rehearsal', 'Drama rehearsal is scheduled for tomorrow.', '2024-05-14', '13:00:00', 1, NULL, NULL),
+(NULL, NULL, 1, 'Gardening Club', 'Gardening club will meet this Friday after school.', '2024-05-15', '14:00:00', 3, NULL, NULL),
+(NULL, NULL, 1, 'Car Show', 'Sign up for the car show in the park.', '2024-05-16', '15:00:00', NULL, 7, NULL),
+(NULL, 26, NULL, 'Reading Week', 'When will reading Week activities start?', '2024-05-17', '09:30:00', 1, NULL, NULL),
+(NULL, NULL, 1, 'Art Supplies', 'Bring your own art supplies for the art class.', '2024-05-18', '10:00:00', NULL, NULL, 1),
+(NULL, 10, NULL, 'Dance Performance', 'When will dance performance practice will be held? Thanks.', '2024-05-19', '11:00:00', 3, NULL, NULL),
+(5, NULL, NULL, 'Formula milk', 'Please bring more formula milk tomorrow', '2024-05-20', '12:30:00', NULL, 8, NULL);
+;
 
 
 -- COMMIT;
