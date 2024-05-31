@@ -19,6 +19,15 @@ const ChildProfile = () => {
 
     return (
         <div>
+            <div className="container p-3">
+                <div className="d-flex justify-content-between align-items-center mt-auto m-2">
+                    <h1 className="display-4 fw-normal">Child Detail</h1>
+                    <div>
+                        <Link to={'/teacher_dashboard/children'} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
+                    </div>
+                </div>
+            </div >
+            <hr />
             <div className="container mt-4">
                 {child && Object.keys(child).length > 0 ? (
                     <div className="card">
@@ -85,12 +94,7 @@ const ChildProfile = () => {
                                 </tbody>
                             </table>
                             <div className="container pt-2 ">
-                                <div className='col-12 pt-3'>
-                                    <div className="d-flex justify-content-center">
-                                        <Link to={'/teacher_dashboard/children'} className="btn btn-secondary me-2">Return</Link>
-                                    </div>
 
-                                </div>
                             </div>
                         </div>
                     </div>
