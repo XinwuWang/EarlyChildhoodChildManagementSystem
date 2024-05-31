@@ -38,26 +38,33 @@ const CentreIntro = () => {
 
 
     return (
-        <div className='px-5 mt-5'>
-            {centreInfo.map(e => (
-                <div className="col-lg-7 p-3 p-lg-5 pt-lg-3" key={e.id}>
-                    <h4 className="fw-bold lh-1 text-body-emphasis">{e.title}</h4>
-                    <p className="lead">{e.content_one}</p>
-                    <p className="lead">{e.content_two}</p>
-                    <p className="lead">{e.content_three}</p>
-                    <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                        <Link to={`/dashboard/edit_centreinfo/` + e.id} className='btn btn-outline-secondary btn-sm'>Edit</Link>
-                        <button type="button" className="btn btn-outline-secondary btn-sm" onClick={() => handleDelete(e.id)}>Delete</button>
+        <div className='container'>
+            <div className="container p-2">
+                <div className="d-flex justify-content-between align-items-center mt-auto">
+                    <h1 className="display-4 fw-normal"></h1>
+                    <div>
+                        <Link to={'/dashboard/add_centreinfo'} className='btn btn-lg p-2' title='Add information'><i className="bi bi-plus-square"></i></Link>
+                        <Link to={'/dashboard'} className='btn btn-lg p-2' title="Dashboard"><i className="bi bi-speedometer2 text-dark"></i></Link>
                     </div>
                 </div>
-            )
-            )}
-
-            <div className="container pt-5 mb-3">
-                <div className="row">
-                    <div className="col text-center">
-                        <Link to='/dashboard/add_centreinfo' className='btn btn-success'>Add Centre Information</Link>
+            </div >
+            <div className='px-5 mt-5'>
+                {centreInfo.map(e => (
+                    <div className="col-lg-7 p-3 p-lg-5 pt-lg-3" key={e.id}>
+                        <h4 className="fw-bold lh-1 text-body-emphasis">{e.title}</h4>
+                        <p className="lead">{e.content_one}</p>
+                        <p className="lead">{e.content_two}</p>
+                        <p className="lead">{e.content_three}</p>
+                        <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+                            <Link to={`/dashboard/edit_centreinfo/` + e.id} className='btn btn-black p-0 me-3'><i className="bi bi-pencil-square" title='Edit'></i></Link>
+                            <button type="button" className='btn btn-black p-0 me-3' title='Delete' onClick={() => handleDelete(e.id)}> <i className="bi bi-trash" /></button>
+                        </div>
                     </div>
+                )
+                )}
+
+                <div className="container pt-2">
+
                 </div>
             </div>
         </div>

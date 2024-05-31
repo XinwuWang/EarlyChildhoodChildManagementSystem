@@ -73,7 +73,7 @@ const Home = () => {
                     <div className="h-100 p-5 bg-body-tertiary border rounded-3">
                         <h2>Note</h2>
                         <p>Take a quick note</p>
-                        <Link to='/dashboard/note' className='btn btn-outline-dark'>More</Link>
+                        <Link to={`/dashboard/note/${adminId}`} className='btn btn-outline-dark'>More</Link>
                     </div>
                 </div>
             </div>
@@ -92,6 +92,16 @@ const Home = () => {
                         <Link to={`/dashboard/change_password/${adminId}`} className='btn btn-outline-dark'>More</Link>
                     </div>
                 </div>
+            </div>
+            <div className="row align-items-md-stretch m-1">
+                <div className="col-md-6">
+                    <div className="h-100 p-5 text-bg-dark rounded-3">
+                        <h2>Document</h2>
+                        <p>View all documents about children</p>
+                        <Link to={'/dashboard/document'} className='btn btn-outline-light'>More</Link>
+                    </div>
+                </div>
+
             </div>
 
         </div>

@@ -20,6 +20,15 @@ const Resource = () => {
 
     return (
         <div>
+            <div className="container p-3">
+                <div className="d-flex justify-content-between align-items-center mt-auto m-2">
+                    <h1 className="display-4 fw-normal">Learning Resources</h1>
+                    <div>
+                        <Link to={'/child_dashboard'} className='btn btn-lg p-2' title="Dashboard"><i className="bi bi-speedometer2 text-dark"></i></Link>
+                    </div>
+                </div>
+            </div >
+            <hr />
             <div className="accordion" id="accordionPanelsStayOpenExample">
 
                 {
@@ -45,12 +54,7 @@ const Resource = () => {
 
                 }
             </div>
-            <div className="container pt-5 mb-3">
-                <div className="row">
-                    <div className="col text-center">
-                        <Link to='/child_dashboard' className='btn btn-success'>Home</Link>
-                    </div>
-                </div>
+            <div className="container pt-2">
             </div>
         </div>
     )

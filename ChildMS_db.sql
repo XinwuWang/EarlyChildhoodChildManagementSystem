@@ -800,11 +800,12 @@ VALUES
 (3, NULL, NULL, 'Music Class', 'Bring your musical instruments for music class.', '2024-05-13', '12:00:00', NULL, 16, NULL),
 (NULL, NULL, 1, 'Drama Rehearsal', 'Drama rehearsal is scheduled for tomorrow.', '2024-05-14', '13:00:00', 1, NULL, NULL),
 (NULL, NULL, 1, 'Gardening Club', 'Gardening club will meet this Friday after school.', '2024-05-15', '14:00:00', 3, NULL, NULL),
-(NULL, NULL, 1, 'Car Show', 'Sign up for the car show in the park.', '2024-05-16', '15:00:00', NULL, 7, NULL),
+(NULL, NULL, 1, 'Car Show', 'Sign up for the car show in the park.', '2024-05-16', '15:00:00', NULL, 1, NULL),
 (NULL, 26, NULL, 'Reading Week', 'When will reading Week activities start?', '2024-05-17', '09:30:00', 1, NULL, NULL),
-(NULL, NULL, 1, 'Art Supplies', 'Bring your own art supplies for the art class.', '2024-05-18', '10:00:00', NULL, NULL, 1),
+(NULL, NULL, 1, 'Art Supplies', 'Bring your own art supplies for the art class.', '2024-05-18', '10:00:00', NULL, 12, NULL),
 (NULL, 10, NULL, 'Dance Performance', 'When will dance performance practice will be held? Thanks.', '2024-05-19', '11:00:00', 3, NULL, NULL),
-(5, NULL, NULL, 'Formula milk', 'Please bring more formula milk tomorrow', '2024-05-20', '12:30:00', NULL, 8, NULL);
+(5, NULL, NULL, 'Formula milk', 'Please bring more formula milk tomorrow', '2024-05-20', '12:30:00', NULL, 8, NULL),
+(1, NULL, NULL, 'Payslip', 'One day on my playslip is missing. Please help me check. Thanks', '2024-05-23', '11:12:30', NULL, NULL, 1)
 ;
 
 

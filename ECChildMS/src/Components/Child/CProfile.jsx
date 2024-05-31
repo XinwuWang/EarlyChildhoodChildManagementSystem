@@ -18,6 +18,16 @@ const CProfile = () => {
 
     return (
         <div>
+            <div className="container p-3">
+                <div className="d-flex justify-content-between align-items-center mt-auto m-2">
+                    <h1 className="display-4 fw-normal">Profile</h1>
+                    <div>
+                        <Link className='btn btn-lg p-2' to={'/child_dashboard/edit_profile/' + childId} title='Edit'><i className="bi bi-pencil-square text-dark"></i></Link>
+                        <Link to={'/child_dashboard'} className='btn btn-lg p-2' title="Dashboard"><i className="bi bi-speedometer2 text-dark"></i></Link>
+                    </div>
+                </div>
+            </div >
+            <hr />
             <div className="container mt-4">
                 {child && Object.keys(child).length > 0 ? (
                     <div className="card">
@@ -84,13 +94,6 @@ const CProfile = () => {
                                 </tbody>
                             </table>
                             <div className="container pt-2 ">
-                                <div className='col-12 pt-3'>
-                                    <div className="d-flex justify-content-center">
-                                        <Link className='btn btn-success me-2' to={'/child_dashboard/edit_profile/' + childId}>Edit</Link>
-                                        <Link to={'/child_dashboard'} className="btn btn-secondary me-2">Home</Link>
-                                    </div>
-
-                                </div>
                             </div>
                         </div>
                     </div>

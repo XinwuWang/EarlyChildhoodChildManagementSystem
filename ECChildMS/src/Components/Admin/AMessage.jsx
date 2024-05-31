@@ -28,7 +28,7 @@ const AMessage = () => {
                     <div>
                         <Link to={'/dashboard/message_a_teacher'} className='btn btn-lg p-2' title="Message a teacher"><i className="bi bi-person-standing text-dark"></i></Link>
                         <Link to={'/dashboard/message_a_child'} className='btn btn-lg p-2' title="Message a child"><i className="bi bi-person-arms-up text-dark"></i></Link>
-                        <Link to={'/dashboard'} className='btn btn-lg p-2' title="Return to dashboard"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
+                        <Link to={'/dashboard'} className='btn btn-lg p-2' title="Return to dashboard"><i className="bi bi-speedometer2 text-dark"></i></Link>
                     </div>
                 </div>
             </div >

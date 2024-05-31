@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 
 const TeachingResource = () => {
@@ -40,6 +40,15 @@ const TeachingResource = () => {
 
     return (
         <div>
+            <div className="container p-3">
+                <div className="d-flex justify-content-between align-items-center mt-auto m-2">
+                    <h1 className="display-4 fw-normal">Teaching Resources</h1>
+                    <div>
+                        <Link to={'/dashboard'} className='btn btn-lg p-2' title="Dashboard"><i className="bi bi-speedometer2 text-dark"></i></Link>
+                    </div>
+                </div>
+            </div >
+            <hr />
             <div className="accordion" id="accordionPanelsStayOpenExample">
 
                 {

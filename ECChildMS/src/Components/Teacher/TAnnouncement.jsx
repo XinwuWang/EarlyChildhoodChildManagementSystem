@@ -38,6 +38,16 @@ const GroupAnnon = () => {
 
     return (
         <div>
+            <div className="container p-3">
+                <div className="d-flex justify-content-between align-items-center mt-auto m-2">
+                    <h1 className="display-4 fw-normal">Announcement</h1>
+                    <div>
+                        <Link to='/teacher_dashboard/create_announcement' className='btn btn-lg p-2' title='Create an announcement'><i className="bi bi-plus-square"></i></Link>
+                        <Link to={'/teacher_dashboard'} className='btn btn-lg p-2' title="Dashboard"><i className="bi bi-speedometer2 text-dark"></i></Link>
+                    </div>
+                </div>
+            </div >
+            <hr />
             <div className="d-flex flex-column flex-md-row p-4 gap-5 py-md-5 align-items-center justify-content-center">
                 <div className="list-group w-50">
                     {
@@ -61,13 +71,7 @@ const GroupAnnon = () => {
                     }
                 </div>
             </div>
-            <div className="container pt-5 mb-3">
-                <div className="row">
-                    <div className="col text-center">
-                        <Link to='/teacher_dashboard/create_announcement' className='btn btn-primary m-2'>+ Create Announcement</Link>
-                        <Link to='/teacher_dashboard' className='btn btn-success'>Home</Link>
-                    </div>
-                </div>
+            <div className="container pt-2">
             </div>
 
         </div>

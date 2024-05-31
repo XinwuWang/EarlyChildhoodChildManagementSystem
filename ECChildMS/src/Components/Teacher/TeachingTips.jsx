@@ -1,6 +1,5 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 
@@ -10,9 +9,7 @@ const TeachingTips = () => {
     useEffect(() => {
         axios.get('http://localhost:3000/teacher/teaching_resource')
             .then(result => {
-                // console.log(result.data)
                 if (result.data.Status) {
-                    console.log(result.data.Result)
                     setResource(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -41,6 +38,16 @@ const TeachingTips = () => {
 
     return (
         <div>
+            <div className="container p-3">
+                <div className="d-flex justify-content-between align-items-center mt-auto m-2">
+                    <h1 className="display-4 fw-normal">Teaching Resources</h1>
+                    <div>
+                        <Link to='/teacher_dashboard/add_resource' className='btn btn-lg p-2' title='Add a resource'><i className="bi bi-plus-square"></i></Link>
+                        <Link to={'/teacher_dashboard'} className='btn btn-lg p-2' title="Dashboard"><i className="bi bi-speedometer2 text-dark"></i></Link>
+                    </div>
+                </div>
+            </div >
+            <hr />
             <div className="accordion" id="accordionPanelsStayOpenExample">
 
                 {
@@ -78,13 +85,7 @@ const TeachingTips = () => {
 
                 }
             </div>
-            <div className="container pt-5 mb-3">
-                <div className="row">
-                    <div className="col text-center">
-                        <Link to='/teacher_dashboard/add_resource' className='btn btn-primary m-2'>+ Add Resource</Link>
-                        <Link to='/teacher_dashboard' className='btn btn-success'>Home</Link>
-                    </div>
-                </div>
+            <div className="container pt-2">
             </div>
         </div>
     )

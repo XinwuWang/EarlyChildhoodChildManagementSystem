@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
 
 
 const Announce = () => {
@@ -19,24 +18,18 @@ const Announce = () => {
             .catch(err => console.log(err))
     }, [])
 
-    // const handleDelete = (id) => {
-    //     if (window.confirm("ALERT! Are you sure you want to delete this announcement?")) {
-    //         axios.delete('http://localhost:3000/auth/delete_announcement/' + id)
-    //             .then(result => {
-    //                 if (result.data.Status) {
-    //                     setAnnouncement(announcement.filter(e => e.id !== id))
-    //                     window.location.reload()
-    //                 } else {
-    //                     alert(result.data.Error)
-    //                 }
-    //             })
-    //             .catch(err => console.log(err))
-    //     }
-    // }
-
     return (
         <div>
-            <div className="d-flex flex-column flex-md-row p-4 gap-5 py-md-5 align-items-center justify-content-center">
+            <div className="container p-3">
+                <div className="d-flex justify-content-between align-items-center mt-auto m-2">
+                    <h1 className="display-4 fw-normal">Announcement</h1>
+                    <div>
+                        <Link to={'/child_dashboard'} className='btn btn-lg p-2' title="Dashboard"><i className="bi bi-speedometer2 text-dark"></i></Link>
+                    </div>
+                </div>
+            </div >
+            <hr />
+            <div className="d-flex flex-column flex-md-row p-2 gap-5 py-md-5 align-items-center justify-content-center">
                 <div className="list-group w-50">
                     {
                         announcement.map(e => (
@@ -49,9 +42,6 @@ const Announce = () => {
                                     </div>
                                     <div className="d-flex justify-content-between align-items-center mt-auto">
                                         <small className="opacity-50 text-nowrap">Posted at {e.post_time} on {e.post_date} by {e.poster_name}</small>
-                                        {/* <button type='button' className="btn btn-black p-0" title='delete' onClick={() => handleDelete(e.id)}>
-                                            <i className="bi bi-trash" />
-                                        </button> */}
                                     </div>
                                 </div>
                             </div>
@@ -59,12 +49,8 @@ const Announce = () => {
                     }
                 </div>
             </div>
-            <div className="container pt-5 mb-3">
-                <div className="row">
-                    <div className="col text-center">
-                        <Link to='/child_dashboard' className=' btn btn-success'>Home</Link>
-                    </div>
-                </div>
+            <div className="container pt-2">
+
             </div>
         </div >
     )

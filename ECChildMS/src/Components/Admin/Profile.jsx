@@ -10,7 +10,6 @@ const Profile = () => {
     useEffect(() => {
         axios.get(`http://localhost:3000/auth/profile/${adminId}`)
             .then(result => {
-                console.log(result.data)
                 setAdmin(result.data[0])
 
             })
@@ -19,7 +18,17 @@ const Profile = () => {
 
 
     return (
-        <div>
+        <div className="container">
+            <div className="container p-3">
+                <div className="d-flex justify-content-between align-items-center mt-auto m-2">
+                    <h1 className="display-4 fw-normal">Profile</h1>
+                    <div>
+                        <Link to={`/dashboard/edit_profile/` + admin.id} className='btn btn-lg p-2' title='Edit'><i className="bi bi-pencil-square"></i></Link>
+                        <Link to={'/dashboard'} className='btn btn-lg p-2' title="Dashboard"><i className="bi bi-speedometer2 text-dark"></i></Link>
+                    </div>
+                </div>
+            </div >
+            <hr />
             <div className="container mt-4">
                 <div className="card">
                     <div className="card-header text-center">
@@ -60,11 +69,7 @@ const Profile = () => {
                             </tbody>
                         </table>
                         <div className="container pt-2 ">
-                            <div className="row d-flex justify-content-center">
-                                <div className="col-2 text-center">
-                                    <Link to={`/dashboard/edit_profile/` + admin.id} className='btn btn-success btn-sm me-2 w-100'>Edit</Link>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>

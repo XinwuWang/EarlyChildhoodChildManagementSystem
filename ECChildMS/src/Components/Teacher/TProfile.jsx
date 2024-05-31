@@ -20,11 +20,22 @@ const TProfile = () => {
 
     return (
         <div>
+            <div className="container p-3">
+                <div className="d-flex justify-content-between align-items-center mt-auto m-2">
+                    <h1 className="display-4 fw-normal">Profile</h1>
+                    <div>
+                        <Link className='btn btn-lg p-2' to={'/teacher_dashboard/edit_profile/' + teacherId} title='Edit'><i className="bi bi-pencil-square text-dark"></i></Link>
+                        <Link to={'/teacher_dashboard'} className='btn btn-lg p-2' title="Dashboard"><i className="bi bi-speedometer2 text-dark"></i></Link>
+                    </div>
+                </div>
+            </div >
+            <hr />
             <div className="container mt-4">
                 {teacher && Object.keys(teacher).length > 0 ? (
                     <div className="card">
                         <div>
                             <div className="card-header text-center">
+
                                 <img src={'http://localhost:3000/Images/' + teacher.image} alt={teacher.name} className="teacher_image" />
                             </div>
                         </div>
@@ -69,15 +80,7 @@ const TProfile = () => {
                                     </tr>
                                 </tbody>
                             </table>
-                            <div className="container pt-2 ">
-                                <div className='col-12 pt-3'>
-                                    <div className="d-flex justify-content-center">
-                                        <Link className='btn btn-success me-2' to={'/teacher_dashboard/edit_profile/' + teacherId}>Edit</Link>
-                                        <Link to={'/teacher_dashboard'} className="btn btn-secondary me-2">Home</Link>
-                                    </div>
-
-                                </div>
-                            </div>
+                            <div className="p-3"></div>
                         </div>
                     </div>
                 ) : (
