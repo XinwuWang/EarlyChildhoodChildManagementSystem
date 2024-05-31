@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const AMealDetail = () => {
-    // const teacherId = localStorage.getItem('teacherId');
-    // const teacherName = localStorage.getItem('teacherName');
+
     const { id } = useParams()
     const [meal, setMeal] = useState({
         date: '',
@@ -47,7 +46,6 @@ const AMealDetail = () => {
         axios.get(`http://localhost:3000/auth/meal_detail/${id}`)
             .then(result => {
                 if (result.data.Status) {
-                    console.log(result)
                     setMealDetail(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -57,7 +55,6 @@ const AMealDetail = () => {
     }, [id])
 
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -76,7 +73,6 @@ const AMealDetail = () => {
                         </div>
                     </div>
                     <div>
-                        {/* <Link to={`/teacher_dashboard/meal_chart/${id}/add_childMeal`} className='btn btn-lg p-2' title="Add a child to the chart"><i className="bi bi-person-fill-add text-dark"></i></Link> */}
                         <Link to={'/dashboard/meal_chart'} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
                     </div>
                 </div>

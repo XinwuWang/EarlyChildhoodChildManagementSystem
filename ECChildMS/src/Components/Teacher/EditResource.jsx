@@ -20,9 +20,7 @@ const EditResource = () => {
     useEffect(() => {
         axios.get('http://localhost:3000/teacher/teaching_resource/' + id)
             .then(result => {
-                // console.log(result.data)
                 if (result.data.Status && result.data.Result.length > 0) {
-                    // const teacherData = result.data.Result[0];
                     setResource({
                         ...resource,
                         title: result.data.Result[0].title,
@@ -80,7 +78,6 @@ const EditResource = () => {
 
 
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

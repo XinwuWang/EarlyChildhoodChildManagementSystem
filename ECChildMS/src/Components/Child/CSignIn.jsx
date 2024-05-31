@@ -5,7 +5,6 @@ import { useNavigate, Link, useParams } from 'react-router-dom'
 
 const CSignIn = () => {
     const { id } = useParams()
-    // const childId = localStorage.getItem('childId');
     const [attendance, setAttendance] = useState({
         attendance_date: '',
         child_id: id,
@@ -21,7 +20,6 @@ const CSignIn = () => {
         axios.get('http://localhost:3000/child/attendance_date')
             .then(result => {
                 if (result.data.Status) {
-                    console.log(result.data.Result)
                     setAttendanceDate(result.data.Result)
                 } else {
                     alert(result.data.Error)

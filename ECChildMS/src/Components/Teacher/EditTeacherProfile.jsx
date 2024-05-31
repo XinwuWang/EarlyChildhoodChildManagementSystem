@@ -1,7 +1,6 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 
 
 const EditTeacherProfile = () => {
@@ -21,7 +20,6 @@ const EditTeacherProfile = () => {
     useEffect(() => {
         axios.get(`http://localhost:3000/teacher/teacher_profile/${teacherId}`)
             .then(result => {
-                console.log(result.data)
                 setTeacher(result.data[0])
 
             })
@@ -48,7 +46,6 @@ const EditTeacherProfile = () => {
             }).catch(err => console.log(err))
     }
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

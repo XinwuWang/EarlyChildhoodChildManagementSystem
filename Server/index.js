@@ -3,7 +3,6 @@ import cors from 'cors';
 import { adminRouter } from './Routes/AdminRoute.js';
 import { teacherRouter } from './Routes/TeacherRoute.js';
 import { childRouter } from './Routes/ChildRoute.js';
-import JWT, { decode } from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
 
 

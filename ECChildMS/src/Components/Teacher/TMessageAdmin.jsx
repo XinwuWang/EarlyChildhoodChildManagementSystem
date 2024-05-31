@@ -19,7 +19,6 @@ const TMessageAdmin = () => {
         axios.get('http://localhost:3000/teacher/admin')
             .then(result => {
                 if (result.data.Status) {
-                    // console.log(result.data.Result)
                     setAdmin(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -28,7 +27,6 @@ const TMessageAdmin = () => {
             .catch(err => console.log(err))
     }, [])
 
-    // console.log(e.target.value)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -55,7 +53,6 @@ const TMessageAdmin = () => {
                         alert('Message sent successfully');
                     }, 300);
                 } else {
-                    console.log(result.data)
                     alert(result.data.Error || 'Error adding information')
                 }
             })

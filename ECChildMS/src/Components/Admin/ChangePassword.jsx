@@ -1,7 +1,6 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 
 
 const ChangePassword = () => {
@@ -17,7 +16,6 @@ const ChangePassword = () => {
     useEffect(() => {
         axios.get(`http://localhost:3000/auth/profile/${adminId}`)
             .then(result => {
-                console.log(result.data)
                 setAdmin(result.data[0])
 
             })
@@ -35,7 +33,6 @@ const ChangePassword = () => {
             ...prevState,
             [name]: value
         }));
-        // Check if password is modified
         setIsModified(true);
     };
 
@@ -43,7 +40,6 @@ const ChangePassword = () => {
         e.preventDefault()
         axios.put('http://localhost:3000/auth/change_password/' + adminId, admin)
             .then(result => {
-                // console.log(result.data)
                 if (result.data.Status) {
                     alert('Password changed successfully!')
                     window.location.reload()
@@ -54,7 +50,6 @@ const ChangePassword = () => {
             }).catch(err => console.log(err))
     }
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

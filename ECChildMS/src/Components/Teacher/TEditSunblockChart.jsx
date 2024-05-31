@@ -55,7 +55,6 @@ const TEditSunblockChart = () => {
 
 
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

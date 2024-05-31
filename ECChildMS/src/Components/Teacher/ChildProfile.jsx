@@ -1,7 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { Link } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 
 
 const ChildProfile = () => {
@@ -11,7 +10,6 @@ const ChildProfile = () => {
     useEffect(() => {
         axios.get('http://localhost:3000/teacher/children/' + id)
             .then(result => {
-                console.log(result.data)
                 setChild(result.data[0])
 
             })
@@ -89,7 +87,6 @@ const ChildProfile = () => {
                             <div className="container pt-2 ">
                                 <div className='col-12 pt-3'>
                                     <div className="d-flex justify-content-center">
-                                        {/* <Link className='btn btn-success me-2' to={'/dashboard/edit_child/' + id}>Edit</Link> */}
                                         <Link to={'/teacher_dashboard/children'} className="btn btn-secondary me-2">Return</Link>
                                     </div>
 

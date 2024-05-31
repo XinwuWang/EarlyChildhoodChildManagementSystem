@@ -18,7 +18,6 @@ const ASleepDetail = () => {
         axios.get(`http://localhost:3000/auth/sleep_record/${id}`)
             .then(result => {
                 if (result.data.Status && result.data.Result.length > 0) {
-                    console.log(result.data.Result[0])
                     setSleepChart({
                         ...sleepChart,
                         sleep_date: result.data.Result[0].sleep_date,
@@ -39,7 +38,6 @@ const ASleepDetail = () => {
         axios.get(`http://localhost:3000/auth/sleep_detail/${id}`)
             .then(result => {
                 if (result.data.Status) {
-                    console.log(result.data.Result)
                     setSleepDetail(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -49,7 +47,6 @@ const ASleepDetail = () => {
     }, [id])
 
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

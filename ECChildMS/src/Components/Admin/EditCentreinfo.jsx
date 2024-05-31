@@ -21,9 +21,7 @@ const EditCentreinfo = () => {
     useEffect(() => {
         axios.get('http://localhost:3000/auth/centreintro/' + id)
             .then(result => {
-                // console.log(result.data)
                 if (result.data.Status && result.data.Result.length > 0) {
-                    // const teacherData = result.data.Result[0];
                     setCentreInfo({
                         ...centreInfo,
                         title: result.data.Result[0].title,
@@ -82,7 +80,6 @@ const EditCentreinfo = () => {
 
 
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

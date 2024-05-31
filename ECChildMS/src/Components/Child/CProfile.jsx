@@ -6,7 +6,6 @@ const CProfile = () => {
     const [child, setChild] = useState([])
     const childId = localStorage.getItem('childId');
 
-    console.log(childId)
     useEffect(() => {
         axios.get(`http://localhost:3000/child/profile/${childId}`)
             .then(result => {

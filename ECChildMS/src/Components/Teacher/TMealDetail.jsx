@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const TMealDetail = () => {
-    // const teacherId = localStorage.getItem('teacherId');
-    // const teacherName = localStorage.getItem('teacherName');
+
     const { id } = useParams()
     const [meal, setMeal] = useState({
         date: '',
@@ -30,7 +29,6 @@ const TMealDetail = () => {
                         afternoon_tea: result.data.Result[0].afternoon_tea,
                         supervisor: result.data.Result[0].supervisor_name
                     })
-                    console.log(meal)
                 } else {
                     throw new Error(result.data.Error || 'Information data not found');
                 }
@@ -47,7 +45,6 @@ const TMealDetail = () => {
         axios.get(`http://localhost:3000/teacher/meal_detail/${id}`)
             .then(result => {
                 if (result.data.Status) {
-                    console.log(result)
                     setMealDetail(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -74,7 +71,6 @@ const TMealDetail = () => {
         }
     }
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

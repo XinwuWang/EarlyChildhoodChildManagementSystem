@@ -25,7 +25,6 @@ const EditChild = () => {
     useEffect(() => {
         axios.get(`http://localhost:3000/auth/managechildren/${id}`)
             .then(result => {
-                console.log(result.data)
                 setChild(result.data[0])
 
             })
@@ -49,7 +48,6 @@ const EditChild = () => {
             }).catch(err => console.log(err))
     }
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

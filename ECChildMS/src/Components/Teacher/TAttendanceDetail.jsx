@@ -17,7 +17,6 @@ const TAttendanceDetail = () => {
         axios.get(`http://localhost:3000/teacher/attendance/${id}`)
             .then(result => {
                 if (result.data.Status && result.data.Result.length > 0) {
-                    console.log(result.data.Result[0])
                     setAttendance({
                         ...attendance,
                         form_date: result.data.Result[0].form_date,
@@ -38,7 +37,6 @@ const TAttendanceDetail = () => {
         axios.get(`http://localhost:3000/teacher/attendance_detail/${id}`)
             .then(result => {
                 if (result.data.Status) {
-                    console.log(result)
                     setAttendanceDetail(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -52,7 +50,6 @@ const TAttendanceDetail = () => {
 
 
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

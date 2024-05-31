@@ -5,12 +5,10 @@ import axios from 'axios'
 
 const TEditSunblockDetail = () => {
     const teacherId = localStorage.getItem('teacherId');
-    // const teacherName = localStorage.getItem('teacherName');
     const { id } = useParams()
     console.log(id)
     const [sunblockChart, setSunblockChart] = useState({
         apply_date: '',
-        // sunblock_date: '',
         child_name: '',
         apply_time_one: '',
         apply_time_two: '',
@@ -30,7 +28,6 @@ const TEditSunblockDetail = () => {
                     setSunblockChart({
                         ...sunblockChart,
                         apply_date: result.data.Result[0].apply_date,
-                        // sunblock_date: result.data.Result[0].sunblock_date,
                         child_name: result.data.Result[0].child_name,
                         apply_time_one: result.data.Result[0].apply_time_one,
                         apply_time_two: result.data.Result[0].apply_time_two,
@@ -39,7 +36,6 @@ const TEditSunblockDetail = () => {
                         supervisor: result.data.Result[0].supervisor,
                         supervisor_name: result.data.Result[0].supervisor_name
                     })
-                    console.log(result.data.Result)
                 } else {
                     throw new Error(result.data.Error || 'Information data not found');
                 }
@@ -80,7 +76,6 @@ const TEditSunblockDetail = () => {
 
 
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

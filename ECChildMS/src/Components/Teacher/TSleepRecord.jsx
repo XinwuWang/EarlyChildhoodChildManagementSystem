@@ -10,7 +10,6 @@ const TSleepRecord = () => {
             .then(result => {
                 if (result.data.Status) {
                     setSleepRecord(result.data.Result)
-                    console.log(result.data.Result)
                 } else {
                     alert(result.data.Error)
                 }

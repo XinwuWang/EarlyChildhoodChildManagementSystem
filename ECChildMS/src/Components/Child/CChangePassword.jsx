@@ -1,7 +1,6 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 
 
 const CChangePassword = () => {
@@ -28,7 +27,6 @@ const CChangePassword = () => {
         e.preventDefault()
         axios.put('http://localhost:3000/child/change_password/' + childId, child)
             .then(result => {
-                // console.log(result.data)
                 if (result.data.Status) {
                     alert('Password changed successfully!')
                     window.location.reload()

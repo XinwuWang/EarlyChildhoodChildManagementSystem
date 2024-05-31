@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+
 
 const CEditProfile = () => {
     const childId = localStorage.getItem('childId');
@@ -53,7 +53,6 @@ const CEditProfile = () => {
             }).catch(err => console.log(err))
     }
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

@@ -10,7 +10,6 @@ const TProfile = () => {
     useEffect(() => {
         axios.get(`http://localhost:3000/teacher/teacher_profile/${teacherId}`)
             .then(result => {
-                console.log(result.data)
                 setTeacher(result.data[0])
 
             })

@@ -33,7 +33,6 @@ const TEditMealDetail = () => {
                         at_portion: result.data.Result[0].at_portion,
                         note: result.data.Result[0].note
                     })
-                    console.log(result.data.Result)
                 } else {
                     throw new Error(result.data.Error || 'Information data not found');
                 }
@@ -70,7 +69,6 @@ const TEditMealDetail = () => {
 
 
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

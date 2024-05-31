@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { Link } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
+
 
 const TeacherProfile = () => {
     const [teacher, setTeacher] = useState([])
@@ -10,7 +10,6 @@ const TeacherProfile = () => {
     useEffect(() => {
         axios.get('http://localhost:3000/child/teacher/' + id)
             .then(result => {
-                console.log(result.data)
                 setTeacher(result.data[0])
 
             })
@@ -36,30 +35,11 @@ const TeacherProfile = () => {
                                         <th scope="row">Name:</th>
                                         <td>{teacher.name}</td>
                                     </tr>
-                                    {/* <tr>
-                                        <th scope="row">Teacher ID:</th>
-                                        <td>{teacher.id}</td>
-                                    </tr> */}
+
                                     <tr>
                                         <th scope="row">Teaching Registration Number:</th>
                                         <td>{teacher.teaching_No}</td>
                                     </tr>
-                                    {/* <tr>
-                                        <th scope="row">Email:</th>
-                                        <td>{teacher.email}</td>
-                                    </tr> */}
-                                    {/* <tr>
-                                        <th scope="row">Date of Birth:</th>
-                                        <td>{teacher.date_of_birth}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Phone:</th>
-                                        <td>{teacher.phone}</td>
-                                    </tr> */}
-                                    {/* <tr>
-                                        <th scope="row">Address:</th>
-                                        <td>{teacher.address}</td>
-                                    </tr> */}
                                     <tr>
                                         <th scope="row">Start Date:</th>
                                         <td>{teacher.start_date}</td>

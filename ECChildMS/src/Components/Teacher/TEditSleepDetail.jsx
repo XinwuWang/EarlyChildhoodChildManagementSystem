@@ -40,7 +40,6 @@ const TEditSleepDetail = () => {
                         supervisor: result.data.Result[0].supervisor,
                         supervisor_name: result.data.Result[0].supervisor_name
                     })
-                    console.log(result.data.Result)
                 } else {
                     throw new Error(result.data.Error || 'Information data not found');
                 }
@@ -79,7 +78,6 @@ const TEditSleepDetail = () => {
 
 
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

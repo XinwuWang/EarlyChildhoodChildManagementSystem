@@ -26,7 +26,6 @@ const TChangePassword = () => {
         e.preventDefault()
         axios.put('http://localhost:3000/teacher/change_password/' + teacherId, teacher)
             .then(result => {
-                // console.log(result.data)
                 if (result.data.Status) {
                     alert('Password changed successfully!')
                     window.location.reload()

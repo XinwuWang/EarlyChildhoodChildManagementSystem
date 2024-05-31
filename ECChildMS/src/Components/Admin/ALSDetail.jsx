@@ -18,7 +18,6 @@ const ALSDetail = () => {
         axios.get(`http://localhost:3000/auth/learning_story/${id}`)
             .then(result => {
                 if (result.data.Status && result.data.Result.length > 0) {
-                    console.log(result.data.Result[0])
                     setLearningStory({
                         ...learningStory,
                         created_month: result.data.Result[0].created_month,
@@ -51,7 +50,6 @@ const ALSDetail = () => {
 
 
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

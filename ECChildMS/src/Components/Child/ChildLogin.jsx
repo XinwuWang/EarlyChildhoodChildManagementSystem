@@ -14,7 +14,6 @@ const ChildLogin = () => {
     const [error, setError] = useState(null)
     axios.defaults.withCredentials = true
 
-    // Use axios library to call the server-side app and check with credentials in the database
     const handleSubmit = (event) => {
         event.preventDefault()
         axios.post('http://localhost:3000/child/child_login', values)

@@ -16,7 +16,6 @@ const ASunblockDetail = () => {
         axios.get(`http://localhost:3000/auth/sunblock_chart/${id}`)
             .then(result => {
                 if (result.data.Status && result.data.Result.length > 0) {
-                    console.log(result.data.Result[0])
                     setSunblock({
                         ...sunblock,
                         apply_date: result.data.Result[0].apply_date,
@@ -46,7 +45,6 @@ const ASunblockDetail = () => {
     }, [id])
 
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

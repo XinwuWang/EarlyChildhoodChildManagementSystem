@@ -22,7 +22,6 @@ const EditTeacher = () => {
     useEffect(() => {
         axios.get(`http://localhost:3000/auth/manageteachers/${id}`)
             .then(result => {
-                console.log(result.data)
                 setTeacher(result.data[0])
 
             })
@@ -46,7 +45,6 @@ const EditTeacher = () => {
             }).catch(err => console.log(err))
     }
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

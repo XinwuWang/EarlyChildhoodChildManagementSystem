@@ -18,7 +18,6 @@ const TFormulaDetail = () => {
         axios.get(`http://localhost:3000/teacher/formula_chart/${id}`)
             .then(result => {
                 if (result.data.Status && result.data.Result.length > 0) {
-                    console.log(result.data.Result[0])
                     setFormulaChart({
                         ...formulaChart,
                         feeding_date: result.data.Result[0].feeding_date,
@@ -39,7 +38,6 @@ const TFormulaDetail = () => {
         axios.get(`http://localhost:3000/teacher/formula_detail/${id}`)
             .then(result => {
                 if (result.data.Status) {
-                    console.log(result.data.Result)
                     setFormulaDetail(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -64,7 +62,6 @@ const TFormulaDetail = () => {
         }
     }
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

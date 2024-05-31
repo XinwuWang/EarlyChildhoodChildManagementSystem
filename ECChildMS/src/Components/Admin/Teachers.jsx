@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
 
 
 const Teachers = () => {
@@ -10,7 +9,6 @@ const Teachers = () => {
     useEffect(() => {
         axios.get('http://localhost:3000/auth/manageteachers')
             .then(result => {
-                // console.log(result.data)
                 if (result.data.Status) {
                     console.log(result.data.Result)
                     setTeacher(result.data.Result)

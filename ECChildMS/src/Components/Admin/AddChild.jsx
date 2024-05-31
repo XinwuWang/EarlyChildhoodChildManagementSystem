@@ -26,7 +26,6 @@ const AddChild = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        // console.log(teacher);
         const formData = new FormData();
         formData.append('name', child.name);
         formData.append('email', child.email);
@@ -45,7 +44,6 @@ const AddChild = () => {
 
 
         axios.post('http://localhost:3000/auth/add_child', formData)
-            // .then(result => console.log(result.data))
             .then(result => {
                 if (result.data.Status) {
                     navigate('/dashboard/managechildren')

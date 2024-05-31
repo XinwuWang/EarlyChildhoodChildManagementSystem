@@ -10,7 +10,6 @@ const CCentreInfo = () => {
         axios.get('http://localhost:3000/child/centreinfo')
             .then(result => {
                 if (result.data.Status) {
-                    console.log(result.data.Result)
                     setCentreInfo(result.data.Result)
                 } else {
                     alert(result.data.Error)

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
 
 
 
@@ -11,7 +10,6 @@ const Announcement = () => {
     useEffect(() => {
         axios.get('http://localhost:3000/auth/announcement')
             .then(result => {
-                // console.log(result.data)
                 if (result.data.Status) {
                     console.log(result.data.Result)
                     setAnnouncement(result.data.Result)

@@ -25,7 +25,6 @@ const TEditAccidentForm = () => {
     useEffect(() => {
         axios.get(`http://localhost:3000/teacher/accident_form/${id}`)
             .then(result => {
-                console.log(result.data)
                 setAccidentForm(result.data.Result[0])
 
             })
@@ -49,7 +48,6 @@ const TEditAccidentForm = () => {
             }).catch(err => console.log(err))
     }
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

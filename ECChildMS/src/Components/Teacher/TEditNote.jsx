@@ -21,7 +21,6 @@ const TEditNOte = () => {
         axios.get(`http://localhost:3000/teacher/note/${teacherId}/${noteId}`)
             .then(result => {
                 if (result.data.Status && result.data.Result.length > 0) {
-                    // const teacherData = result.data.Result[0];
                     setNote({
                         ...note,
                         title: result.data.Result[0].title,
@@ -79,7 +78,6 @@ const TEditNOte = () => {
 
 
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

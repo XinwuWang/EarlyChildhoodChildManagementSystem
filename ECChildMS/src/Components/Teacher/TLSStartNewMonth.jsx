@@ -26,7 +26,6 @@ const TLSStartNewMonth = () => {
                 if (result.data.Status) {
                     navigate('/teacher_dashboard/learning_story');
                 } else {
-                    console.log(result.data);
                     if (result.data.Error === 'Month already exists') {
                         alert('The month you are trying to add already exists.');
                     } else {
@@ -39,22 +38,6 @@ const TLSStartNewMonth = () => {
                 alert('An error occurred while processing your request');
             });
     };
-
-
-    //     axios.post('http://localhost:3000/teacher/start_new_month', Data)
-    //         .then(result => {
-    //             if (result.data.Status) {
-    //                 navigate('/teacher_dashboard/learning_story')
-    //             } else {
-    //                 console.log(result.data)
-    //                 alert(result.data.Error || 'Error adding information')
-    //             }
-    //         })
-    //         .catch(err => {
-    //             console.error('Error:', err);
-    //             alert('An error occurred while processing your request');
-    //         });
-    // }
 
 
 

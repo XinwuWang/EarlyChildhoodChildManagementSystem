@@ -31,7 +31,6 @@ const TCreateFormulaChart = () => {
                 if (result.data.Status) {
                     navigate('/teacher_dashboard/formula_chart')
                 } else {
-                    console.log(result.data)
                     alert(result.data.Error || 'Error adding information')
                 }
             })

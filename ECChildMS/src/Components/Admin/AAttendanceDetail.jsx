@@ -39,7 +39,6 @@ const AAttendanceDetail = () => {
         axios.get(`http://localhost:3000/auth/attendance_detail/${id}`)
             .then(result => {
                 if (result.data.Status) {
-                    console.log(result)
                     setAttendanceDetail(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -66,7 +65,6 @@ const AAttendanceDetail = () => {
         }
     }
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

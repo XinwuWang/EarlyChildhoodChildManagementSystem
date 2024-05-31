@@ -3,11 +3,9 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const EditAttendanceForm = () => {
-    // const adminId = localStorage.getItem('adminId');
     const { id } = useParams()
     const [attendance, setAttendance] = useState({
         form_date: '',
-        // person_who_created: '',
     });
 
     const [loading, setLoading] = useState(true);
@@ -20,7 +18,6 @@ const EditAttendanceForm = () => {
                     setAttendance({
                         ...attendance,
                         form_date: result.data.Result[0].form_date,
-                        // person_who_created: result.data.Result[0].person_who_created
                     })
                 } else {
                     throw new Error(result.data.Error || 'Information data not found');
@@ -40,7 +37,6 @@ const EditAttendanceForm = () => {
 
         const Data = {
             form_date: attendance.form_date
-            // person_who_created: adminId
         }
 
         axios.put(`http://localhost:3000/auth/edit_attendance/${id}`, Data)
@@ -58,7 +54,6 @@ const EditAttendanceForm = () => {
 
 
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -81,18 +76,7 @@ const EditAttendanceForm = () => {
                             onChange={(e) => setAttendance({ ...attendance, form_date: e.target.value })}
                             required />
                     </div>
-                    {/* <div>
-                        <label htmlFor='person_who_created' className='form-label'>Person who created</label>
-                        <input
-                            type='text'
-                            name='person_who_created'
-                            id='person_who_created'
-                            placeholder='Enter the person who created'
-                            className='form-control rounded-0'
-                            value={attendance.person_who_created}
-                            onChange={(e) => setAttendance({ ...attendance, person_who_created: e.target.value })}
-                            required />
-                    </div> */}
+
                     <div className='col-12 mt-4 p-2'>
                         <button className='btn btn-success w-100 mb-2' type='submit'>Save</button>
                         <Link to={'/dashboard/attendance'} className="btn btn-light w-100">Cancel</Link>

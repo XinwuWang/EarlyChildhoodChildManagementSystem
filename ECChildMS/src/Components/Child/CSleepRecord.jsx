@@ -14,7 +14,6 @@ const CSleepRecord = () => {
             .then(result => {
                 if (result.data.Status) {
                     setSleepRecord(result.data.Result)
-                    console.log(result.data.Result)
                 } else {
                     alert(result.data.Error)
                 }
@@ -56,7 +55,6 @@ const CSleepRecord = () => {
                                     <td></td>
 
                                     <td>{e.date_of_sleep}</td>
-                                    {/* <td>{e.child_name}</td> */}
                                     <td>{e.time_to_bed}</td>
                                     <td>{e.time_of_sleep}</td>
                                     <td>{e.time_of_wakeup}</td>

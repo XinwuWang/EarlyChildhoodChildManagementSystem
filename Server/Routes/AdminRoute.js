@@ -79,7 +79,6 @@ router.get('/manageteachers/:id', (req, res) => {
             console.error('Error executing SQL query:', err);
             return res.status(500).json({ error: 'Internal server error' });
         }
-        // console.log(result)
         return res.json(result);
     });
 })
@@ -181,13 +180,11 @@ router.get('/managechildren/:id', (req, res) => {
             console.error('Error executing SQL query:', err);
             return res.status(500).json({ error: 'Internal server error' });
         }
-        // console.log(result)
         return res.json(result);
     });
 })
 
 
-// child
 router.post('/add_child', upload.single('image'), (req, res) => {
     const sql = `INSERT INTO child_info (name, email, password, date_of_birth, dad_name, dad_phone, mum_name, mum_phone, address, allergy, interests_and_hobbies, other_notes, profile_img, start_date) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -376,7 +373,6 @@ router.get('/profile/:id', (req, res) => {
             console.error('Error executing SQL query:', err);
             return res.status(500).json({ error: 'Internal server error' });
         }
-        // console.log(result)
         return res.json(result);
     });
 })
@@ -588,7 +584,7 @@ router.delete('/delete_resource/:id', (req, res) => {
 
 
 
-// Documents
+// All the Documents
 // Attendance
 router.get('/attendance', (req, res) => {
     const sql = `SELECT attendance.*, admin.name AS creator_name

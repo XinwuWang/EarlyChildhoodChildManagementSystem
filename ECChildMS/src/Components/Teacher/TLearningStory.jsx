@@ -11,7 +11,6 @@ const TLearningStories = () => {
             .then(result => {
                 if (result.data.Status) {
                     setLearningStory(result.data.Result)
-                    console.log(result.data.Result)
                 } else {
                     alert(result.data.Error)
                 }

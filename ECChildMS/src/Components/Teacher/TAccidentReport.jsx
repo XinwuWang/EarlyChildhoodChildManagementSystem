@@ -12,7 +12,6 @@ const TAccidentReport = () => {
             .then(result => {
                 if (result.data.Status) {
                     setAccidentForm(result.data.Result)
-                    // console.log(result.data.Result)
                 } else {
                     alert(result.data.Error)
                 }
@@ -70,9 +69,6 @@ const TAccidentReport = () => {
                                     <td>{e.child_name}</td>
                                     <td>{e.supervisor_name}</td>
                                     <td>
-                                        {/* <Link to={`/teacher_dashboard/accident_form/${e.id}`} className='btn btn-black p-0 me-3' title='View details'>
-                                            <i className="bi bi-box-arrow-in-right"></i>
-                                        </Link> */}
                                         <button type='button' className="btn btn-black p-0" title='Delete' onClick={() => handleDelete(e.id)}>
                                             <i className="bi bi-trash" />
                                         </button>

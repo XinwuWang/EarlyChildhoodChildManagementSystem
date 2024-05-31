@@ -1,6 +1,5 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 

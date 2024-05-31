@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
+
 
 
 const CentreInfo = () => {
@@ -10,9 +10,7 @@ const CentreInfo = () => {
     useEffect(() => {
         axios.get('http://localhost:3000/teacher/centre_information')
             .then(result => {
-                // console.log(result.data)
                 if (result.data.Status) {
-                    console.log(result.data.Result)
                     setCentreInfo(result.data.Result)
                 } else {
                     alert(result.data.Error)

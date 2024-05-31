@@ -9,7 +9,6 @@ const TeachingResource = () => {
     useEffect(() => {
         axios.get('http://localhost:3000/auth/teaching_resource')
             .then(result => {
-                // console.log(result.data)
                 if (result.data.Status) {
                     console.log(result.data.Result)
                     setResource(result.data.Result)

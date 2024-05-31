@@ -1,7 +1,6 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 
 
 const EditProfile = () => {
@@ -22,7 +21,6 @@ const EditProfile = () => {
     useEffect(() => {
         axios.get(`http://localhost:3000/auth/profile/${adminId}`)
             .then(result => {
-                console.log(result.data)
                 setAdmin(result.data[0])
 
             })
@@ -38,7 +36,6 @@ const EditProfile = () => {
         e.preventDefault()
         axios.put('http://localhost:3000/auth/edit_profile/' + adminId, admin)
             .then(result => {
-                // console.log(result.data)
                 if (result.data.Status) {
                     navigate('/dashboard/profile/' + adminId)
                 } else {
@@ -47,7 +44,6 @@ const EditProfile = () => {
             }).catch(err => console.log(err))
     }
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

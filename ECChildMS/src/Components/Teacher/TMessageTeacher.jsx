@@ -28,7 +28,6 @@ const TMessageTeacher = () => {
             .catch(err => console.log(err))
     }, [])
 
-    // console.log(e.target.value)
 
     const handleSubmit = (e) => {
         e.preventDefault()

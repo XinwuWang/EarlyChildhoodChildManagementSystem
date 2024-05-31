@@ -45,7 +45,6 @@ const CMealDetail = () => {
         axios.get(`http://localhost:3000/child/meal_detail/${id}/${childId}`)
             .then(result => {
                 if (result.data.Status) {
-                    console.log(result)
                     setMealDetail(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -56,7 +55,6 @@ const CMealDetail = () => {
 
 
 
-    // Render loading state while fetching data
     if (loading) {
         return <div>Loading...</div>;
     }

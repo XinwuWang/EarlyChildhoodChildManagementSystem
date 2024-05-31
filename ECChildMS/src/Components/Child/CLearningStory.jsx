@@ -41,7 +41,6 @@ const CLearningStory = () => {
 
                                 <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative p-2">
                                     <div className="col p-4 d-flex flex-column position-static">
-                                        {/* <strong className="d-inline-block mb-2 text-primary-emphasis">For {e.child_name}</strong> */}
                                         <h3 className="mb-3">{e.title}</h3>
                                         <div className="mb-3 text-body-secondary">{e.update_date}</div>
                                         <p className="card-text mb-4">Created by {e.creator_name}</p>

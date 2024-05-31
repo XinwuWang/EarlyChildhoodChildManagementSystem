@@ -2,8 +2,7 @@ import express from 'express';
 import con from '../Database/db.js';
 import jwt from 'jsonwebtoken'; // for token creation
 import bcrypt from 'bcryptjs'; // for password hashing
-import multer from 'multer'; // for image upload
-import path from 'path'; // for image upload
+
 
 const router = express.Router()
 
@@ -46,7 +45,6 @@ router.get('/teacher_profile/:id', (req, res) => {
             console.error('Error executing SQL query:', err);
             return res.status(500).json({ error: 'Internal server error' });
         }
-        // console.log(result)
         return res.json(result);
     });
 })
@@ -105,7 +103,6 @@ router.get('/children/:id', (req, res) => {
             console.error('Error executing SQL query:', err);
             return res.status(500).json({ error: 'Internal server error' });
         }
-        // console.log(result)
         return res.json(result);
     });
 })
@@ -355,7 +352,7 @@ router.delete('/delete_note/:teacherId/:noteId', (req, res) => {
     })
 })
 
-// Document
+// All the Document
 // Meal chart
 router.get('/meal_chart', (req, res) => {
     const sql = `SELECT meal_chart.*, teacher_info.name AS supervisor_name 
@@ -705,7 +702,7 @@ router.delete('/delete_sleep_record/:id', (req, res) => {
 })
 
 
-// Formula chart
+// Formula feeding chart
 router.get('/formula_chart', (req, res) => {
     const sql = `
     SELECT formula_chart.*, teacher_info.name AS supervisor_name
@@ -1312,9 +1309,6 @@ router.post('/sign_out', (req, res) => {
 });
 
 
-
-
-
 // Learning story
 router.get('/learning_story', (req, res) => {
     const sql = `
@@ -1525,7 +1519,6 @@ router.delete('/delete_learning_story/:id', (req, res) => {
 })
 
 
-
 // Messaging function
 router.get('/message/:id', (req, res) => {
     const id = req.params.id;
@@ -1660,179 +1653,6 @@ router.delete('/delete_message/:id', (req, res) => {
         return res.json({ Status: true, Result: result })
     })
 })
-
-
-// router.get('/formula_chart', (req, res) => {
-//     const sql = `
-//     SELECT formula_chart.*, teacher_info.name AS supervisor_name
-//     FROM formula_chart
-//     INNER JOIN teacher_info ON formula_chart.person_who_created = teacher_info.id
-//     ORDER BY feeding_date DESC`;
-//     con.query(sql, (err, result) => {
-//         if (err) return res.json({ Status: false, Error: 'Query error' })
-//         return res.json({ Status: true, Result: result })
-//     })
-// })
-
-
-// router.post('/create_formula_chart', (req, res) => {
-//     const sql = `INSERT INTO formula_chart (feeding_date, person_who_created) 
-//     VALUES (?, ?)`;
-//     const values = [
-//         req.body.feeding_date,
-//         req.body.person_who_created
-//     ]
-//     con.query(sql, values, (err, result) => {
-//         if (err) {
-//             console.error('Error executing SQL query:', err);
-//             return res.json({ Status: false, Error: err })
-//         }
-//         return res.json({ Status: true })
-
-//     });
-// });
-
-
-// router.get('/formula_chart/:id', (req, res) => {
-//     const id = req.params.id;
-//     const sql = `SELECT * FROM formula_chart WHERE id = ?`;
-//     con.query(sql, [id], (err, result) => {
-//         if (err) {
-//             console.error('Error executing SQL query:', err);
-//             return res.status(500).json({ error: 'Internal server error' });
-//         }
-//         return res.json({ Status: true, Result: result })
-//     });
-// })
-
-
-// router.put('/edit_formula_chart/:id', (req, res) => {
-//     const id = req.params.id;
-//     const sql = `UPDATE formula_chart 
-//                     SET 
-//                     feeding_date = ?
-//                     WHERE id = ?`;
-
-//     const values = [
-//         req.body.feeding_date
-//     ]
-//     con.query(sql, [...values, id], (err, result) => {
-//         if (err) return res.json({ Status: false, Error: 'Query error' + err })
-//         return res.json({ Status: true, Result: result })
-//     })
-// });
-
-
-// router.get('/formula_detail/:id', (req, res) => {
-//     const id = req.params.id;
-//     const sql = `
-//     SELECT 
-//     formula_detail.*, 
-//     child_info.name AS child_name,
-//     formula_chart.feeding_date AS formula_date,
-//     teacher_info.name AS supervisor_name
-//     FROM formula_detail
-//     INNER JOIN child_info ON formula_detail.child = child_info.id
-//     INNER JOIN teacher_info ON formula_detail.supervisor = teacher_info.id 
-//     INNER JOIN formula_chart ON formula_detail.feeding_date = formula_chart.id
-//     WHERE formula_detail.feeding_date = ?;
-//     `;
-//     con.query(sql, [id], (err, result) => {
-//         if (err) {
-//             console.error('Error executing SQL query:', err);
-//             return res.status(500).json({ error: 'Internal server error' });
-//         }
-//         console.log(result)
-//         return res.json({ Status: true, Result: result });
-//     });
-// })
-
-
-// router.post('/feed_a_child', (req, res) => {
-//     const sql = `INSERT INTO formula_detail 
-//     (feeding_date, child, time_one, time_two, time_three, note, supervisor) 
-//     VALUES (?, ?, ?, ?, ?, ?, ?)`;
-//     const values = [
-//         req.body.feeding_date,
-//         req.body.child_id,
-//         req.body.time_one,
-//         req.body.time_two,
-//         req.body.time_three,
-//         req.body.note,
-//         req.body.supervisor
-//     ]
-//     con.query(sql, values, (err, result) => {
-//         if (err) {
-//             console.error('Error executing SQL query:', err);
-//             return res.json({ Status: false, Error: err })
-//         }
-//         return res.json({ Status: true })
-
-//     });
-// });
-
-
-// router.get('/formula/:id', (req, res) => {
-//     const id = req.params.id;
-//     const sql = `
-//     SELECT 
-//     formula_detail.*, 
-//     child_info.name AS child_name,
-//     formula_chart.feeding_date AS formula_date,
-//     teacher_info.name AS supervisor_name
-//     FROM formula_detail
-//     INNER JOIN child_info ON formula_detail.child = child_info.id
-//     INNER JOIN teacher_info ON formula_detail.supervisor = teacher_info.id 
-//     INNER JOIN formula_chart ON formula_detail.feeding_date = formula_chart.id
-//     WHERE formula_detail.id = ?;
-//     `;
-//     con.query(sql, [id], (err, result) => {
-//         if (err) {
-//             console.error('Error executing SQL query:', err);
-//             return res.status(500).json({ error: 'Internal server error' });
-//         }
-//         return res.json({ Status: true, Result: result });
-//     });
-// })
-
-
-// router.put('/edit_formula_detail/:id', (req, res) => {
-//     const id = req.params.id;
-//     const sql = `UPDATE formula_detail 
-//                     SET 
-//                     time_one = ?,
-//                     time_two = ?,
-//                     time_three = ?,
-//                     note = ?,
-//                     supervisor = ?
-//                     WHERE id = ?`;
-
-
-//     const values = [
-//         req.body.time_one,
-//         req.body.time_two,
-//         req.body.time_three,
-//         req.body.note,
-//         req.body.supervisor
-//     ]
-//     con.query(sql, [...values, id], (err, result) => {
-//         if (err) return res.json({ Status: false, Error: 'Query error' + err })
-//         return res.json({ Status: true, Result: result })
-//     })
-// });
-
-
-
-// router.delete('/delete_formula_record/:id', (req, res) => {
-//     const id = req.params.id;
-//     const sql = 'DELETE FROM formula_detail WHERE id = ?';
-
-//     con.query(sql, [id], (err, result) => {
-//         if (err) return res.json({ Status: false, Error: 'Query error' + err })
-//         return res.json({ Status: true, Result: result })
-//     })
-// })
-
 
 
 // Logout

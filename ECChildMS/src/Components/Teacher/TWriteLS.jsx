@@ -25,7 +25,6 @@ const TWriteLS = () => {
         axios.get('http://localhost:3000/teacher/children')
             .then(result => {
                 if (result.data.Status) {
-                    console.log(result.data.Result)
                     setChild(result.data.Result)
                 } else {
                     alert(result.data.Error)
@@ -63,7 +62,6 @@ const TWriteLS = () => {
                 if (result.data.Status) {
                     navigate('/teacher_dashboard/learning_story_detail/' + id)
                 } else {
-                    console.log(result.data)
                     alert(result.data.Error || 'Error adding information')
                 }
             })

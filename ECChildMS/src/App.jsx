@@ -158,6 +158,7 @@ function App() {
       <Routes>
         {/* Start page route */}
         <Route path='/' element={<StartPage />}></Route>
+
         {/* Admin portal */}
         <Route path='/admin_login' element={<AdminLogin />}></Route>
         <Route path='/dashboard' element={

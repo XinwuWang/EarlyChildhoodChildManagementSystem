@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
+
 
 const Note = () => {
     const [userInput, setUserInput] = useState([])
@@ -10,7 +10,6 @@ const Note = () => {
     useEffect(() => {
         axios.get('http://localhost:3000/auth/note/' + adminId)
             .then(result => {
-                // console.log(result.data)
                 if (result.data.Status) {
                     setUserInput(result.data.Result)
                 } else {

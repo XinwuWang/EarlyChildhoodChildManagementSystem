@@ -7,7 +7,6 @@ import { useNavigate, Link, useParams } from 'react-router-dom'
 const TSignIn = () => {
     const { id } = useParams()
     const teacherId = localStorage.getItem('teacherId');
-    console.log(teacherId)
 
     const [attendance, setAttendance] = useState({
         attendance_date: id,
@@ -24,7 +23,6 @@ const TSignIn = () => {
         axios.get('http://localhost:3000/teacher/children')
             .then(result => {
                 if (result.data.Status) {
-                    console.log(result.data.Result)
                     setChild(result.data.Result)
                 } else {
                     alert(result.data.Error)

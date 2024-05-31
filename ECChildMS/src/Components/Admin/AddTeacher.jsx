@@ -23,7 +23,6 @@ const AddTeacher = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        // console.log(teacher);
         const formData = new FormData();
         formData.append('name', teacher.name);
         formData.append('email', teacher.email);
@@ -37,7 +36,6 @@ const AddTeacher = () => {
         formData.append('start_date', teacher.start_date);
 
         axios.post('http://localhost:3000/auth/add_teacher', formData)
-            // .then(result => console.log(result.data))
             .then(result => {
                 if (result.data.Status) {
                     navigate('/dashboard/manageteachers')

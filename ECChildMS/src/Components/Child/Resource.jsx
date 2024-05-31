@@ -9,7 +9,6 @@ const Resource = () => {
         axios.get('http://localhost:3000/child/resource')
             .then(result => {
                 if (result.data.Status) {
-                    console.log(result.data.Result)
                     setResource(result.data.Result)
                 } else {
                     alert(result.data.Error)

@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import { Link } from "react-router-dom"
+import { useNavigate, useParams, Link } from "react-router-dom"
+
 
 const TeacherDetail = () => {
     const [teacher, setTeacher] = useState([])
@@ -11,7 +11,6 @@ const TeacherDetail = () => {
     useEffect(() => {
         axios.get('http://localhost:3000/auth/manageteachers/' + id)
             .then(result => {
-                console.log(result.data)
                 setTeacher(result.data[0])
 
             })
@@ -19,7 +18,6 @@ const TeacherDetail = () => {
     }, [id])
 
     const handleDelete = (id) => {
-        // Display confirmation dialog
         if (window.confirm("ALERT! Are you sure you want to delete this teacher?")) {
             axios.delete('http://localhost:3000/auth/delete_teacher/' + id)
                 .then(result => {
@@ -36,6 +34,19 @@ const TeacherDetail = () => {
 
     return (
         <div>
+            <div className="container p-3">
+                <div className="d-flex justify-content-between align-items-center mt-auto m-2">
+                    <h1 className="display-4 fw-normal">Teacher Detail</h1>
+                    <div>
+                        <Link to={'/dashboard/edit_teacher/' + id} className='btn btn-lg p-2' title='Edit'><i className="bi bi-pencil-square"></i></Link>
+                        <button type='button' className="btn btn-lg p-2" title='Remove this teacher' onClick={() => handleDelete(teacher.id)}>
+                            <i className="bi bi-person-dash"></i>
+                        </button>
+                        <Link to={'/dashboard/manageteachers'} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
+                    </div>
+                </div>
+            </div >
+            <hr />
             <div className="container mt-4">
                 {teacher && Object.keys(teacher).length > 0 ? (
                     <div className="card">
@@ -86,16 +97,6 @@ const TeacherDetail = () => {
                                 </tbody>
                             </table>
                             <div className="container pt-2 ">
-                                <div className='col-12 pt-3'>
-                                    <div className="d-flex justify-content-center">
-                                        <Link className='btn btn-success me-2' to={'/dashboard/edit_teacher/' + id}>Edit</Link>
-                                        <Link to={'/dashboard/manageteachers'} className="btn btn-secondary me-2">Return</Link>
-                                        <button type='button' className="btn btn-danger p-2" title='Remove this teacher' onClick={() => handleDelete(teacher.id)}>
-                                            <i className="bi bi-trash" /> Delete
-                                        </button>
-                                    </div>
-
-                                </div>
                             </div>
                         </div>
                     </div>

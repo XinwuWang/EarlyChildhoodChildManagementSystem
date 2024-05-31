@@ -2,8 +2,7 @@ import express from 'express';
 import con from '../Database/db.js';
 import jwt from 'jsonwebtoken'; // for token creation
 import bcrypt from 'bcryptjs'; // for password hashing
-import multer from 'multer'; // for image upload
-import path from 'path'; // for image upload
+
 
 const router = express.Router()
 
@@ -55,7 +54,6 @@ router.get('/teacher/:id', (req, res) => {
             console.error('Error executing SQL query:', err);
             return res.status(500).json({ error: 'Internal server error' });
         }
-        // console.log(result)
         return res.json(result);
     });
 })
@@ -155,7 +153,7 @@ router.get('/announcement', (req, res) => {
 
 
 
-// Documents
+// All the Documents
 // Sleep record
 router.get('/sleep_record/:id', (req, res) => {
     const id = req.params.id;

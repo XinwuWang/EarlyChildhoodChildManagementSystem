@@ -23,7 +23,6 @@ const AddChildToMeal = () => {
         axios.get('http://localhost:3000/teacher/children')
             .then(result => {
                 if (result.data.Status) {
-                    console.log(result.data.Result)
                     setChild(result.data.Result)
                 } else {
                     alert(result.data.Error)
