@@ -14,6 +14,7 @@ const CLearningStoryDetail = () => {
         axios.get(`http://localhost:3000/child/ls_detail/${id}`)
             .then(result => {
                 if (result.data.Status) {
+
                     setLearningStory(result.data.Result[0]);
                 } else {
                     setError(result.data.Error);
