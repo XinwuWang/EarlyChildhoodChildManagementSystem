@@ -12,6 +12,13 @@ This project is an independent project for COMP693, Semester 1 2024. This web ap
  - JavaScript libraries and packages: NPM
 
 
+## User manual
+This projects consists of a frontend folder 'ECChildMS', a backend folder 'Server', and a database query script 'ChildMS_db.sql'.
+
+The database needs to be built before running this application, which can be completed by executing the script in [MySQL workbench](https://www.mysql.com/products/workbench/).
+
+
+
 ## Image sources:
 - login_bg.png - https://www.gofundme.com/f/support-for-ganon-teachers
 - heading_icon.png - https://www.freepik.com/icon/baby_1096752#fromView=resource_detail&position=3
