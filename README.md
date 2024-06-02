@@ -14,3 +14,8 @@ This project is an independent project for COMP693, Semester 1 2024. This web ap
 
 ## Image sources:
 - login_bg.png - https://www.gofundme.com/f/support-for-ganon-teachers
+- heading_icon.png - https://www.freepik.com/icon/baby_1096752#fromView=resource_detail&position=3
+- dummy_child.png - https://clipart-library.com/clipart/pacifier-cartoon-cliparts-16.htm
+- image_1713695523507.jpg - https://www.linkedin.com/pulse/3-inspiring-success-stories-great-entrepreneurs-ailina-spratling/
+- ray_smith.png - https://medium.com/@jayesha930/how-to-select-a-profile-picture-3a75fed88745 
+- teacher.png_1714343176071.png - https://www.shareicon.net/avatar-user-profile-social-woman-802029
