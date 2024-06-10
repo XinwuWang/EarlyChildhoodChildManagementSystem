@@ -2,6 +2,8 @@ import express from 'express';
 import con from '../Database/db.js';
 import jwt from 'jsonwebtoken'; // for token creation
 import bcrypt from 'bcryptjs'; // for password hashing
+import multer from 'multer'; // for image upload
+import path from 'path'; // for image upload
 
 
 const router = express.Router()
@@ -34,6 +36,24 @@ router.post('/child_login', (req, res) => {
         }
     });
 });
+
+
+// Image upload using multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/images')
+    },
+    filename: (req, file, cb) => {
+        const originalname = file.originalname; // Get the original filename
+        const extension = path.extname(originalname); // Get the file extension
+        const timestamp = Date.now(); // Get the current timestamp
+        const filename = originalname + '_' + timestamp + extension; // Concatenate original filename, timestamp, and extension
+        cb(null, filename); // Call the callback function with the filename
+    }
+})
+const upload = multer({
+    storage: storage
+})
 
 
 // View teachers
@@ -114,6 +134,30 @@ router.put('/edit_profile/:id', (req, res) => {
 
 });
 
+
+router.put('/profile/:id/change_photo', upload.single('image'), (req, res) => {
+    const id = req.params.id;
+    const sql = `UPDATE child_info 
+                    SET 
+                    profile_img = ?
+                    WHERE id = ?`;
+
+    const value = [
+        req.file ? req.file.filename : null
+    ]
+    con.query(sql, [value, id], (err, result) => {
+        if (err) {
+            console.error('Query error:', err);
+            return res.status(500).json({ Status: false, Error: 'An error occurred while updating the child information.' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ Status: false, Error: 'Child not found.' });
+        }
+
+        return res.json({ Status: true, Message: 'Child image updated successfully.' });
+    });
+});
 
 
 // Learning resources

@@ -50,9 +50,11 @@ const ChildDetail = () => {
                 {child && Object.keys(child).length > 0 ? (
                     <div className="card">
                         <div>
-                            <div className="card-header text-center">
-                                <img src={'http://localhost:3000/Images/' + child.profile_img} alt={child.name} className="child_image" />
-                            </div>
+                            <Link to={`/dashboard/managechildren/${id}/change_photo`} title="Change Profile Image">
+                                <div className="card-header text-center">
+                                    <img src={'http://localhost:3000/Images/' + child.profile_img} alt={child.name} className="child_image" />
+                                </div>
+                            </Link>
                         </div>
                         <div className="card-body text-center">
                             <table className="table">

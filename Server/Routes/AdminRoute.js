@@ -152,6 +152,30 @@ router.put('/edit_teacher/:id', (req, res) => {
 });
 
 
+router.put('/manageteachers/:id/change_photo', upload.single('image'), (req, res) => {
+    const id = req.params.id;
+    const sql = `UPDATE teacher_info 
+                    SET 
+                    image = ?
+                    WHERE id = ?`;
+
+    const value = [
+        req.file ? req.file.filename : null
+    ]
+    con.query(sql, [value, id], (err, result) => {
+        if (err) {
+            console.error('Query error:', err);
+            return res.status(500).json({ Status: false, Error: 'An error occurred while updating the teacher information.' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ Status: false, Error: 'Teacher not found.' });
+        }
+
+        return res.json({ Status: true, Message: 'Teacher image updated successfully.' });
+    });
+});
+
 router.delete('/delete_teacher/:id', (req, res) => {
     const id = req.params.id;
     const sql = 'DELETE FROM teacher_info WHERE id = ?';
@@ -263,6 +287,30 @@ router.put('/edit_child/:id', (req, res) => {
 
 });
 
+
+router.put('/managechildren/:id/change_photo', upload.single('image'), (req, res) => {
+    const id = req.params.id;
+    const sql = `UPDATE child_info 
+                    SET 
+                    profile_img = ?
+                    WHERE id = ?`;
+
+    const value = [
+        req.file ? req.file.filename : null
+    ]
+    con.query(sql, [value, id], (err, result) => {
+        if (err) {
+            console.error('Query error:', err);
+            return res.status(500).json({ Status: false, Error: 'An error occurred while updating the child information.' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ Status: false, Error: 'Child not found.' });
+        }
+
+        return res.json({ Status: true, Message: 'Child image updated successfully.' });
+    });
+});
 
 router.delete('/delete_child/:id', (req, res) => {
     const id = req.params.id;
@@ -406,6 +454,30 @@ router.put('/edit_profile/:id', (req, res) => {
 
 });
 
+
+router.put('/profile/:id/change_photo', upload.single('image'), (req, res) => {
+    const id = req.params.id;
+    const sql = `UPDATE admin 
+                    SET 
+                    image = ?
+                    WHERE id = ?`;
+
+    const value = [
+        req.file ? req.file.filename : null
+    ]
+    con.query(sql, [value, id], (err, result) => {
+        if (err) {
+            console.error('Query error:', err);
+            return res.status(500).json({ Status: false, Error: 'An error occurred while updating the admin information.' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ Status: false, Error: 'Admin not found.' });
+        }
+
+        return res.json({ Status: true, Message: 'Admin image updated successfully.' });
+    });
+});
 
 // Change password
 router.put('/change_password/:id', (req, res) => {

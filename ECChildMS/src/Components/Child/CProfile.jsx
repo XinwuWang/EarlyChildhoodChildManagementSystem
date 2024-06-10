@@ -31,9 +31,11 @@ const CProfile = () => {
                 {child && Object.keys(child).length > 0 ? (
                     <div className="card">
                         <div>
-                            <div className="card-header text-center">
-                                <img src={'http://localhost:3000/Images/' + child.profile_img} alt={child.name} className="child_image" />
-                            </div>
+                            <Link to={`/child_dashboard/profile/${childId}/change_photo`} title="Update your profile image">
+                                <div className="card-header text-center">
+                                    <img src={'http://localhost:3000/Images/' + child.profile_img} alt={child.name} className="child_image" />
+                                </div>
+                            </Link>
                         </div>
                         <div className="card-body text-center">
                             <table className="table">

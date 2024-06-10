@@ -6,7 +6,6 @@ const TProfile = () => {
     const [teacher, setTeacher] = useState([])
     const teacherId = localStorage.getItem('teacherId');
 
-    console.log(teacherId)
     useEffect(() => {
         axios.get(`http://localhost:3000/teacher/teacher_profile/${teacherId}`)
             .then(result => {
@@ -33,10 +32,11 @@ const TProfile = () => {
                 {teacher && Object.keys(teacher).length > 0 ? (
                     <div className="card">
                         <div>
-                            <div className="card-header text-center">
-
-                                <img src={'http://localhost:3000/Images/' + teacher.image} alt={teacher.name} className="teacher_image" />
-                            </div>
+                            <Link to={`/teacher_dashboard/teacher_profile/${teacherId}/change_photo`} title="Update your profile image">
+                                <div className="card-header text-center">
+                                    <img src={'http://localhost:3000/Images/' + teacher.image} alt={teacher.name} className="teacher_image" />
+                                </div>
+                            </Link>
                         </div>
                         <div className="card-body text-center">
                             <table className="table">

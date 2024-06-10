@@ -52,6 +52,9 @@ import ASunblockChart from './Components/Admin/ASunblockChart'
 import ASunblockDetail from './Components/Admin/ASunblockDetail'
 import AAccidentReport from './Components/Admin/AAccidentReport'
 import AAccidentDetail from './Components/Admin/AAccidentDetail'
+import AChangeChildImg from './Components/Admin/AChangeChildImg'
+import AChangeTeacherImg from './Components/Admin/AChangeTeacherImg'
+import AUpdateProfileImg from './Components/Admin/AUpdateProfileImg'
 
 
 // Teacher components
@@ -117,6 +120,9 @@ import TLSDetail from './Components/Teacher/TLSDetail'
 import TWriteLS from './Components/Teacher/TWriteLS'
 import TChildLS from './Components/Teacher/TChildLS'
 import TEditLSDetail from './Components/Teacher/TEditLSDetail'
+import TViewTeachers from './Components/Teacher/TViewTeachers'
+import TTeacherDetail from './Components/Teacher/TTeacherDetail'
+import TUpdateProfileImg from './Components/Teacher/TUpdateProfileImg'
 
 
 // Child components
@@ -148,8 +154,8 @@ import CMessageDetail from './Components/Child/CMessageDetail'
 import CLearningStoryDetail from './Components/Child/CLearningStoryDetail'
 import CSignIn from './Components/Child/CSignIn'
 import CSignOut from './Components/Child/CSignOut'
-import TViewTeachers from './Components/Teacher/TViewTeachers'
-import TTeacherDetail from './Components/Teacher/TTeacherDetail'
+import CUpdateProfileImg from './Components/Child/CUpdateProfileImg'
+
 
 
 
@@ -171,6 +177,7 @@ function App() {
           <Route path='' element={<Home />}></Route>
           <Route path='/dashboard/manageteachers' element={<Teachers />}></Route>
           <Route path='/dashboard/managechildren' element={<ChildrenInfo />}></Route>
+          <Route path='/dashboard/managechildren/:id/change_photo' element={<AChangeChildImg />}></Route>
           <Route path='/dashboard/message/:id' element={<AMessage />}></Route>
           <Route path='/dashboard/message_a_child' element={<AMessageChild />}></Route>
           <Route path='/dashboard/message_a_teacher' element={<AMessageTeacher />}></Route>
@@ -183,6 +190,7 @@ function App() {
           <Route path='/dashboard/add_child' element={<AddChild />}></Route>
           <Route path='/dashboard/centreintro' element={<CentreIntro />}></Route>
           <Route path='/dashboard/edit_profile/:id' element={<EditProfile />}></Route>
+          <Route path='/dashboard/profile/:id/change_photo' element={<AUpdateProfileImg />}></Route>
           <Route path='/dashboard/change_password/:id' element={<ChangePassword />}></Route>
           <Route path='/dashboard/edit_centreinfo/:id' element={<EditCentreinfo />}></Route>
           <Route path='/dashboard/add_centreinfo' element={<AddCentreInfo />}></Route>
@@ -190,6 +198,7 @@ function App() {
           <Route path='/dashboard/edit_note/:adminId/:noteId' element={<EditNote />}></Route>
           <Route path='/dashboard/create_announcement' element={<CreateAnnouncement />}></Route>
           <Route path='/dashboard/manageteachers/:id' element={<TeacherDetail />}></Route>
+          <Route path='/dashboard/manageteachers/:id/change_photo' element={<AChangeTeacherImg />}></Route>
           <Route path='/dashboard/edit_teacher/:id' element={<EditTeacher />}></Route>
           <Route path='/dashboard/managechildren/:id' element={<ChildDetail />}></Route>
           <Route path='/dashboard/edit_child/:id' element={<EditChild />}></Route>
@@ -238,6 +247,7 @@ function App() {
           <Route path='/teacher_dashboard/announcement' element={<TAnnouncement />}></Route>
           <Route path='/teacher_dashboard/note/:teacherId' element={<TNote />}></Route >
           <Route path='/teacher_dashboard/edit_profile/:id' element={<EditTeacherProfile />}></Route>
+          <Route path='/teacher_dashboard/teacher_profile/:id/change_photo' element={<TUpdateProfileImg />}></Route>
           <Route path='/teacher_dashboard/change_password/:id' element={<TChangePassword />}></Route>
           <Route path='/teacher_dashboard/create_announcement' element={<TCreateAnnounce />}></Route>
           <Route path='/teacher_dashboard/add_resource' element={<AddTeachingTips />}></Route>
@@ -302,6 +312,7 @@ function App() {
           <Route path='/child_dashboard/message_detail/:id' element={<CMessageDetail />}></Route>
           <Route path='/child_dashboard/profile/:id' element={<CProfile />}></Route>
           <Route path='/child_dashboard/edit_profile/:id' element={<CEditProfile />}></Route>
+          <Route path='/child_dashboard/profile/:id/change_photo' element={<CUpdateProfileImg />}></Route>
           <Route path='/child_dashboard/documents' element={<CDocuments />}></Route>
           <Route path='/child_dashboard/announcement' element={<CAnnouncement />}></Route>
           <Route path='/child_dashboard/resource' element={<Resource />}></Route>

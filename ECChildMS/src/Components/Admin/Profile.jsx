@@ -31,9 +31,11 @@ const Profile = () => {
             <hr />
             <div className="container mt-4">
                 <div className="card">
-                    <div className="card-header text-center">
-                        <img src={`http://localhost:3000/Images/` + admin.image} alt="ray smith" className="admin_image" />
-                    </div>
+                    <Link to={`/dashboard/profile/${adminId}/change_photo`} title='Update your profile image'>
+                        <div className="card-header text-center">
+                            <img src={`http://localhost:3000/Images/` + admin.image} alt="ray smith" className="admin_image" />
+                        </div>
+                    </Link>
                     <div className="card-body text-center">
                         <table className="table">
                             <tbody>

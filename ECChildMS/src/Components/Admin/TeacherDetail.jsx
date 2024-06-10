@@ -51,9 +51,11 @@ const TeacherDetail = () => {
                 {teacher && Object.keys(teacher).length > 0 ? (
                     <div className="card">
                         <div>
-                            <div className="card-header text-center">
-                                <img src={'http://localhost:3000/Images/' + teacher.image} alt={teacher.name} className="teacher_image" />
-                            </div>
+                            <Link to={`/dashboard/manageteachers/${id}/change_photo`} title="Update profile image">
+                                <div className="card-header text-center">
+                                    <img src={'http://localhost:3000/Images/' + teacher.image} alt={teacher.name} className="teacher_image" />
+                                </div>
+                            </Link>
                         </div>
                         <div className="card-body text-center">
                             <table className="table">
