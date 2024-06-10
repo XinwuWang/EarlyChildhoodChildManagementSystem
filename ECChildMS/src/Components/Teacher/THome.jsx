@@ -17,7 +17,7 @@ const THome = () => {
                 <div className="col-md-6">
                     <div className="h-100 p-5 text-bg-dark rounded-3">
                         <h2>View Children</h2>
-                        <p>View & edit children&apos;s documents</p>
+                        <p>View details of all children</p>
                         <Link to='/teacher_dashboard/children' className='btn btn-outline-light'>More</Link>
                     </div>
                 </div>
@@ -75,6 +75,22 @@ const THome = () => {
                         <h2>Document</h2>
                         <p>Documents of enrolled children</p>
                         <Link to='/teacher_dashboard/document' className='btn btn-outline-dark'>More</Link>
+                    </div>
+                </div>
+            </div>
+            <div className="row align-items-md-stretch m-1">
+                <div className="col-md-6">
+                    <div className="h-100 p-5 text-bg-dark rounded-3">
+                        <h2>View Teachers</h2>
+                        <p>View details of all teachers</p>
+                        <Link to={'/teacher_dashboard/teachers'} className='btn btn-outline-light'>More</Link>
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="h-100 p-5 bg-body-tertiary border rounded-3">
+                        <h2>Change Password</h2>
+                        <p>Update your password</p>
+                        <Link to={'/teacher_dashboard/change_password/' + teacherId} className='btn btn-outline-dark'>More</Link>
                     </div>
                 </div>
             </div>

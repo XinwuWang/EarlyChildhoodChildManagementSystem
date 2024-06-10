@@ -148,6 +148,8 @@ import CMessageDetail from './Components/Child/CMessageDetail'
 import CLearningStoryDetail from './Components/Child/CLearningStoryDetail'
 import CSignIn from './Components/Child/CSignIn'
 import CSignOut from './Components/Child/CSignOut'
+import TViewTeachers from './Components/Teacher/TViewTeachers'
+import TTeacherDetail from './Components/Teacher/TTeacherDetail'
 
 
 
@@ -223,6 +225,8 @@ function App() {
           <Route path='' element={<THome />}></Route>
           <Route path='/teacher_dashboard/children' element={<ViewChildren />}></Route>
           <Route path='/teacher_dashboard/children/:id' element={<ChildProfile />}></Route>
+          <Route path='/teacher_dashboard/teachers' element={<TViewTeachers />}></Route>
+          <Route path='/teacher_dashboard/teacher_detail/:id' element={<TTeacherDetail />}></Route>
           <Route path='/teacher_dashboard/message/:id' element={<TMessage />}></Route>
           <Route path='/teacher_dashboard/message_detail/:id' element={<TMessageDetail />}></Route>
           <Route path='/teacher_dashboard/message_a_teacher' element={<TMessageTeacher />}></Route>

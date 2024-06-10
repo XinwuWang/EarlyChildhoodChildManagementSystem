@@ -610,8 +610,39 @@ router.get('/attendance/:id', (req, res) => {
 })
 
 
+router.post('/add_attendance', (req, res) => {
+    const checkSql = 'SELECT * FROM attendance WHERE form_date = ?';
+    const sql = `INSERT INTO attendance (form_date, person_who_created) 
+    VALUES (?, ?)`;
+    const values = [
+        req.body.form_date,
+        req.body.person_who_created
+    ]
+    const checkValues = [req.body.form_date];
+
+    con.query(checkSql, checkValues, (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error('Error executing SQL query:', checkErr);
+            return res.json({ Status: false, Error: 'Query error: ' + checkErr });
+        }
+        if (checkResult.length > 0) {
+            return res.json({ Status: false, Error: 'Attendance record for this date already exists' });
+        } else {
+            con.query(sql, values, (err, result) => {
+                if (err) {
+                    console.error('Error executing SQL query:', err);
+                    return res.json({ Status: false, Error: err })
+                }
+                return res.json({ Status: true })
+            });
+        }
+    });
+});
+
+
 router.put('/edit_attendance/:id', (req, res) => {
     const id = req.params.id;
+    const checkSql = 'SELECT * FROM attendance WHERE form_date = ? AND id != ?';
     const sql = `UPDATE attendance 
                     SET 
                     form_date = ?
@@ -620,27 +651,21 @@ router.put('/edit_attendance/:id', (req, res) => {
     const values = [
         req.body.form_date
     ]
-    con.query(sql, [...values, id], (err, result) => {
-        if (err) return res.json({ Status: false, Error: 'Query error' + err })
-        return res.json({ Status: true, Result: result })
-    })
-});
+    const checkValues = [req.body.form_date, id];
 
-
-router.post('/add_attendance', (req, res) => {
-    const sql = `INSERT INTO attendance (form_date, person_who_created) 
-    VALUES (?, ?)`;
-    const values = [
-        req.body.form_date,
-        req.body.person_who_created
-    ]
-    con.query(sql, values, (err, result) => {
-        if (err) {
-            console.error('Error executing SQL query:', err);
-            return res.json({ Status: false, Error: err })
+    con.query(checkSql, checkValues, (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error('Error executing SQL query:', checkErr);
+            return res.json({ Status: false, Error: 'Query error: ' + checkErr });
         }
-        return res.json({ Status: true })
-
+        if (checkResult.length > 0) {
+            return res.json({ Status: false, Error: 'Attendance record for this date already exists' });
+        } else {
+            con.query(sql, [...values, id], (err, result) => {
+                if (err) return res.json({ Status: false, Error: 'Query error' + err })
+                return res.json({ Status: true, Result: result })
+            });
+        }
     });
 });
 
@@ -658,7 +683,8 @@ router.get('/attendance_detail/:id', (req, res) => {
     LEFT JOIN child_info parent ON ar.parent_signature = parent.id
     LEFT JOIN teacher_info teacher ON ar.teacher_signature = teacher.id
     LEFT JOIN admin admin ON ar.admin_signature = admin.id
-    WHERE ar.attendance_date = ?;
+    WHERE ar.attendance_date = ?
+    ORDER BY child_name ASC, time_in ASC, time_out ASC;
     `;
     con.query(sql, [id], (err, result) => {
         if (err) {
@@ -818,7 +844,8 @@ router.get('/meal_detail/:id', (req, res) => {
         SELECT meal_detail.*, child_info.name AS child_name
         FROM meal_detail
         INNER JOIN child_info ON meal_detail.child = child_info.id
-        WHERE meal_detail.meal_day = ?;
+        WHERE meal_detail.meal_day = ?
+        ORDER BY child_name ASC;
     `;
     con.query(sql, [id], (err, result) => {
         if (err) {
@@ -871,7 +898,8 @@ router.get('/sleep_detail/:id', (req, res) => {
     INNER JOIN child_info ON sleep_detail.child = child_info.id
     INNER JOIN teacher_info ON sleep_detail.supervisor = teacher_info.id 
     INNER JOIN sleep_chart ON sleep_detail.sleep_date = sleep_chart.id
-    WHERE sleep_detail.sleep_date = ?;
+    WHERE sleep_detail.sleep_date = ?
+    ORDER BY child_name ASC;
     `;
     con.query(sql, [id], (err, result) => {
         if (err) {
@@ -923,7 +951,8 @@ router.get('/formula_detail/:id', (req, res) => {
     INNER JOIN child_info ON formula_detail.child = child_info.id
     INNER JOIN teacher_info ON formula_detail.supervisor = teacher_info.id 
     INNER JOIN formula_chart ON formula_detail.feeding_date = formula_chart.id
-    WHERE formula_detail.feeding_date = ?;
+    WHERE formula_detail.feeding_date = ?
+    ORDER BY child_name ASC;
     `;
     con.query(sql, [id], (err, result) => {
         if (err) {
@@ -974,7 +1003,8 @@ router.get('/sunblock_chart_detail/:id', (req, res) => {
     INNER JOIN child_info ON sunblock_chart.child = child_info.id
     INNER JOIN teacher_info ON sunblock_chart.supervisor = teacher_info.id 
     INNER JOIN sunblock ON sunblock_chart.apply_date = sunblock.id
-    WHERE sunblock_chart.apply_date = ?;
+    WHERE sunblock_chart.apply_date = ?
+    ORDER BY child_name ASC;
     `;
     con.query(sql, [id], (err, result) => {
         if (err) {

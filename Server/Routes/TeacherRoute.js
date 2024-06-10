@@ -108,6 +108,30 @@ router.get('/children/:id', (req, res) => {
 })
 
 
+//Teacher list
+router.get('/teachers', (req, res) => {
+    const sql = 'SELECT * FROM teacher_info ORDER BY name ASC';
+    con.query(sql, (err, result) => {
+        if (err) return res.json({ Status: false, Error: 'Query error' })
+        return res.json({ Status: true, Result: result })
+    })
+})
+
+
+router.get('/teacher_detail/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'SELECT * FROM teacher_info WHERE id = ?';
+    con.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error('Error executing SQL query:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+        return res.json(result);
+    });
+})
+
+
+
 // Announcement
 router.get('/announcement', (req, res) => {
     const sql = `SELECT announcement.*, 
@@ -388,7 +412,8 @@ router.get('/meal_detail/:id', (req, res) => {
         SELECT meal_detail.*, child_info.name AS child_name
         FROM meal_detail
         INNER JOIN child_info ON meal_detail.child = child_info.id
-        WHERE meal_detail.meal_day = ?;
+        WHERE meal_detail.meal_day = ?
+        ORDER BY child_name ASC;
     `;
     con.query(sql, [id], (err, result) => {
         if (err) {
@@ -457,8 +482,6 @@ router.put('/edit_meal_detail/:id', (req, res) => {
 
 
 router.post('/add_meal', (req, res) => {
-    const sql = `INSERT INTO meal_chart (meal_date, morning_tea, lunch, afternoon_tea, supervisor) 
-    VALUES (?, ?, ?, ?, ?)`;
     const values = [
         req.body.date,
         req.body.morning_tea,
@@ -466,19 +489,35 @@ router.post('/add_meal', (req, res) => {
         req.body.afternoon_tea,
         req.body.supervisor,
     ]
-    con.query(sql, values, (err, result) => {
-        if (err) {
-            console.error('Error executing SQL query:', err);
-            return res.json({ Status: false, Error: err })
-        }
-        return res.json({ Status: true })
+    const checkSql = 'SELECT * FROM meal_chart WHERE meal_date = ?';
+    const checkValues = [req.body.date];
+    const sql = `INSERT INTO meal_chart (meal_date, morning_tea, lunch, afternoon_tea, supervisor) 
+    VALUES (?, ?, ?, ?, ?)`;
 
+
+    con.query(checkSql, checkValues, (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error('Error executing SQL query:', checkErr);
+            return res.json({ Status: false, Error: checkErr });
+        }
+        if (checkResult.length > 0) {
+            return res.json({ Status: false, Error: 'Meal chart for this date already exists' });
+        } else {
+            con.query(sql, values, (err, result) => {
+                if (err) {
+                    console.error('Error executing SQL query:', err);
+                    return res.json({ Status: false, Error: err })
+                }
+                return res.json({ Status: true })
+            });
+        }
     });
 });
 
 
 router.put('/edit_meal/:id', (req, res) => {
     const id = req.params.id;
+    const checkSql = 'SELECT * FROM meal_chart WHERE meal_date = ? AND id != ?';
     const sql = `UPDATE meal_chart 
                     SET 
                     meal_date = ?, 
@@ -487,7 +526,7 @@ router.put('/edit_meal/:id', (req, res) => {
                     afternoon_tea = ?, 
                     supervisor = ?
                     WHERE id = ?`;
-
+    const checkValues = [req.body.date, id];
     const values = [
         req.body.date,
         req.body.morning_tea,
@@ -496,15 +535,24 @@ router.put('/edit_meal/:id', (req, res) => {
         req.body.supervisor,
 
     ]
-    con.query(sql, [...values, id], (err, result) => {
-        if (err) return res.json({ Status: false, Error: 'Query error' + err })
-        return res.json({ Status: true, Result: result })
-    })
+
+    con.query(checkSql, checkValues, (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error('Error executing SQL query:', checkErr);
+            return res.json({ Status: false, Error: 'Query error: ' + checkErr });
+        }
+        if (checkResult.length > 0) {
+            return res.json({ Status: false, Error: 'Meal chart for this date already exists' });
+        } else {
+            con.query(sql, [...values, id], (err, result) => {
+                if (err) return res.json({ Status: false, Error: 'Query error' + err })
+                return res.json({ Status: true, Result: result })
+            });
+        }
+    });
 });
 
 router.post('/add_childMeal', (req, res) => {
-    const sql = `INSERT INTO meal_detail (child, meal_day, mt_portion, lunch_portion, at_portion, note) 
-    VALUES (?, ?, ?, ?, ?, ?)`;
     const values = [
         req.body.child_id,
         req.body.date_id,
@@ -514,14 +562,30 @@ router.post('/add_childMeal', (req, res) => {
         req.body.note,
     ]
 
-    console.log(values)
-    con.query(sql, values, (err, result) => {
-        if (err) {
-            console.error('Error executing SQL query:', err);
-            return res.json({ Status: false, Error: err })
-        }
-        return res.json({ Status: true })
+    const checkSql = `SELECT * FROM meal_detail WHERE child = ? AND meal_day = ?`;
+    const checkValues = [req.body.child_id, req.body.date_id];
 
+    con.query(checkSql, checkValues, (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error('Error executing SQL query:', checkErr);
+            return res.json({ Status: false, Error: 'Database error occurred' });
+        }
+
+        if (checkResult.length > 0) {
+            return res.json({ Status: false, Error: 'Child already added for this day' });
+        }
+
+
+        const sql = `INSERT INTO meal_detail (child, meal_day, mt_portion, lunch_portion, at_portion, note) VALUES (?, ?, ?, ?, ?, ?)`;
+
+        con.query(sql, values, (err, result) => {
+            if (err) {
+                console.error('Error executing SQL query:', err);
+                return res.json({ Status: false, Error: err })
+            }
+            return res.json({ Status: true })
+
+        });
     });
 });
 
@@ -554,37 +618,62 @@ router.get('/sleep_record/:id', (req, res) => {
 })
 
 router.post('/create_sleep_chart', (req, res) => {
+    const checkSql = 'SELECT * FROM sleep_chart WHERE sleep_date = ?';
     const sql = `INSERT INTO sleep_chart (sleep_date, person_who_created) 
     VALUES (?, ?)`;
     const values = [
         req.body.sleep_date,
         req.body.person_who_created
     ]
-    con.query(sql, values, (err, result) => {
-        if (err) {
-            console.error('Error executing SQL query:', err);
-            return res.json({ Status: false, Error: err })
-        }
-        return res.json({ Status: true })
+    const checkValues = [req.body.sleep_date];
 
+    con.query(checkSql, checkValues, (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error('Error executing SQL query:', checkErr);
+            return res.json({ Status: false, Error: 'Query error: ' + checkErr });
+        }
+        if (checkResult.length > 0) {
+            return res.json({ Status: false, Error: 'Sleep chart for this date already exists' });
+        } else {
+            con.query(sql, values, (err, result) => {
+                if (err) {
+                    console.error('Error executing SQL query:', err);
+                    return res.json({ Status: false, Error: err })
+                }
+                return res.json({ Status: true })
+            });
+        }
     });
 });
 
 
+
 router.put('/edit_sleep_chart/:id', (req, res) => {
     const id = req.params.id;
+    const checkSql = 'SELECT * FROM sleep_chart WHERE sleep_date = ? AND id != ?';
     const sql = `UPDATE sleep_chart 
                     SET 
                     sleep_date = ?
                     WHERE id = ?`;
-
     const values = [
         req.body.sleep_date
     ]
-    con.query(sql, [...values, id], (err, result) => {
-        if (err) return res.json({ Status: false, Error: 'Query error' + err })
-        return res.json({ Status: true, Result: result })
-    })
+    const checkValues = [req.body.sleep_date, id];
+
+    con.query(checkSql, checkValues, (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error('Error executing SQL query:', checkErr);
+            return res.json({ Status: false, Error: 'Query error: ' + checkErr });
+        }
+        if (checkResult.length > 0) {
+            return res.json({ Status: false, Error: 'Sleep chart for this date already exists' });
+        } else {
+            con.query(sql, [...values, id], (err, result) => {
+                if (err) return res.json({ Status: false, Error: 'Query error' + err })
+                return res.json({ Status: true, Result: result })
+            });
+        }
+    });
 });
 
 
@@ -600,7 +689,8 @@ router.get('/sleep_detail/:id', (req, res) => {
     INNER JOIN child_info ON sleep_detail.child = child_info.id
     INNER JOIN teacher_info ON sleep_detail.supervisor = teacher_info.id 
     INNER JOIN sleep_chart ON sleep_detail.sleep_date = sleep_chart.id
-    WHERE sleep_detail.sleep_date = ?;
+    WHERE sleep_detail.sleep_date = ?
+    ORDER BY child_name ASC;
     `;
     con.query(sql, [id], (err, result) => {
         if (err) {
@@ -641,6 +731,7 @@ router.post('/put_child_to_sleep', (req, res) => {
     const sql = `INSERT INTO sleep_detail 
     (sleep_date, child, time_to_bed, time_of_sleep, time_of_wakeup, time_out_of_bed, note, supervisor) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    const checkSql = 'SELECT * FROM sleep_detail WHERE sleep_date = ? AND child = ?';
     const values = [
         req.body.sleep_date,
         req.body.child_id,
@@ -651,13 +742,24 @@ router.post('/put_child_to_sleep', (req, res) => {
         req.body.note,
         req.body.supervisor
     ]
-    con.query(sql, values, (err, result) => {
-        if (err) {
-            console.error('Error executing SQL query:', err);
-            return res.json({ Status: false, Error: err })
-        }
-        return res.json({ Status: true })
+    const checkValues = [req.body.sleep_date, req.body.child_id];
 
+    con.query(checkSql, checkValues, (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error('Error executing SQL query:', checkErr);
+            return res.json({ Status: false, Error: 'Query error: ' + checkErr });
+        }
+        if (checkResult.length > 0) {
+            return res.json({ Status: false, Error: 'Child already added to the sleep chart for this date' });
+        } else {
+            con.query(sql, values, (err, result) => {
+                if (err) {
+                    console.error('Error executing SQL query:', err);
+                    return res.json({ Status: false, Error: err })
+                }
+                return res.json({ Status: true })
+            });
+        }
     });
 });
 
@@ -719,17 +821,29 @@ router.get('/formula_chart', (req, res) => {
 router.post('/create_formula_chart', (req, res) => {
     const sql = `INSERT INTO formula_chart (feeding_date, person_who_created) 
     VALUES (?, ?)`;
+    const checkSql = 'SELECT * FROM formula_chart WHERE feeding_date = ?';
+    const checkValues = [req.body.feeding_date];
     const values = [
         req.body.feeding_date,
         req.body.person_who_created
     ]
-    con.query(sql, values, (err, result) => {
-        if (err) {
-            console.error('Error executing SQL query:', err);
-            return res.json({ Status: false, Error: err })
-        }
-        return res.json({ Status: true })
 
+    con.query(checkSql, checkValues, (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error('Error executing SQL query:', checkErr);
+            return res.json({ Status: false, Error: 'Query error: ' + checkErr });
+        }
+        if (checkResult.length > 0) {
+            return res.json({ Status: false, Error: 'Formula chart for this date already exists' });
+        } else {
+            con.query(sql, values, (err, result) => {
+                if (err) {
+                    console.error('Error executing SQL query:', err);
+                    return res.json({ Status: false, Error: err })
+                }
+                return res.json({ Status: true })
+            });
+        }
     });
 });
 
@@ -749,6 +863,7 @@ router.get('/formula_chart/:id', (req, res) => {
 
 router.put('/edit_formula_chart/:id', (req, res) => {
     const id = req.params.id;
+    const checkSql = 'SELECT * FROM formula_chart WHERE feeding_date = ? AND id != ?';
     const sql = `UPDATE formula_chart 
                     SET 
                     feeding_date = ?
@@ -757,10 +872,23 @@ router.put('/edit_formula_chart/:id', (req, res) => {
     const values = [
         req.body.feeding_date
     ]
-    con.query(sql, [...values, id], (err, result) => {
-        if (err) return res.json({ Status: false, Error: 'Query error' + err })
-        return res.json({ Status: true, Result: result })
-    })
+    const checkValues = [req.body.feeding_date, id];
+
+
+    con.query(checkSql, checkValues, (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error('Error executing SQL query:', checkErr);
+            return res.json({ Status: false, Error: 'Query error: ' + checkErr });
+        }
+        if (checkResult.length > 0) {
+            return res.json({ Status: false, Error: 'Formula chart for this date already exists' });
+        } else {
+            con.query(sql, [...values, id], (err, result) => {
+                if (err) return res.json({ Status: false, Error: 'Query error' + err })
+                return res.json({ Status: true, Result: result })
+            });
+        }
+    });
 });
 
 
@@ -776,7 +904,8 @@ router.get('/formula_detail/:id', (req, res) => {
     INNER JOIN child_info ON formula_detail.child = child_info.id
     INNER JOIN teacher_info ON formula_detail.supervisor = teacher_info.id 
     INNER JOIN formula_chart ON formula_detail.feeding_date = formula_chart.id
-    WHERE formula_detail.feeding_date = ?;
+    WHERE formula_detail.feeding_date = ?
+    ORDER BY child_name ASC;
     `;
     con.query(sql, [id], (err, result) => {
         if (err) {
@@ -790,6 +919,8 @@ router.get('/formula_detail/:id', (req, res) => {
 
 
 router.post('/feed_a_child', (req, res) => {
+    const checkSql = 'SELECT * FROM formula_detail WHERE feeding_date = ? AND child = ?';
+
     const sql = `INSERT INTO formula_detail 
     (feeding_date, child, time_one, time_two, time_three, note, supervisor) 
     VALUES (?, ?, ?, ?, ?, ?, ?)`;
@@ -802,13 +933,24 @@ router.post('/feed_a_child', (req, res) => {
         req.body.note,
         req.body.supervisor
     ]
-    con.query(sql, values, (err, result) => {
-        if (err) {
-            console.error('Error executing SQL query:', err);
-            return res.json({ Status: false, Error: err })
-        }
-        return res.json({ Status: true })
+    const checkValues = [req.body.feeding_date, req.body.child_id];
 
+    con.query(checkSql, checkValues, (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error('Error executing SQL query:', checkErr);
+            return res.json({ Status: false, Error: 'Query error: ' + checkErr });
+        }
+        if (checkResult.length > 0) {
+            return res.json({ Status: false, Error: 'This child has already been fed on this date' });
+        } else {
+            con.query(sql, values, (err, result) => {
+                if (err) {
+                    console.error('Error executing SQL query:', err);
+                    return res.json({ Status: false, Error: err })
+                }
+                return res.json({ Status: true })
+            });
+        }
     });
 });
 
@@ -905,17 +1047,31 @@ router.get('/sunblock_chart/:id', (req, res) => {
 router.post('/add_sunblock_chart', (req, res) => {
     const sql = `INSERT INTO sunblock (apply_date, person_who_created) 
     VALUES (?, ?)`;
+    const checkSql = 'SELECT * FROM sunblock WHERE apply_date = ?';
+
     const values = [
         req.body.apply_date,
         req.body.person_who_created
     ]
-    con.query(sql, values, (err, result) => {
-        if (err) {
-            console.error('Error executing SQL query:', err);
-            return res.json({ Status: false, Error: err })
-        }
-        return res.json({ Status: true })
+    const checkValues = [req.body.apply_date];
 
+
+    con.query(checkSql, checkValues, (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error('Error executing SQL query:', checkErr);
+            return res.json({ Status: false, Error: 'Query error: ' + checkErr });
+        }
+        if (checkResult.length > 0) {
+            return res.json({ Status: false, Error: 'Sunblock chart for this date already exists' });
+        } else {
+            con.query(sql, values, (err, result) => {
+                if (err) {
+                    console.error('Error executing SQL query:', err);
+                    return res.json({ Status: false, Error: err })
+                }
+                return res.json({ Status: true })
+            });
+        }
     });
 });
 
@@ -926,14 +1082,26 @@ router.put('/edit_sunblock_chart/:id', (req, res) => {
                     SET 
                     apply_date = ?
                     WHERE id = ?`;
-
+    const checkSql = 'SELECT * FROM sunblock WHERE apply_date = ? AND id != ?';
+    const checkValues = [req.body.apply_date, id];
     const values = [
         req.body.apply_date
     ]
-    con.query(sql, [...values, id], (err, result) => {
-        if (err) return res.json({ Status: false, Error: 'Query error' + err })
-        return res.json({ Status: true, Result: result })
-    })
+
+    con.query(checkSql, checkValues, (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error('Error executing SQL query:', checkErr);
+            return res.json({ Status: false, Error: 'Query error: ' + checkErr });
+        }
+        if (checkResult.length > 0) {
+            return res.json({ Status: false, Error: 'Sunblock chart for this date already exists' });
+        } else {
+            con.query(sql, [...values, id], (err, result) => {
+                if (err) return res.json({ Status: false, Error: 'Query error' + err })
+                return res.json({ Status: true, Result: result })
+            });
+        }
+    });
 });
 
 
@@ -949,7 +1117,8 @@ router.get('/sunblock_chart_detail/:id', (req, res) => {
     INNER JOIN child_info ON sunblock_chart.child = child_info.id
     INNER JOIN teacher_info ON sunblock_chart.supervisor = teacher_info.id 
     INNER JOIN sunblock ON sunblock_chart.apply_date = sunblock.id
-    WHERE sunblock_chart.apply_date = ?;
+    WHERE sunblock_chart.apply_date = ?
+    ORDER BY child_name ASC;
     `;
     con.query(sql, [id], (err, result) => {
         if (err) {
@@ -986,6 +1155,7 @@ router.get('/sunblock/:id', (req, res) => {
 
 
 router.post('/apply_sunblock_to_child', (req, res) => {
+    const checkSql = 'SELECT * FROM sunblock_chart WHERE apply_date = ? AND child = ?';
     const sql = `INSERT INTO sunblock_chart 
     (apply_date, child, apply_time_one, apply_time_two, apply_time_three, note, supervisor) 
     VALUES (?, ?, ?, ?, ?, ?, ?)`;
@@ -998,15 +1168,24 @@ router.post('/apply_sunblock_to_child', (req, res) => {
         req.body.note,
         req.body.supervisor
     ]
+    const checkValues = [req.body.apply_date, req.body.child_id];
 
-    console.log(values)
-    con.query(sql, values, (err, result) => {
-        if (err) {
-            console.error('Error executing SQL query:', err);
-            return res.json({ Status: false, Error: err })
+    con.query(checkSql, checkValues, (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error('Error executing SQL query:', checkErr);
+            return res.json({ Status: false, Error: 'Query error: ' + checkErr });
         }
-        return res.json({ Status: true })
-
+        if (checkResult.length > 0) {
+            return res.json({ Status: false, Error: 'Sunblock has already been applied to this child on this date' });
+        } else {
+            con.query(sql, values, (err, result) => {
+                if (err) {
+                    console.error('Error executing SQL query:', err);
+                    return res.json({ Status: false, Error: err })
+                }
+                return res.json({ Status: true })
+            });
+        }
     });
 });
 
@@ -1200,7 +1379,8 @@ router.get('/attendance_detail/:id', (req, res) => {
     LEFT JOIN child_info parent ON ar.parent_signature = parent.id
     LEFT JOIN teacher_info teacher ON ar.teacher_signature = teacher.id
     LEFT JOIN admin admin ON ar.admin_signature = admin.id
-    WHERE ar.attendance_date = ?;
+    WHERE ar.attendance_date = ?
+    ORDER BY child_name ASC, time_in ASC, time_out ASC;
     `;
     con.query(sql, [id], (err, result) => {
         if (err) {

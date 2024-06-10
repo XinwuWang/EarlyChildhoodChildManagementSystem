@@ -48,9 +48,19 @@ const TDashboard = () => {
                                 <Link to='/teacher_dashboard/children'
                                     className='nav-link px-0 align-middle text-white'
                                 >
-                                    <i className="fs-4 bi-people ms-2"></i>
+                                    <i className="fs-4 bi-person-video2 ms-2"></i>
                                     <span className="ms-2 d-none d-sm-inline">
                                         View Children
+                                    </span>
+                                </Link>
+                            </li>
+                            <li className='w-100'>
+                                <Link to='/teacher_dashboard/teachers'
+                                    className='nav-link px-0 align-middle text-white'
+                                >
+                                    <i className="fs-4 bi-people ms-2"></i>
+                                    <span className="ms-2 d-none d-sm-inline">
+                                        View Teachers
                                     </span>
                                 </Link>
                             </li>

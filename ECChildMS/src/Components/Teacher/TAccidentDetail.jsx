@@ -19,6 +19,17 @@ const TAccidentDetail = () => {
 
     return (
         <div>
+            <div className="container">
+                <div className="d-flex justify-content-between align-items-center mt-auto p-3 m-3">
+                    <div className='p-3'>
+                        <h2>Accident Detail</h2>
+                    </div>
+                    <div>
+                        <Link to={'/teacher_dashboard/edit_accident_form/' + id} className='btn btn-lg p-2' title="Edit"><i className="bi bi-pencil-square"></i></Link>
+                        <Link to={'/teacher_dashboard/accident_form '} className='btn btn-lg p-2' title="Return"><i className="bi bi-arrow-left-circle text-dark"></i></Link>
+                    </div>
+                </div>
+            </div >
             <div className="container mt-4">
                 {accidentForm && Object.keys(accidentForm).length > 0 ? (
                     <div className="card">
@@ -71,16 +82,7 @@ const TAccidentDetail = () => {
                                     </tr>
                                 </tbody>
                             </table>
-                            <div className="container pt-2 ">
-                                <div className='col-12 pt-3'>
-                                    <div className="d-flex justify-content-center">
-                                        <Link className='btn btn-success me-2' to={'/teacher_dashboard/edit_accident_form/' + id}>Edit</Link>
-                                        <Link to={'/teacher_dashboard/accident_form '} className="btn btn-secondary me-2">Return</Link>
 
-                                    </div>
-
-                                </div>
-                            </div>
                         </div>
                     </div>
                 ) : (
