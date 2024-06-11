@@ -39,4 +39,6 @@ Accounts for testing:
 - image_1713695523507.jpg - https://www.linkedin.com/pulse/3-inspiring-success-stories-great-entrepreneurs-ailina-spratling/
 - ray_smith.png - https://medium.com/@jayesha930/how-to-select-a-profile-picture-3a75fed88745 
 - teacher.png_1714343176071.png - https://www.shareicon.net/avatar-user-profile-social-woman-802029
+- teacher_dummy.png - https://beforeigosolutions.com/pascale-atkinson/attachment/dummy-profile-pic-300x300-1/
+- child_dummy.jpg - https://stock.adobe.com/nz/images/baby-default-placeholder-children-avatar-profile-gray-picture-isolated-on-white-background-for-your-design-vector-illustration/128563455
 
